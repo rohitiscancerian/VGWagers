@@ -33,6 +33,79 @@ namespace VGWagers.Models
         public virtual DbSet<vgw_tournament> vgw_tournament { get; set; }
         public virtual DbSet<vgw_tournament_format> vgw_tournament_format { get; set; }
         //public virtual DbSet<vgw_user> vgw_user { get; set; }
+        public virtual DbSet<vgw_difficulty_level_enum> vgw_difficulty_level_enum { get; set; }
+        public virtual DbSet<vgw_genre_enum> vgw_genre_enum { get; set; }
+        public virtual DbSet<vgw_game_difficulty_level_xref> vgw_game_difficulty_level_xref { get; set; }
+        public virtual DbSet<vgw_wager> vgw_wager { get; set; }
+        public virtual DbSet<vgw_wager_revision> vgw_wager_revision { get; set; }
+        public virtual DbSet<vgw_match_score> vgw_match_score { get; set; }
+        public virtual DbSet<vgw_wager_match_xref> vgw_wager_match_xref { get; set; }
+        public virtual DbSet<vgw_payment> vgw_payment { get; set; }
+        public virtual DbSet<vgw_payment_method_enum> vgw_payment_method_enum { get; set; }
+        public virtual DbSet<vgw_tournament_user_xref> vgw_tournament_user_xref { get; set; }
+        public virtual DbSet<vgw_tournament_match_xref> vgw_tournament_match_xref { get; set; }
+        public virtual DbSet<vgw_tournament_schedule> vgw_tournament_schedule { get; set; }
+    }   
+
+    public partial class vgw_wager
+    {
+        [Key]
+        public int WAGERID { get; set; }
+        public int GAMEID { get; set; }
+        public int PLATFORMID { get; set; }
+        public int DIFFICULTYLEVELID { get; set; }
+        public decimal INITIALWAGERAMOUNT { get; set; }
+        public decimal FINALWAGERAMOUNT { get; set; }
+        public int POSTEDBYUSERID { get; set; }
+        public Nullable<int> ACCEPTEDBYUSERID { get; set; }
+        public System.DateTime POSTEDDATE { get; set; }
+        public Nullable<System.DateTime> ACCEPTEDDATE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_wager_revision
+    {
+        [Key]
+        public int WAGERREVISIONID { get; set; }
+        public int WAGERID { get; set; }
+        public int PROPOSEDBYUSERID { get; set; }
+        public decimal PROPOSEDAMOUNT { get; set; }
+        public System.DateTime PROPOSEDDATE { get; set; }
+        public bool ISACCEPTED { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_difficulty_level_enum
+    {
+        [Key]
+        public int DIFFICULTYLEVELID { get; set; }
+        public string DIFFICULTYLEVEL { get; set; }
+        public bool ISACTIVE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_genre_enum
+    {
+        [Key]
+        public int GENREID { get; set; }
+        public string GENRE { get; set; }
+        public bool ISACTIVE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_game_difficulty_level_xref
+    {
+        [Key]
+        public int GAMEDIFFICULTYLEVELID { get; set; }
+        public int GAMEID { get; set; }
+        public int DIFFICULTYLEVELID { get; set; }
+        public int SORTORDER { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
     }
 
 
@@ -61,6 +134,8 @@ namespace VGWagers.Models
         public string GAMENAME { get; set; }
         public byte[] GAMEIMAGE { get; set; }
       //  [ForeignKey("Id")]
+        public int GENREID { get; set; }
+        public bool ISACTIVE { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
     }
@@ -69,22 +144,65 @@ namespace VGWagers.Models
     {
         //[ForeignKey("MATCHID")]
         [Key]
-        [Column(Order = 1)] 
         public int MATCHID { get; set; }
         //[ForeignKey("GAMEID")]
-        [Key]
-        [Column(Order = 2)] 
         public int GAMEID { get; set; }
         //[ForeignKey("PLATFORMID")]
-        [Key]
-        [Column(Order = 3)] 
         public int PLATFORMID { get; set; }
         public System.DateTime STARTDATE { get; set; }
+        public Nullable<System.DateTime> ENDDATE { get; set; }
+        public Nullable<int> QUARTERLENGTH { get; set; }
         //[ForeignKey("Id")]
+        public Nullable<int> WINNERUSERID { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
-        public Nullable<int> DIFFICULTYLEVELID { get; set; }
-        public Nullable<int> QUARTERLENGTH { get; set; }
+    }
+
+    public partial class vgw_match_score
+    {
+        [Key]
+        public int MATCHSCOREID { get; set; }
+        public int MATCHID { get; set; }
+        public int USERID { get; set; }
+        public Nullable<decimal> SCORE { get; set; }
+        public Nullable<decimal> TIMETAKEN { get; set; }
+        public Nullable<byte[]> SCOREIMAGE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_wager_match_xref
+    {
+        [Key]
+        public int WAGERMATCHID { get; set; }
+        public int WAGERID { get; set; }
+        public int MATCHID { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_payment
+    {
+        [Key]
+        public int PAYMENTID { get; set; }
+        public System.DateTime PAYMENTDATE { get; set; }
+        public int USERID { get; set; }
+        public decimal AMOUNT { get; set; }
+        public bool ISPAYOUT { get; set; }
+        public int PAYMENTMETHODID { get; set; }
+        public int PAYMENTCARDLASTFOURDIGITS { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_payment_method_enum
+    {
+        [Key]
+        public int PAYMENTMETHODID { get; set; }
+        public string PAYMENTMETHOD { get; set; }
+        public bool ISACTIVE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
     }
 
     public partial class vgw_match_users_xref
@@ -114,6 +232,7 @@ namespace VGWagers.Models
         [Key]
         public int PLATFORMID { get; set; }
         public string PLATFORMNAME { get; set; }
+        public bool ISACTIVE { get; set; }
         //[ForeignKey("Id")]
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
@@ -122,7 +241,8 @@ namespace VGWagers.Models
     public partial class vgw_platform_game_xref
     {
         //[ForeignKey("PLATFORMID")]
-
+        [Key]
+        public int PLATFORMGAMEID { get; set; }
         [Key]
         [Column(Order = 1)] 
         public int PLATFORMID { get; set; }
@@ -130,6 +250,7 @@ namespace VGWagers.Models
         [Key]
         [Column(Order = 2)] 
         public int GAMEID { get; set; }
+        public bool ISACTIVE { get; set; }
         public Nullable<int> LASTUPDATEDUSERID { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
     }
@@ -146,7 +267,6 @@ namespace VGWagers.Models
         public int GAMEID { get; set; }
        // [ForeignKey("FORMATID")]
         public int FORMATID { get; set; }
-
         public Nullable<decimal> ENTRYFEE { get; set; }
         public Nullable<System.DateTime> STARTDATE { get; set; }
         public Nullable<System.DateTime> ENDDATE { get; set; }
@@ -154,7 +274,46 @@ namespace VGWagers.Models
         public string DESCRIPTION { get; set; }
         public Nullable<decimal> PRIZEAMOUNT { get; set; }
         public Nullable<int> PLAYERCOUNT { get; set; }
+        public int ROUNDS { get; set; }
+        public decimal TOTALBUYIN { get; set; }
+        public decimal EARNINGS { get; set; }
+        public int MATCHCOUNT { get; set; }
+        public bool DOUBLEELIMINATION { get; set; }
        // [ForeignKey("Id")]
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_tournament_user_xref
+    {
+        [Key]
+        public int TOURNAMENTUSERID { get; set; }
+        public int TOURNAMENTID { get; set; }
+        public int USERID { get; set; }
+        public Nullable<System.DateTime> SIGNEDUPDATE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_tournament_match_xref
+    {
+        [Key]
+        public int TOURNAMENTMATCHID { get; set; }
+        public int TOURNAMENTID { get; set; }
+        public int MATCHID { get; set; }
+        public int ROUNDNUMBER { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_tournament_schedule
+    {
+        [Key]
+        public int TOURNAMENTSCHEDULEID { get; set; }
+        public int TOURNAMENTID { get; set; }
+        public int ROUNDNUMBER { get; set; }
+        public Nullable<System.DateTime> STARTDATE { get; set; }
+        public Nullable<System.DateTime> ENDDATE { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
     }
