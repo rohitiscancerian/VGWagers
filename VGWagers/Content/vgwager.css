@@ -1,0 +1,22 @@
+﻿.ajax-loader {
+    cursor: wait;
+    background:#ffffff url('~\images\ajax-loader.gif') no-repeat center center;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+    position: absolute;
+    z-index: 10000;
+    display: none;
+}
+
+.container {
+    /* The container has to have a predefined dimension though */
+    position: relative;
+}
+.container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

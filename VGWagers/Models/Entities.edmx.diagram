@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cad43c259f044b0283b1f9b9a3a194fd" Name="Diagram1">
+        <EntityTypeShape EntityType="vgwagersModel.vgw_address" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_game" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_match" Width="1.5" PointX="0.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_match_users_xref" Width="2.375" PointX="3.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_platform" Width="1.5" PointX="2.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_platform_game_xref" Width="2.25" PointX="6.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_role" Width="1.5" PointX="6.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_tournament" Width="1.875" PointX="3.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_tournament_format" Width="2.25" PointX="5.875" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="vgwagersModel.vgw_user" Width="1.5" PointX="8.25" PointY="2.25" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1 @@
+vgw_match_users_xref - Add column - IsForfeited - Bit

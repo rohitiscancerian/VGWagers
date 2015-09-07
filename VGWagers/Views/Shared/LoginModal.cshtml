@@ -1,0 +1,19 @@
+﻿@using Forloop.HtmlHelpers
+
+@*@using (Html.BeginScriptContext())
+{
+    Html.AddScriptFile("~/Scripts/App/LoginModal.js");
+}*@
+
+
+@{
+    //Layout = "~/Views/Shared/_LayoutModal.cshtml";
+
+    ViewBag.ModalTitle = "Login";
+    ViewBag.ModalId = "ModalLogin";
+   
+}
+
+
+@Html.Partial("_LoginPartialForm")
+

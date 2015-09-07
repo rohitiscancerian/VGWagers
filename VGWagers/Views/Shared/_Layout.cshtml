@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/vgwager.css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js.map")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")*@
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+    @RenderSection("scripts", required: false)
+    @*@Html.RenderScripts()*@
+    @Scripts.Render("~/Scripts/App/LoginModal.js")
+   <script type="text/javascript">
+      
+       //function openModal(e)
+       //{
+       //    e.preventDefault();
+       //    $(this).attr('data-target', '#modal-container');
+       //    $(this).attr('data-toggle', 'modal');
+       //}
+       @*$(function () {
+           debugger;
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+            // Initialize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+           // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+           if ('@ViewBag.OpenLoginDialog' == 'Y')
+           {
+               //$(this).attr('data-target', '#modal-container');
+               //$(this).attr('data-toggle', 'modal');
+               $('#modal-container').modal('hide');
+               $('#modal-container').modal('show');
+
+               var loginLink = $("a[id='loginLink']");
+               loginLink.attr({ "href": "#", "data-toggle": "modal", "data-target": "#ModalLogin" });
+           }
+
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+                //debugger;
+                //openModal(e);
+            });
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                debugger;
+                $(this).removeData('bs.modal');
+            });
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });*@
+    </script>
+</head>
+<body>
+   
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+       
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+  
+
+
+    @*<div id="modal-container" class="modal fade" tabindex="-1" role="dialog" style="border:5px solid #3A87AD">
+        <a href="#close" title="Close" class="modal-close-btn">Close</a>
+        <div class="modal-content">
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>*@
+
+    <div class='modal fade' id='modal-container' tabindex='-1' role='dialog' aria-labelledby='modal-containerlabel' aria-hidden='true'>
+        <div class='modal-dialog' role="document">
+           
+            <div class='modal-content' id="modalContent">
+               
+                <div id="myLoader" class="container">
+                    <img id="imgAjax" src="~/Content/images/ajax-loader.gif" alt="Loading ....." style="display:none" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

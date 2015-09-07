@@ -1,0 +1,7 @@
+Enable-Migrations -ContextTypeName VGWagers.Models.test -Force
+
+Add-Migration AddAddrTable
+
+Update-Database -Verbose
+
+

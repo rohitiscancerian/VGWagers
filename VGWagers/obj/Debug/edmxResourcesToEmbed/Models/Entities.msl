@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="vgwagersModelStoreContainer" CdmEntityContainer="vgwagersEntities">
+    <EntitySetMapping Name="vgw_address">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_address">
+        <MappingFragment StoreEntitySet="vgw_address">
+          <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+          <ScalarProperty Name="ADDRESSLINE1" ColumnName="ADDRESSLINE1" />
+          <ScalarProperty Name="ADDRESSLINE2" ColumnName="ADDRESSLINE2" />
+          <ScalarProperty Name="ADDRESSLINE3" ColumnName="ADDRESSLINE3" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="STATEID" ColumnName="STATEID" />
+          <ScalarProperty Name="COUNTRYID" ColumnName="COUNTRYID" />
+          <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_game">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_game">
+        <MappingFragment StoreEntitySet="vgw_game">
+          <ScalarProperty Name="GAMEID" ColumnName="GAMEID" />
+          <ScalarProperty Name="GAMENAME" ColumnName="GAMENAME" />
+          <ScalarProperty Name="GAMEIMAGE" ColumnName="GAMEIMAGE" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_match">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_match">
+        <MappingFragment StoreEntitySet="vgw_match">
+          <ScalarProperty Name="QUARTERLENGTH" ColumnName="QUARTERLENGTH" />
+          <ScalarProperty Name="DIFFICULTYLEVELID" ColumnName="DIFFICULTYLEVELID" />
+          <ScalarProperty Name="MATCHID" ColumnName="MATCHID" />
+          <ScalarProperty Name="GAMEID" ColumnName="GAMEID" />
+          <ScalarProperty Name="PLATFORMID" ColumnName="PLATFORMID" />
+          <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_match_users_xref">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_match_users_xref">
+        <MappingFragment StoreEntitySet="vgw_match_users_xref">
+          <ScalarProperty Name="TEAMNAME" ColumnName="TEAMNAME" />
+          <ScalarProperty Name="MATCHID" ColumnName="MATCHID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="SCORE" ColumnName="SCORE" />
+          <ScalarProperty Name="STARTTIME" ColumnName="STARTTIME" />
+          <ScalarProperty Name="ENDTIME" ColumnName="ENDTIME" />
+          <ScalarProperty Name="ISWINNER" ColumnName="ISWINNER" />
+          <ScalarProperty Name="SCOREIMAGE" ColumnName="SCOREIMAGE" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_platform">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_platform">
+        <MappingFragment StoreEntitySet="vgw_platform">
+          <ScalarProperty Name="PLATFORMID" ColumnName="PLATFORMID" />
+          <ScalarProperty Name="PLATFORMNAME" ColumnName="PLATFORMNAME" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_platform_game_xref">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_platform_game_xref">
+        <MappingFragment StoreEntitySet="vgw_platform_game_xref">
+          <ScalarProperty Name="PLATFORMID" ColumnName="PLATFORMID" />
+          <ScalarProperty Name="GAMEID" ColumnName="GAMEID" />
+          <ScalarProperty Name="LASTUPDATEDUSERID" ColumnName="LASTUPDATEDUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_role">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_role">
+        <MappingFragment StoreEntitySet="vgw_role">
+          <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+          <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_tournament">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_tournament">
+        <MappingFragment StoreEntitySet="vgw_tournament">
+          <ScalarProperty Name="TOURNAMENTID" ColumnName="TOURNAMENTID" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="PLATFORMID" ColumnName="PLATFORMID" />
+          <ScalarProperty Name="GAMEID" ColumnName="GAMEID" />
+          <ScalarProperty Name="FORMATID" ColumnName="FORMATID" />
+          <ScalarProperty Name="ENTRYFEE" ColumnName="ENTRYFEE" />
+          <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+          <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+          <ScalarProperty Name="REGISTRATIONCLOSEDATE" ColumnName="REGISTRATIONCLOSEDATE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="PRIZEAMOUNT" ColumnName="PRIZEAMOUNT" />
+          <ScalarProperty Name="PLAYERCOUNT" ColumnName="PLAYERCOUNT" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_tournament_format">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_tournament_format">
+        <MappingFragment StoreEntitySet="vgw_tournament_format">
+          <ScalarProperty Name="FORMATID" ColumnName="FORMATID" />
+          <ScalarProperty Name="FORMATNAME" ColumnName="FORMATNAME" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vgw_user">
+      <EntityTypeMapping TypeName="vgwagersModel.vgw_user">
+        <MappingFragment StoreEntitySet="vgw_user">
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+          <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+          <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+          <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="COUNTRYID" ColumnName="COUNTRYID" />
+          <ScalarProperty Name="STATEID" ColumnName="STATEID" />
+          <ScalarProperty Name="TIMEZONEID" ColumnName="TIMEZONEID" />
+          <ScalarProperty Name="TANDCACCEPTED" ColumnName="TANDCACCEPTED" />
+          <ScalarProperty Name="PROMOTIONMAILERS" ColumnName="PROMOTIONMAILERS" />
+          <ScalarProperty Name="PRIVACYPOLICYACCEPTED" ColumnName="PRIVACYPOLICYACCEPTED" />
+          <ScalarProperty Name="PHONENUMBER" ColumnName="PHONENUMBER" />
+          <ScalarProperty Name="LASTUPDATEDBYUSERID" ColumnName="LASTUPDATEDBYUSERID" />
+          <ScalarProperty Name="LASTUPDATEDDATE" ColumnName="LASTUPDATEDDATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

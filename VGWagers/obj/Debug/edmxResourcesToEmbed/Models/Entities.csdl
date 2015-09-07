@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="vgwagersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="vgw_address">
+    <Key>
+      <PropertyRef Name="ADDRESSID" />
+    </Key>
+    <Property Name="ADDRESSID" Type="Int32" Nullable="false" />
+    <Property Name="ADDRESSLINE1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESSLINE2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESSLINE3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CITY" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="STATEID" Type="Int32" />
+    <Property Name="COUNTRYID" Type="Int32" />
+    <Property Name="ZIPCODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vgw_game">
+    <Key>
+      <PropertyRef Name="GAMEID" />
+    </Key>
+    <Property Name="GAMEID" Type="Int32" Nullable="false" />
+    <Property Name="GAMENAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="GAMEIMAGE" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vgw_match">
+    <Key>
+      <PropertyRef Name="MATCHID" />
+    </Key>
+    <Property Name="MATCHID" Type="Int32" Nullable="false" />
+    <Property Name="GAMEID" Type="Int32" Nullable="false" />
+    <Property Name="PLATFORMID" Type="Int32" Nullable="false" />
+    <Property Name="STARTDATE" Type="DateTime" Nullable="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+    <Property Name="DIFFICULTYLEVELID" Type="Int32" />
+    <Property Name="QUARTERLENGTH" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vgw_match_users_xref">
+    <Key>
+      <PropertyRef Name="MATCHID" />
+    </Key>
+    <Property Name="MATCHID" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="SCORE" Type="Decimal" />
+    <Property Name="STARTTIME" Type="DateTime" />
+    <Property Name="ENDTIME" Type="DateTime" />
+    <Property Name="ISWINNER" Type="Boolean" />
+    <Property Name="SCOREIMAGE" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" />
+    <Property Name="TEAMNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vgw_platform">
+    <Key>
+      <PropertyRef Name="PLATFORMID" />
+    </Key>
+    <Property Name="PLATFORMID" Type="Int32" Nullable="false" />
+    <Property Name="PLATFORMNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vgw_platform_game_xref">
+    <Key>
+      <PropertyRef Name="PLATFORMID" />
+      <PropertyRef Name="GAMEID" />
+    </Key>
+    <Property Name="PLATFORMID" Type="Int32" Nullable="false" />
+    <Property Name="GAMEID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDUSERID" Type="Int32" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="vgw_role">
+    <Key>
+      <PropertyRef Name="ROLEID" />
+    </Key>
+    <Property Name="ROLEID" Type="Int32" Nullable="false" />
+    <Property Name="ROLENAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vgw_tournament">
+    <Key>
+      <PropertyRef Name="TOURNAMENTID" />
+    </Key>
+    <Property Name="TOURNAMENTID" Type="Int32" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="PLATFORMID" Type="Int32" />
+    <Property Name="GAMEID" Type="Int32" />
+    <Property Name="FORMATID" Type="Int32" />
+    <Property Name="ENTRYFEE" Type="Decimal" />
+    <Property Name="STARTDATE" Type="DateTime" />
+    <Property Name="ENDDATE" Type="DateTime" />
+    <Property Name="REGISTRATIONCLOSEDATE" Type="DateTime" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PRIZEAMOUNT" Type="Decimal" />
+    <Property Name="PLAYERCOUNT" Type="Int32" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="vgw_tournament_format">
+    <Key>
+      <PropertyRef Name="FORMATID" />
+    </Key>
+    <Property Name="FORMATID" Type="Int32" Nullable="false" />
+    <Property Name="FORMATNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="vgw_user">
+    <Key>
+      <PropertyRef Name="USERID" />
+    </Key>
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="ROLEID" Type="Int32" Nullable="false" />
+    <Property Name="SURNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DATEOFBIRTH" Type="DateTime" Nullable="false" />
+    <Property Name="GENDER" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="USERNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="COUNTRYID" Type="Int32" />
+    <Property Name="STATEID" Type="Int32" />
+    <Property Name="TIMEZONEID" Type="Int32" />
+    <Property Name="TANDCACCEPTED" Type="Boolean" />
+    <Property Name="PROMOTIONMAILERS" Type="Boolean" />
+    <Property Name="PRIVACYPOLICYACCEPTED" Type="Boolean" />
+    <Property Name="PHONENUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LASTUPDATEDBYUSERID" Type="Int32" Nullable="false" />
+    <Property Name="LASTUPDATEDDATE" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="vgwagersEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="vgw_address" EntityType="Self.vgw_address" />
+    <EntitySet Name="vgw_game" EntityType="Self.vgw_game" />
+    <EntitySet Name="vgw_match" EntityType="Self.vgw_match" />
+    <EntitySet Name="vgw_match_users_xref" EntityType="Self.vgw_match_users_xref" />
+    <EntitySet Name="vgw_platform" EntityType="Self.vgw_platform" />
+    <EntitySet Name="vgw_platform_game_xref" EntityType="Self.vgw_platform_game_xref" />
+    <EntitySet Name="vgw_role" EntityType="Self.vgw_role" />
+    <EntitySet Name="vgw_tournament" EntityType="Self.vgw_tournament" />
+    <EntitySet Name="vgw_tournament_format" EntityType="Self.vgw_tournament_format" />
+    <EntitySet Name="vgw_user" EntityType="Self.vgw_user" />
+  </EntityContainer>
+</Schema>
