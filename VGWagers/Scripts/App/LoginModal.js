@@ -11,50 +11,48 @@
     //        }
     //    }
     //});
-    $('#myLoader').ajaxStart(function () {
-        $(this).show();
-    }).ajaxComplete(function () {
-        $(this).hide();
-    });
+
+    function ShowProgressAnimation() {
+        $("#loading-div-background").show();
+    }
+
+    $("#loading-div-background").css({ opacity: 0.8 });
+
+    $(document).ajaxStart(function () {  ShowProgressAnimation(); $("#myLoader").show(); })
+               .ajaxStop(function () {  $("#loading-div-background").hide(); $("#myLoader").hide(); });
 
     var loginLink = $("a[id*='loginLink']");
 
     $("a[id*='loginLink']").on('click', function (e) {
        
-        $('#myLoader').css({
-            height: $('#myLoader').parent().height(),
-            width: $('#myLoader').parent().width()
-        });
-        $('#myLoader').show();
-
+        
         $('#modalContent').load(this.href, function () {
-            $('#myLoader').hide();
             $('#modal-container').modal('show');
+
             $('#loginform', this).submit(function (e) {
-                
+
+               
                 e.preventDefault();
                 if (!$(this).valid()) {
                     return false;
                 }
-                $('#myLoader').css({
-                    height: $('#myLoader').parent().height(),
-                    width: $('#myLoader').parent().width()
-                });
-                $('#myLoader').show();
+               
                 $.ajax({
                     url: this.action,
                     type: this.method,
                     data: $(this).serialize(),
                     beforeSend: function () {
                         //alert("Hi");
-                        $('#myLoader').css({
-                            height: $('#myLoader').parent().height(),
-                            width: $('#myLoader').parent().width()
-                        });
-                        $('#myLoader').show();
-                        $('#imgAjax').show();
+                        //$("#myLoader").addClass("ajax-loader");
+                        // ShowProgressAnimation();
+                        ShowProgressAnimation();
+                       
                     },
-                    complete: function () { $('#myLoader').hide(); }
+                    complete: function () {
+                        $("#loading-div-background").hide();
+                        //alert("Hi complete");
+                       // $("#loading-div-background").hide();
+                    }
                     
                 }).done(function (returnedJSON) {
                     $('#myLoader').hide();
@@ -79,7 +77,7 @@
                     alert('failed');
                 });
             });
-        }).html('<img src="../../Content/images/ajax-loader.gif"  alt="loading..."/>');
+        }).html('<div class="ajax-loader"> Hello  </div>');
         return false;
     });
 

@@ -166,7 +166,7 @@ namespace VGWagers.Models
         public int USERID { get; set; }
         public Nullable<decimal> SCORE { get; set; }
         public Nullable<decimal> TIMETAKEN { get; set; }
-        public Nullable<byte[]> SCOREIMAGE { get; set; }
+        public byte[] SCOREIMAGE { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
     }
