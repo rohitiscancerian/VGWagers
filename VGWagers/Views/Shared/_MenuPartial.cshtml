@@ -1,0 +1,41 @@
+﻿@{
+    var menus = new[]
+                {
+                   new { LinkText="Games", ActionName="Index",ControllerName="Home",Roles="All"  },
+                   new { LinkText="Tournaments", ActionName="Index",ControllerName="Tournaments",Roles="Anonymous"  },
+                   new { LinkText="About", ActionName="About",ControllerName="Home",Roles="Anonymous"  },
+                   new { LinkText="Lookups", ActionName="Index",ControllerName="Lookups",Roles="Administrator"  },
+                   new { LinkText="Manage Tournaments", ActionName="Index",ControllerName="ManageTournaments",Roles="Administrator"  },
+                   new { LinkText="Users", ActionName="Index",ControllerName="Users",Roles="Administrator"  },
+                   new { LinkText="News", ActionName="Index",ControllerName="News",Roles="Administrator"  },
+                   new { LinkText="Disputes", ActionName="Index",ControllerName="Disputes",Roles="Administrator"  },
+                };
+
+    <ul class="nav navbar-nav">
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            String[] roles = Roles.GetRolesForUser();
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                        .Any(x => roles.Contains(x) || x == "All")
+                        select item;
+            foreach (var link in links)
+            {
+                @:
+                <li> @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName)</li>
+            }
+        }
+        else
+        {
+            var links = from item in menus
+                        where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                        .Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                        select item;
+            foreach (var link in links)
+            {
+                @:
+                <li> @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName)</li>
+            }
+        }
+    </ul>
+} 

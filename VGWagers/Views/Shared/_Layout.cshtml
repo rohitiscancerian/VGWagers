@@ -84,17 +84,27 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                </ul>*@
+                @if (Session["MyMenu"] == null)
+                {
+                    Session["MyMenu"] = Html.Partial("~/Views/Shared/_MenuPartial.cshtml");
+                }
+                @Session["MyMenu"]
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
        
     </div>
     <div class="container body-content">
+        <div id="main-loading-div-background" style="display:none;" class="row">
+            <div id="main-loading-div" class="main-loading-div">
+                <img src="~/Content/images/ajax-loader.gif" alt="Loading.." />
+            </div>
+        </div>
         @RenderBody()
         <hr />
         <footer>
@@ -119,20 +129,16 @@
    
     <div class='modal fade' id='modal-container' tabindex='-1' role='dialog' aria-labelledby='modal-containerlabel' aria-hidden='true'>
         <div class='modal-dialog' role="document">
-           
+            
             <div class='modal-content' id="modalContent">
                 
                
             </div>
             
         </div>
+        
     </div>
-    <div id="loading-div-background">
-        <div id="loading-div" >
-            <img style="height:80px;margin:30px;" src="~/Content/images/ajax-loader.gif" alt="Loading.." />
-            <h2 style="color:gray;font-weight:normal;">Please wait....</h2>
-        </div>
-    </div>
+  
 </body>
 
 </html>

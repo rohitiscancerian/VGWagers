@@ -18,8 +18,8 @@
 
     $("#loading-div-background").css({ opacity: 0.8 });
 
-    $(document).ajaxStart(function () {  ShowProgressAnimation(); $("#myLoader").show(); })
-               .ajaxStop(function () {  $("#loading-div-background").hide(); $("#myLoader").hide(); });
+    $(document).ajaxStart(function () { $("#main-loading-div-background").width($("#modalContent").width()); $("#main-loading-div-background").show(); })
+               .ajaxStop(function () {  $("#main-loading-div-background").hide();  });
 
     var loginLink = $("a[id*='loginLink']");
 
@@ -28,34 +28,21 @@
         
         $('#modalContent').load(this.href, function () {
             $('#modal-container').modal('show');
-
             $('#loginform', this).submit(function (e) {
-
-               
                 e.preventDefault();
                 if (!$(this).valid()) {
                     return false;
                 }
-               
                 $.ajax({
                     url: this.action,
                     type: this.method,
                     data: $(this).serialize(),
                     beforeSend: function () {
-                        //alert("Hi");
-                        //$("#myLoader").addClass("ajax-loader");
-                        // ShowProgressAnimation();
-                        ShowProgressAnimation();
-                       
-                    },
-                    complete: function () {
-                        $("#loading-div-background").hide();
-                        //alert("Hi complete");
-                       // $("#loading-div-background").hide();
+                        $("#modal-loading-div-background").width($("#modalContent").width());
+                        $("#modal-loading-div-background").show();
                     }
-                    
                 }).done(function (returnedJSON) {
-                    $('#myLoader').hide();
+                    $("#modal-loading-div-background").hide();
                     if (returnedJSON.success) {
                         $('#modal-container').modal('hide');
                         window.location.href = returnedJSON.returnUrl;
@@ -85,7 +72,6 @@
         $('#modalContent').load(this.href, function () {
             $('#modal-container').modal('show');
             $('#registerform', this).submit(function (e) {
-               
                 e.preventDefault();
                 if (!$(this).valid()) {
                     return false;
