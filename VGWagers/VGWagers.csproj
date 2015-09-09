@@ -349,6 +349,7 @@
     <Content Include="Views\Shared\_RegisterPartialForm.cshtml" />
     <Content Include="Views\Shared\RegisterModal.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
