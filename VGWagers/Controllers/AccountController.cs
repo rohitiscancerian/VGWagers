@@ -19,15 +19,17 @@ namespace VGWagers.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager; 
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -52,6 +54,15 @@ namespace VGWagers.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { _roleManager = value; }
         }
 
         //
@@ -92,6 +103,8 @@ namespace VGWagers.Controllers
                 {
 
                     case SignInStatus.Success:
+                        //var roles = await UserManager.GetRolesAsync(user.Id);
+                        Session["MyMenu"] = null;
                         return Json(new { success = true, returnUrl = callbackUrl });
                     case SignInStatus.LockedOut:
                         return Json(new { success = false, msg = "Your account is locked out. Please use Forgot Password link to reset it." });
@@ -567,6 +580,7 @@ namespace VGWagers.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            Session["MyMenu"] = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -594,6 +608,12 @@ namespace VGWagers.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+
+                if (_roleManager != null)
+                {
+                    _roleManager.Dispose();
+                    _roleManager = null;
                 }
             }
 
