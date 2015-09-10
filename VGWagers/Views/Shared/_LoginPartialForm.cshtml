@@ -13,7 +13,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Login</h4>
+    <h4 class="modal-title" id="myModalLabel" style="align-content:center">Login</h4>
 </div>
 <div class="modal-body">
     <div id="modal-loading-div-background" style="display:none">
@@ -21,14 +21,22 @@
             <img src="~/Content/images/ajax-loader.gif" alt="Loading.." />
         </div>
     </div>
+    <div style="align-content:center">
+       
+            @*@Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
+
+            @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+
+       
+    </div>
     <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
+        <div class="col-md-12">
+           
                 @using (Html.BeginForm("LoginJson", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "loginform" }))
                 {
                     @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
+                   
+                    @*<hr />*@
                     <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group ">
@@ -42,10 +50,13 @@
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
                         <div class="col-md-9">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
+                            <div style="width:280px;text-align:right">
+                                @Html.ActionLink("Forgot password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink" })
+                            </div>
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
                     </div>
+                    
                     <div class="form-group ">
                         <div class="col-md-offset-3 col-md-9">
                             <div class="checkbox">
@@ -57,27 +68,19 @@
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
                             @*<input type="submit" value="Log in" class="btn btn-default" />*@
-                            <button type="submit" class="btn btn-default" id="btnLogin">Log in</button>
+                            <button type="submit" class="btn btn-primary btn-lg"  id="btnLogin">Log in</button>
                         </div>
                     </div>
-                    <div class="col-md-offset-3 col-md-9">
-                        @Html.ActionLink("Register as a new user", "Register", "Account", routeValues: null, htmlAttributes: new { id = "newRegLink", @class = "modal-link" })
-                    </div>
-                    <div class="col-md-offset-3 col-md-9">
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink" })
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            @Html.ActionLink("Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "newRegLink", @class = "modal-link" })
+                        </div>
                     </div>
                 }
-            </section>
+            
            
         </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @*@Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
-
-                @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-
-            </section>
-        </div>
+       
     </div>
    
     <div id="myLoader" style="display:none">

@@ -47,13 +47,13 @@ namespace VGWagers
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: "fsadfsa",
+                clientSecret: "agfasga");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "asgfasg",
+               consumerSecret: "afdsgg");
 
             app.UseFacebookAuthentication(
                appId: "422847611256743",

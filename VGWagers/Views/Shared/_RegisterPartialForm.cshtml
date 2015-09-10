@@ -11,11 +11,6 @@
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jqueryval")
 
-@*@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.js")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js.map")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")*@
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 
@@ -77,7 +72,6 @@
 <script type="text/javascript">
 
     $(function () {
-
         $('#registerform', this).submit(function (e) {
             debugger;
             e.preventDefault();
