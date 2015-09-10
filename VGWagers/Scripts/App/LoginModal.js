@@ -1,24 +1,8 @@
 ﻿$(document).ready(function () {
-   
-    //var securityToken = $('[name=__RequestVerificationToken]').val();
-    //$(document).ajaxSend(function (event, request, opt) {
-    //    if (opt.hasContent && securityToken) {   // handle all verbs with content
-    //        var tokenParam = "__RequestVerificationToken=" + encodeURIComponent(securityToken);
-    //        opt.data = opt.data ? [opt.data, tokenParam].join("&") : tokenParam;
-    //        // ensure Content-Type header is present!
-    //        if (opt.contentType !== false || options.contentType) {
-    //            request.setRequestHeader("Content-Type", opt.contentType);
-    //        }
-    //    }
-    //});
-
-    function ShowProgressAnimation() {
-        $("#loading-div-background").show();
-    }
 
     $("#loading-div-background").css({ opacity: 0.8 });
 
-    $(document).ajaxStart(function () { $("#main-loading-div-background").width($("#modalContent").width()); $("#main-loading-div-background").show(); })
+    $(document).ajaxStart(function () { $("#main-loading-div-background").show(); })
                .ajaxStop(function () {  $("#main-loading-div-background").hide();  });
 
     var loginLink = $("a[id*='loginLink']");
@@ -64,7 +48,7 @@
                     alert('failed');
                 });
             });
-        }).html('<div class="ajax-loader"> Hello  </div>');
+        }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
         return false;
     });
 

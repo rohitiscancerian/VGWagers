@@ -56,3 +56,7 @@ D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\RestSharp.dll
 D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Twilio.Api.pdb
 D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Twilio.Api.xml
 D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\RestSharp.xml
+D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Microsoft.Owin.Security.Twitter.dll
+D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Microsoft.Owin.Security.Twitter.xml
