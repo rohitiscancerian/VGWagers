@@ -14,11 +14,11 @@
 
 .zocial,
 a.zocial {
-	border: 1px solid #777;
+	/*border: 1px solid #777;
 	border-color: rgba(0,0,0,0.2);
 	border-bottom-color: #333;
 	border-bottom-color: rgba(0,0,0,0.4);
-	color: #fff;
+	color: #fff;*/
 	-moz-box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0 0.1em rgba(255,255,255,0.9);
 	-webkit-box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0 0.1em rgba(255,255,255,0.9);
 	box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0 0.1em rgba(255,255,255,0.9);
@@ -44,7 +44,7 @@ a.zocial {
 
 .zocial:before {
 	content: "";
-	border-right: 0.075em solid rgba(0,0,0,0.1);
+	/*border-right: 0.075em solid rgba(0,0,0,0.1);*/
 	float: left;
 	font: 120%/1.65 zocial;
 	font-style: normal;
@@ -78,33 +78,67 @@ a.zocial {
 
 .zocial.icon {
 	overflow: hidden;
-	max-width: 2.4em;
+	max-width: 4.8em;
 	padding-left: 0;
 	padding-right: 0;
-	max-height: 2.15em;
+	max-height: 4.30em;
 	white-space: nowrap;
+    border:none;
+    background-color:none;
 }
 .zocial.icon:before {
 	padding: 0;
-	width: 2em;
-	height: 2em;
-	
+	width: 4em;
+	height: 4em;
+	border:none;
 	box-shadow: none;
-	border: none;
+    background-color:none;
 }
 
 /* Gradients */
 
-.zocial {
+/*.zocial {
 	background-image: -moz-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
 	background-image: -ms-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
 	background-image: -o-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(49%, rgba(255,255,255,.05)), color-stop(51%, rgba(0,0,0,.05)), to(rgba(0,0,0,.1)));
 	background-image: -webkit-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
 	background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
+}*/
+
+.zocial.google {
+    background: url(~/Content/images/Google_Normal.png);
 }
 
-.zocial:hover, .zocial:focus {
+.zocial.google:hover, .zocial.google:focus {
+    background: url(~/Content/images/Google_Hover.png);
+}
+
+.zocial.facebook {
+    background: url(~/Content/images/Facebook_Normal.png);
+    }
+
+.zocial.facebook:hover, .zocial.facebook:focus {
+    background: url(~/Content/images/Facebook_Hover.png);
+}
+
+.zocial.microsoft {
+    background-image: url(~/Content/images/Microsoft_Normal.png);
+    }
+
+.zocial.microsoft:hover, .zocial.microsoft:focus {
+    background-image: url(~/Content/images/Microsoft_Hover.png);
+}
+
+.zocial.twitter {
+    background-image: url(~/Content/images/Twitter_Normal.png);
+    }
+
+.zocial.twitter:hover, .zocial.twitter:focus {
+    background-image: url(~/Content/images/Twitter_Hover.png);
+}
+
+/*.zocial:hover, .zocial:focus {
 	background-image: -moz-linear-gradient(rgba(255,255,255,.15) 49%, rgba(0,0,0,.1) 51%, rgba(0,0,0,.15));
 	background-image: -ms-linear-gradient(rgba(255,255,255,.15) 49%, rgba(0,0,0,.1) 51%, rgba(0,0,0,.15));
 	background-image: -o-linear-gradient(rgba(255,255,255,.15) 49%, rgba(0,0,0,.1) 51%, rgba(0,0,0,.15));
@@ -120,7 +154,7 @@ a.zocial {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(30%, rgba(255,255,255,0)), color-stop(50%, transparent), to(rgba(0,0,0,.1)));
 	background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,.1), rgba(255,255,255,0) 30%, transparent 50%, rgba(0,0,0,.1));
 	background-image: linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,0) 30%, transparent 50%, rgba(0,0,0,.1));
-}
+}*/
 
 /* Adjustments for light background buttons */
 
@@ -158,7 +192,7 @@ a.zocial {
 
 /* :hover adjustments for light background buttons */
 
-.zocial.acrobat:focus,
+/*.zocial.acrobat:focus,
 .zocial.acrobat:hover,
 .zocial.bitcoin:focus,
 .zocial.bitcoin:hover,
@@ -206,11 +240,11 @@ a.zocial {
 	background-image: -o-linear-gradient(top, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.05) 51%, rgba(0,0,0,0.15));
 	background-image: -ms-linear-gradient(top, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.05) 51%, rgba(0,0,0,0.15));
 	background-image: linear-gradient(to top, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.05) 51%, rgba(0,0,0,0.15));
-}
+}*/
 
 /* :active adjustments for light background buttons */
 
-.zocial.acrobat:active,
+/*.zocial.acrobat:active,
 .zocial.bitcoin:active,
 .zocial.dropbox:active,
 .zocial.email:active,
@@ -237,7 +271,7 @@ a.zocial {
 	background-image: -o-linear-gradient(bottom, rgba(255,255,255,0), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1));
 	background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1));
 	background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1));
-}
+}*/
 
 /* Button icon */
 .zocial.acrobat:before { content: "\f100"; }
@@ -269,7 +303,7 @@ a.zocial {
 .zocial.eventbrite:before { content: "\f11b"; }
 .zocial.eventful:before { content: "\f11c"; }
 .zocial.evernote:before { content: "\f11d"; }
-.zocial.facebook:before { content: "\f11e"; }
+/*.zocial.facebook:before { content: "\f11e"; }*/
 .zocial.fivehundredpx:before { content: "\f11f"; }
 .zocial.flattr:before { content: "\f120"; }
 .zocial.flickr:before { content: "\f121"; }
@@ -277,7 +311,7 @@ a.zocial {
 .zocial.foursquare:before { content: "\f123"; }
 .zocial.github:before { content: "\f124"; }
 .zocial.gmail:before { content: "\f125"; }
-.zocial.google:before { content: "\f126"; }
+/*.zocial.google:before { content: "\f126"; }*/
 .zocial.googleplay:before { content: "\f127"; }
 .zocial.googleplus:before { content: "\f128"; }
 .zocial.gowalla:before { content: "\f129"; }
@@ -397,7 +431,7 @@ a.zocial {
 .zocial.eventbrite {background-color: #ff5616;}
 .zocial.eventful {background-color: #fff; color: #47ab15;}
 .zocial.evernote {background-color: #6bb130; color: #fff;}
-.zocial.facebook {background-color: #4863ae;}
+/*.zocial.facebook {background-color: #4863ae;}*/
 .zocial.fivehundredpx {background-color: #333;}
 .zocial.flattr {background-color: #8aba42;}
 .zocial.flickr {background-color: #ff0084;}
@@ -405,7 +439,7 @@ a.zocial {
 .zocial.foursquare {background-color: #44a8e0;}
 .zocial.github {background-color: #fbfbfb; color: #050505;}
 .zocial.gmail {background-color: #efefef; color: #222;}
-.zocial.google {background-color: #4e6cf7;}
+/*.zocial.google {background-color: #4e6cf7;}*/
 .zocial.googleplay {background-color: #000;}
 .zocial.googleplus {background-color: #dd4b39;}
 .zocial.gowalla {background-color: #ff720a;}

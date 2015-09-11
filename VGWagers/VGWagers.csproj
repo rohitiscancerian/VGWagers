@@ -72,6 +72,9 @@
       <HintPath>C:\Program Files (x86)\MySQL\Connector.NET 6.9\Assemblies\v4.5\MySql.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Owin.Security.Providers">
+      <HintPath>..\packages\Owin.Security.Providers.1.24\lib\net45\Owin.Security.Providers.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.105.2.2\lib\net451\RestSharp.dll</HintPath>
     </Reference>
@@ -264,6 +267,16 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\Facebook_Hover.png" />
+    <Content Include="Content\images\Facebook_Normal.png" />
+    <Content Include="Content\images\Google_Hover.png" />
+    <Content Include="Content\images\Google_normal.png" />
+    <Content Include="Content\images\Microsoft_Hover.png" />
+    <Content Include="Content\images\Microsoft_Normal.png" />
+    <Content Include="Content\images\Twitch_Hover.png" />
+    <Content Include="Content\images\Twitch_Normal.png" />
+    <Content Include="Content\images\Twitter_Hover.png" />
+    <Content Include="Content\images\Twitter_Normal.png" />
     <Content Include="Content\vgwager.css" />
     <Content Include="Content\zocial.css" />
     <Content Include="favicon.ico" />
@@ -388,7 +401,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64218</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44301/</IISUrl>
+          <IISUrl>http://localhost</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://dev.vgwagers.com</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -8,6 +8,9 @@ namespace VGWagers.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Display(Name="Username")]
+        public string DefaultUserName { get; set; }
     }
 
     public class LoginExtLoginViewModel
