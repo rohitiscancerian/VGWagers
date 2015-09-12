@@ -78,18 +78,18 @@ a.zocial {
 
 .zocial.icon {
 	overflow: hidden;
-	max-width: 4.8em;
+	max-width: 3.5em;
 	padding-left: 0;
 	padding-right: 0;
-	max-height: 4.30em;
+	max-height: 3.5em;
 	white-space: nowrap;
     border:none;
     background-color:none;
 }
 .zocial.icon:before {
 	padding: 0;
-	width: 4em;
-	height: 4em;
+	width: 3.5em;
+	height: 3.5em;
 	border:none;
 	box-shadow: none;
     background-color:none;

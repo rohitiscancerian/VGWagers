@@ -51,7 +51,7 @@
                         <div class="col-md-9">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                             <div style="width:280px;text-align:right;padding:5px 0px">
-                                @Html.ActionLink("Forgot password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink", @class = "modal-link" })
+                                @Html.ActionLink("Forgot password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink"})
                             </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>

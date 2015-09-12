@@ -28,17 +28,20 @@
 }
 
 .or-container {
-	text-align: center; color: rgb(128, 128, 128); font-variant: small-caps; margin-top: 20px;
+	text-align: center; color: rgb(128, 128, 128); font-variant:normal ; margin-top: 20px;
 }
 .or-hr {
-	border-width: 1px 0px 0px; border-style: solid none none; border-color: rgb(230, 230, 230) currentColor currentColor; border-image: none; height: 0px; margin-bottom: -20px;
+	border-width: 3px 0px 0px; border-style: solid none none; border-color: rgb(230, 230, 230) currentColor currentColor; border-image: none; height: 0px; margin-bottom: -20px;
 }
 #or {
-	padding: 10px; display: inline-block; position: relative; background-color: rgb(255, 255, 255);
+	padding: 10px; display: inline-block; position: relative; background-color: rgb(255, 255, 255); font-size: 16px;
 }
 
 .login-form {
     margin-left:2px;
 }
 
+.modal-link {
+    font-size: 18px;    
+}
 
