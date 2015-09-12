@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Owin.Security.Providers.Twitch;
 using Owin;
 using VGWagers.Models;
 
@@ -47,21 +48,27 @@ namespace VGWagers
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
+                        
             app.UseMicrosoftAccountAuthentication(
-                clientId: "fsadfsa",
-                clientSecret: "agfasga");
+                clientId: "000000004816AE40",
+                clientSecret: "NsWZmFfNPLJWpKgtYzeqabZwKNCclnyx");
+
+            app.UseTwitchAuthentication("81pnvg1bh7tsmg6p6ivn3mjflvezcho", "edwonh6ltgyo073z3ufgxdo89ilfabr");
 
             app.UseTwitterAuthentication(
-               consumerKey: "asgfasg",
-               consumerSecret: "afdsgg");
+               consumerKey: "QPbxUIXjC1LvqptY4qxqWGC7Y",
+               consumerSecret: "EvZd0Nf8UOuIATERkaBXHXVPtiLbLnRadiNGoIX3qLgEPzclVF");
 
             app.UseFacebookAuthentication(
-               appId: "422847611256743",
-               appSecret: "261ab3ebdeb8dfca703df360cdcf861e");
+               appId: "1632364560367953",
+               appSecret: "08a9b12b114133aa9408ec5893042ca4");
+
+            //422847611256743
+            //261ab3ebdeb8dfca703df360cdcf861e
 
             app.UseGoogleAuthentication(
-                 clientId: "134092003332-msdt1vi52ubtmlt7bbm2kn51manafq3m.apps.googleusercontent.com",
-                 clientSecret: "wmBJnRLfPyxaMi_e8HUakrTX");
+                 clientId: "13059308991-ij2h290q6o779h2df0q6racogte4m5ok.apps.googleusercontent.com",
+                 clientSecret: "MzYKj7ubp4sZfq5x2j2SBHcH");
         }
     }
 }

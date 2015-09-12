@@ -497,7 +497,7 @@ namespace VGWagers.Controllers
 
                
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, DefaultUserName = loginInfo.DefaultUserName });
                   
             }
         }

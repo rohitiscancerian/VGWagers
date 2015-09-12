@@ -1,5 +1,20 @@
 ﻿@model VGWagers.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
+
+<script type="text/javascript">
+    //$(function() {
+    //    $("button")
+    //      .mouseover(function() {
+    //          var src = $(this).img.attr("src").replace("Normal", "Hover");
+    //          $(this).img.attr("src", src);
+    //      })
+    //      .mouseout(function() {
+    //          var src = $(this).img.attr("src").replace("Hover", "Normal");
+    //          $(this).img.attr("src", src);
+    //      });
+    //});
+</script>
+
     @*<hr />*@
     @{
         var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -8,9 +23,9 @@
             <div>
                 <p>
                     There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                    for details on setting up this ASP.NET application to support logging in via external services.
-                </p>
-            </div>
+    for details on setting up this ASP.NET application to support logging in via external services.
+</p>
+</div>
         }
         else
         {
@@ -18,13 +33,22 @@
             {
                 @Html.AntiForgeryToken()
                 <div id="socialLoginList" >
-                    
-                        @foreach (AuthenticationDescription p in loginProviders)
-                        {
-                            <button type="submit" class="zocial icon @p.AuthenticationType.ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"></button>
-                        }
-                    
+
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <button class="btn" type="submit" id="@p.AuthenticationType" style="background:none;" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">
+
+                            <img id="@p.AuthenticationType" class="zocial icon @p.AuthenticationType.ToLower()" src="~/Content/images/@{@p.AuthenticationType}_Normal.png" />
+
+                        </button>
+                    }
+                    <br />
+                </div>
+                
+                <div class="or-container">
+                    <hr class="or-hr" />
+                    <div id="or">OR</div>
                 </div>
             }
         }
-    }
+}
