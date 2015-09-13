@@ -94,7 +94,7 @@ a.zocial {
 	box-shadow: none;
     background-color:none;
 }
-.zocial.icon:hover{
+.hover-glow:hover{
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
