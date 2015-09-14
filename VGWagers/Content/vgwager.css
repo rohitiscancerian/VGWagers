@@ -45,3 +45,8 @@
     font-size: 18px;    
 }
 
+label .padding-left-5-right-15 {
+    padding-left:5px !important;
+    padding-right:15px !important;
+}
+

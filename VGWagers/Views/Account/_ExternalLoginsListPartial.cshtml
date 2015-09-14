@@ -32,7 +32,7 @@
             using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new  { id =  "extLogin" }))
             {
                 @Html.AntiForgeryToken()
-                <div id="socialLoginList" >
+                <div id="socialLoginList" style="text-align:center;">
 
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
