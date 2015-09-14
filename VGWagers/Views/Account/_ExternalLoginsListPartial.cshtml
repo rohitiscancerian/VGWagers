@@ -32,11 +32,11 @@
             using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new  { id =  "extLogin" }))
             {
                 @Html.AntiForgeryToken()
-                <div id="socialLoginList" >
+                <div id="socialLoginList" style="text-align:center;" >
 
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
-                        <button class="btn" type="submit" id="@p.AuthenticationType" style="background:none;" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">
+                        <button class="btn hover-glow" type="submit" id="@p.AuthenticationType" style="background:none;" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">
 
                             <img id="@p.AuthenticationType" class="zocial icon @p.AuthenticationType.ToLower()" src="~/Content/images/@{@p.AuthenticationType}_Normal.png" />
 
