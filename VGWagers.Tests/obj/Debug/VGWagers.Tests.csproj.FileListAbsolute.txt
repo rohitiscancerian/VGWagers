@@ -123,3 +123,4 @@ C:\Projects\VGWagers\VGWagers.Tests\bin\Debug\RestSharp.xml
 C:\Projects\VGWagers\VGWagers.Tests\obj\Debug\VGWagers.Tests.csprojResolveAssemblyReference.cache
 C:\Projects\VGWagers\VGWagers.Tests\obj\Debug\VGWagers.Tests.dll
 C:\Projects\VGWagers\VGWagers.Tests\obj\Debug\VGWagers.Tests.pdb
+D:\MyProjects\VGWagers\VGWagers.Tests\bin\Debug\Owin.Security.Providers.dll

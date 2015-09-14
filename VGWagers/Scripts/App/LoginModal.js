@@ -8,8 +8,6 @@
     var loginLink = $("a[id*='loginLink']");
 
     $("a[id*='loginLink']").on('click', function (e) {
-       
-        
         $('#modalContent').load(this.href, function () {
             $('#modal-container').modal('show');
             $('#loginform', this).submit(function (e) {
@@ -49,6 +47,7 @@
                 });
             });
         }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
+        $('#modal-dialog').width("482");
         return false;
     });
 
@@ -86,6 +85,7 @@
                 });
             });
         });
+        $('#modal-dialog').width("540");
         return false;
     });
 
