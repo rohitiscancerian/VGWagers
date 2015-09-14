@@ -50,7 +50,7 @@
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
                         <div class="col-md-8">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            <div style="width:257px;text-align:right;padding:5px 0px">
+                            <div style="width:100%;text-align:right;padding:5px 0px">
                                 @Html.ActionLink("Forgot password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink"})
                             </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
@@ -102,7 +102,7 @@
             $('#modalContent').load(this.href, function () {
                 $('#modal-container').modal('show');
             });
-            $('#modal-dialog').width("540");
+           
             return false;
         });
 

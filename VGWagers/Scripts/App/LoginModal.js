@@ -47,7 +47,7 @@
                 });
             });
         }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
-        $('#modal-dialog').width("482");
+       
         return false;
     });
 
@@ -85,7 +85,7 @@
                 });
             });
         });
-        $('#modal-dialog').width("540");
+       
         return false;
     });
 
