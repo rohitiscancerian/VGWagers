@@ -49,3 +49,5 @@ label .padding-left-5-right-15 {
     padding-left:5px !important;
     padding-right:15px !important;
 }
+
+.modal .modal-dialog { width: 40%; }
