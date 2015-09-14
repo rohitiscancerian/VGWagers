@@ -11,11 +11,11 @@
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 
 
-<div class="modal-header">
+<div class="modal-header" style="width:460px;">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title" id="myModalLabel" style="align-content:center">Login</h4>
 </div>
-<div class="modal-body">
+<div class="modal-body" style="width:460px;">
     <div id="modal-loading-div-background" style="display:none">
         <div id="modal-loading-div" class="modal-loading-div">
             <img src="~/Content/images/ajax-loader.gif" alt="Loading.." />
@@ -101,7 +101,8 @@
 
         $('#newRegLink').on('click', function (e) {
             debugger;
-            $('#modal-container').modal('hide');
+            //$('#modal-container').modal('hide');
+            $('#modal-dialog').width("540");
             $('#modalContent').load(this.href, function () {
                 $('#modal-container').modal('show');
             });
