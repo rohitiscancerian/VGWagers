@@ -41,16 +41,16 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group" style="margin-left:3px;">
                         @Html.LabelFor(m => m.Username, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group" style="margin-left:3px;">
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            <div style="width:280px;text-align:right;padding:5px 0px">
+                            <div style="width:257px;text-align:right;padding:5px 0px">
                                 @Html.ActionLink("Forgot password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { id = "forgotPasswordLink"})
                             </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-group " style="margin-left:3px;">
-                        <div class="col-md-offset-3 col-md-9">
+                        <div class="col-md-offset-3 col-md-8">
                             <div class="checkbox">
                                 @Html.CheckBoxFor(m => m.RememberMe)
                                 @Html.LabelFor(m => m.RememberMe)
@@ -66,21 +66,17 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-left:3px;">
-                        <div class="col-md-offset-3 col-md-9">
+                        <div class="col-md-offset-3 col-md-8">
                             @*<input type="submit" value="Log in" class="btn btn-default" />*@
-                            <button type="submit" class="btn btn-primary btn-lg" id="btnLogin">Log in</button>
-                            <div style="text-align:right;margin-right:40px;" >
-                                @Html.ActionLink(" Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "newRegLink", @class = "modal-link" })
-                            </div>     
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-left:3px;">
-                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary btn-lg" id="btnLogin">Sign in</button>
                             
                         </div>
+                        <div class="col-md-4" style="text-align:right;margin-right:25px; margin-top:15px; ">
+                            @Html.ActionLink(" Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "newRegLink", @class = "modal-link" })
+                        </div>
                     </div>
+                    
                 }
-            
            
         </div>
        
