@@ -58,7 +58,6 @@ D:\MyProjects\VGWagers\VGWagers\bin\MySql.Data.dll
 D:\MyProjects\VGWagers\VGWagers\bin\MySql.Web.dll
 D:\MyProjects\VGWagers\VGWagers\bin\Forloop.HtmlHelpers.dll
 D:\MyProjects\VGWagers\VGWagers\bin\Forloop.HtmlHelpers.xml
-D:\MyProjects\VGWagers\VGWagers\obj\Debug\VGWagers.Migrations.AddAddrTable.resources
 D:\MyProjects\VGWagers\VGWagers\obj\Debug\VGWagers.csproj.GenerateResource.Cache
 D:\MyProjects\VGWagers\VGWagers\bin\SendGrid.SmtpApi.dll
 D:\MyProjects\VGWagers\VGWagers\bin\SendGridMail.dll
@@ -138,3 +137,4 @@ C:\Projects\VGWagers\VGWagers\obj\Debug\VGWagers.dll
 C:\Projects\VGWagers\VGWagers\obj\Debug\VGWagers.pdb
 C:\Projects\VGWagers\VGWagers\bin\Owin.Security.Providers.dll
 D:\MyProjects\VGWagers\VGWagers\bin\Owin.Security.Providers.dll
+D:\MyProjects\VGWagers\VGWagers\obj\Debug\VGWagers.Migrations.CreateAllTables.resources
