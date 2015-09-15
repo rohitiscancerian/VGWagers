@@ -201,9 +201,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508251305109_AddAddrTable.cs" />
-    <Compile Include="Migrations\201508251305109_AddAddrTable.Designer.cs">
-      <DependentUpon>201508251305109_AddAddrTable.cs</DependentUpon>
+    <Compile Include="Migrations\201509151006270_CreateAllTables.cs" />
+    <Compile Include="Migrations\201509151006270_CreateAllTables.Designer.cs">
+      <DependentUpon>201509151006270_CreateAllTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -379,8 +379,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508251305109_AddAddrTable.resx">
-      <DependentUpon>201508251305109_AddAddrTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509151006270_CreateAllTables.resx">
+      <DependentUpon>201509151006270_CreateAllTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

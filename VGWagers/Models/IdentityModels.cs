@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using VGWagers.IdentityMySQL;
@@ -18,7 +19,7 @@ namespace VGWagers.Models
             return userIdentity;
         }
 
-        
+        public DateTime BirthDate { get; set; } 
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,CustomRole,int,CustomUserLogin,CustomUserRole,CustomUserClaim>
@@ -26,6 +27,16 @@ namespace VGWagers.Models
         static ApplicationDbContext()
         {
             Database.SetInitializer(new MySqlInitializer());
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+           
+            modelBuilder.Entity<CustomRole>().HasKey<int>(r => r.Id);
+            modelBuilder.Entity<CustomUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+            modelBuilder.Entity<CustomUserLogin>().HasKey(u => new { u.UserId , u.LoginProvider , u.ProviderKey });
+            base.OnModelCreating(modelBuilder);
+            
         }
 
         public ApplicationDbContext()

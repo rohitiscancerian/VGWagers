@@ -243,15 +243,20 @@ namespace VGWagers.Models
         //[ForeignKey("PLATFORMID")]
         [Key]
         public int PLATFORMGAMEID { get; set; }
-        [Key]
-        [Column(Order = 1)] 
+       
         public int PLATFORMID { get; set; }
+        [ForeignKey("PLATFORMID")]
+        public vgw_platform vgw_platform { get; set; }
         //[ForeignKey("GAMEID")]
-        [Key]
-        [Column(Order = 2)] 
+                
         public int GAMEID { get; set; }
+        [ForeignKey("GAMEID")]
+        public vgw_game vgw_game { get; set; }
+
         public bool ISACTIVE { get; set; }
         public Nullable<int> LASTUPDATEDUSERID { get; set; }
+      
+
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
     }
 

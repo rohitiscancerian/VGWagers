@@ -182,6 +182,8 @@ namespace VGWagers.Controllers
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> RegisterJson(RegisterViewModel model, string returnUrl)
         {
+            try
+            { 
                 if (! ModelState.IsValid)
                 {  
                         var errors = GetErrorsFromModelState();
@@ -202,8 +204,11 @@ namespace VGWagers.Controllers
                     //        break;
                     //}
                     //return Json(false);
-                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email  };
+                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, BirthDate = model.DateOfBirth  };
+                   
+                  
                     var tempUser = await UserManager.FindByEmailAsync(model.Email);
+                   
                     var result = (IdentityResult)null;
 
                     if (tempUser != null)
@@ -259,8 +264,12 @@ namespace VGWagers.Controllers
                     }
                     
                 }
-        
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
                 // If we got this far, something failed, redisplay form
             //return Json(new { success = false, msg = "Server Error" });
         }

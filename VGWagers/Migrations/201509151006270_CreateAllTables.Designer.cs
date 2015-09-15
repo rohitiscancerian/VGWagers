@@ -7,13 +7,13 @@ namespace VGWagers.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddAddrTable : IMigrationMetadata
+    public sealed partial class CreateAllTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAddrTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateAllTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508251305109_AddAddrTable"; }
+            get { return "201509151006270_CreateAllTables"; }
         }
         
         string IMigrationMetadata.Source
