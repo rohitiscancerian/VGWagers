@@ -47,45 +47,18 @@
                 });
             });
         }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
-       
+
+        $('#modal-dialog').removeclass("modal-register");
+        $('#modal-dialog').addclass("modal-login");
         return false;
     });
 
     $('#registerLink').on('click', function (e) {
         $('#modalContent').load(this.href, function () {
             $('#modal-container').modal('show');
-            $('#registerform', this).submit(function (e) {
-                e.preventDefault();
-                if (!$(this).valid()) {
-                    return false;
-                }
-                $.ajax({
-                    url: this.action,
-                    type: this.method,
-                    data: $(this).serialize(),
-                }).done(function (returnedJSON) {
-                   
-                    if (returnedJSON.success) {
-                        $('#modal-container').modal('hide');
-                    }
-                    else {
-                        if (returnedJSON.msg != null)
-                        {
-                            var alertBox = $("#alertBox");
-                            alertBox.html(returnedJSON.msg);
-                            alertBox.css("display", "block");
-                        }
-                        $.each(returnedJSON.errors, function (key, val) {
-                            var container = $('span[data-valmsg-for="' + key + '"]');
-                            container.removeClass("field-validation-valid").addClass("field-validation-error");
-                            container.html(val[val.length - 1].ErrorMessage);
-                        });
-                        return false;
-                    }
-                });
-            });
         });
-       
+        $('#modal-dialog').removeClass("modal-login");
+        $('#modal-dialog').addClass("modal-register");
         return false;
     });
 

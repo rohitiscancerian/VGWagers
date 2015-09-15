@@ -8,6 +8,7 @@
 @Scripts.Render("~/bundles/modernizr")
 
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/moment")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -60,7 +61,7 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
-                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control" , type = "date"})
+                            @Html.TextBoxFor(m => m.DateOfBirth, new {   @class = "form-control datepicker" , type = "date" })
                             @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -79,8 +80,20 @@
 <script type="text/javascript">
 
     $(function () {
+
+       
+
+        $(".datepicker").datetimepicker({
+            format: 'L',
+
+            showClose: true,
+
+            showClear: true,
+
+            toolbarPlacement: 'bottom'
+        });
+
         $('#registerform', this).submit(function (e) {
-            debugger;
             e.preventDefault();
             if (!$(this).valid()) {
                 return false;
@@ -90,14 +103,21 @@
                 type: this.method,
                 data: $(this).serialize(),
             }).done(function (returnedJSON) {
-                debugger;
+
                 if (returnedJSON.success) {
                     $('#modal-container').modal('hide');
                 }
                 else {
-                    var alertBox = $("#alertBox");
-                    alertBox.html(returnedJSON.msg);
-                    alertBox.css("display", "block");
+                    if (returnedJSON.msg != null) {
+                        var alertBox = $("#alertBox");
+                        alertBox.html(returnedJSON.msg);
+                        alertBox.css("display", "block");
+                    }
+                    $.each(returnedJSON.errors, function (key, val) {
+                        var container = $('span[data-valmsg-for="' + key + '"]');
+                        container.removeClass("field-validation-valid").addClass("field-validation-error");
+                        container.html(val[val.length - 1].ErrorMessage);
+                    });
                     return false;
                 }
             });
