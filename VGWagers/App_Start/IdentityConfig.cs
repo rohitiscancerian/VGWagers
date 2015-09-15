@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using VGWagers.Models;
-
+ 
 namespace VGWagers
 {
     public class EmailService : IIdentityMessageService
