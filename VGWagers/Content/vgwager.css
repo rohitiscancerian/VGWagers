@@ -50,4 +50,13 @@ label .padding-left-5-right-15 {
     padding-right:15px !important;
 }
 
-.modal .modal-dialog { width: 40%; }
+/*.modal .modal-dialog { width: 40%; }*/
+
+
+.modal-login {
+    width: 482px;
+}
+
+.modal-register {
+    width:540px;
+}
