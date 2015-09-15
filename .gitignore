@@ -43,3 +43,6 @@ Temporary Items
 .apdisk
 VGWagers.v12.suo
 *.suo
+*.dll
+*.cache
+VGWagers/obj/Debug/VGWagers.csproj.FileListAbsolute.txt
