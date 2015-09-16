@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    $('input[type="date"]').attr('type', 'text');
+
     $("#loading-div-background").css({ opacity: 0.8 });
 
     $(document).ajaxStart(function () { $("#main-loading-div-background").show(); })
