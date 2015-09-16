@@ -48,17 +48,17 @@
             });
         }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
 
-        $('#modal-dialog').removeclass("modal-register");
-        $('#modal-dialog').addclass("modal-login");
+        $('#modal-dialog').removeClass("modal-register");
+        $('#modal-dialog').addClass("modal-login");
         return false;
     });
 
     $('#registerLink').on('click', function (e) {
         $('#modalContent').load(this.href, function () {
+            $('#modal-dialog').removeClass("modal-login");
+            $('#modal-dialog').addClass("modal-register");
             $('#modal-container').modal('show');
         });
-        $('#modal-dialog').removeClass("modal-login");
-        $('#modal-dialog').addClass("modal-register");
         return false;
     });
 
