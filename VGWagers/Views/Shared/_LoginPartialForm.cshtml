@@ -10,17 +10,27 @@
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 
-
+<div id="modal-loading-div-background" style="display:none">
+    <div id="modal-loading-div" class="modal-loading-div">
+        @*<img id="loadingImage" src="~/Content/images/ajax-loader.gif" alt="Loading.." />*@
+        <div id="circularG">
+            <div id="circularG_1" class="circularG"></div>
+            <div id="circularG_2" class="circularG"></div>
+            <div id="circularG_3" class="circularG"></div>
+            <div id="circularG_4" class="circularG"></div>
+            <div id="circularG_5" class="circularG"></div>
+            <div id="circularG_6" class="circularG"></div>
+            <div id="circularG_7" class="circularG"></div>
+            <div id="circularG_8" class="circularG"></div>
+        </div>
+    </div>
+</div>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title" id="myModalLabel" style="align-content:center">Console Currency - Sign in</h4>
 </div>
 <div class="modal-body">
-    <div id="modal-loading-div-background" style="display:none">
-        <div id="modal-loading-div" class="modal-loading-div">
-            <img src="~/Content/images/ajax-loader.gif" alt="Loading.." />
-        </div>
-    </div>
+   
     <div style="align-content:center">
        
             @*@Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
@@ -82,9 +92,7 @@
        
     </div>
    
-    <div id="myLoader" style="display:none">
-        <img id="imgAjax" src="~/Content/images/ajax-loader.gif" alt="Loading ....." />
-    </div>
+  
     @*<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-primary">Save</button>

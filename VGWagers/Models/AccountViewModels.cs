@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using VGWagers.Models.ValidationAttributes;
 
 namespace VGWagers.Models
 {
@@ -102,6 +104,24 @@ namespace VGWagers.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
+
+
+        [Mandatory(ErrorMessage = "Please accept the terms and conditions.")]
+        //[RegularExpression("true", ErrorMessage = "Please accept the terms and conditions.")]
+        public bool TermsAccepted { get; set; }
+
+        
+        //[RegularExpression("true", ErrorMessage = "Please accept the terms and conditions.")]
+        [Display(Name = "Do you want to receive promotional mails from us ?")]
+        public bool MarketingMailersAccepted { get; set; }
+    }
+
+    public class MustBeTrueAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            return value is bool && (bool)value;
+        }
     }
 
     public class ResetPasswordViewModel
