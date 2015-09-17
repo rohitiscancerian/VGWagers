@@ -51,11 +51,100 @@ label .padding-left-5-right-15 {
 }
 
 /*.modal .modal-dialog { width: 40%; }*/
+@media only screen 
+and (min-width : 1900px) {
+    .modal-login {
+        /*width: 482px;*/
+        width: 25%;
+    }
 
-.modal-login {
-    width: 482px;
+    .modal-register {
+        /*width:540px;*/
+        width: 40%; 
+    }
 }
 
-.modal-register {
-    width:540px;
+@media only screen 
+and (min-width : 800px) 
+and (max-width : 1800px) {
+    .modal-login {
+        /*width: 482px;*/
+        width: 36%;
+    }
+
+    .modal-register {
+        /*width:540px;*/
+        width: 49%; 
+    }
+}
+
+@media only screen 
+and (min-width : 480px) 
+and (max-width : 800px) {
+    .modal-login {
+        /*width: 482px;*/
+        width: 57%;
+    }
+
+    .modal-register {
+        /*width:540px;*/
+        width: 52%;
+    }
+}
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 480px) {
+    .modal-login {
+        /*width: 482px;*/
+        width: 97%;
+    }
+
+    .modal-register {
+        /*width:540px;*/
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+    .forgot-password-link {
+        text-align: right;
+        padding: 5px 0px;
+        padding-right: 0px !important;
+        max-width: 99%;
+        float: right;
+        margin-right: 0px;
+    }
+}
+
+@media only screen and (min-width : 320px) and (max-width : 768px) {
+    .forgot-password-link {
+        text-align: right;
+        padding: 5px 0px;
+        padding-right: 0px !important;
+        max-width: 99%;
+        float: right;
+        margin-right: 15px;
+    }
+}
+
+.login-button {
+    max-width:144.28px;
+    float:left;
+}
+
+.signup-button{
+    text-align:right;
+    margin-right:25px; 
+    margin-top:15px; 
+    max-width:90%;
+    float:right;
+}
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 359px){
+    .btn {
+        padding:6px 4px !important;
+    }
 }
