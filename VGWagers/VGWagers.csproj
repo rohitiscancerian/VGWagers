@@ -272,6 +272,7 @@
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
     <Compile Include="Models\test.cs" />
+    <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
     <Compile Include="Models\vgw_address.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

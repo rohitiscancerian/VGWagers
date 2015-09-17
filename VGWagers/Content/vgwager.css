@@ -1,6 +1,6 @@
 ﻿.main-loading-div
 { 
-        background-color:none;
+        background:rgba(0,0,0,0.3);
         text-align:center;
         vertical-align:middle;
         align-items:center;
@@ -11,20 +11,37 @@
         /*width:100%;
         height:100%;*/
         opacity:0.4;
-
+        pointer-events:none;
 }
+
 
 .modal-loading-div
 { 
-        background-color:none;
+        background:rgba(0,0,0,0.1);
+        display:block;
         text-align:center;
+        justify-content:center;
         vertical-align:middle;
-        align-items:center;
+        line-height: 100%;
+        border-radius: 3px;
         position:absolute;
-        z-index:10000;
-        left: 50%;
-        top: 50%;
-       
+        z-index:40000;
+        left: -0%;
+        top: -0%;
+       /*pointer-events:none;*/
+       height:100%;
+       width:100%;
+       opacity:0.8;
+}
+
+#loadingImage {
+    position:absolute;
+    display: block; 
+    top:50%;
+  bottom:0;
+  left:50%;
+  right:0;
+  margin:auto;
 }
 
 .or-container {
@@ -58,4 +75,183 @@ label .padding-left-5-right-15 {
 
 .modal-register {
     width:540px;
+}
+
+.termsCheckbox {
+    align-items:flex-end;
+    align-self:flex-end;
+    left:65px;
+}
+
+
+#circularG{
+	position:relative;
+	width:83px;
+	height:83px;
+	margin: auto;
+    top:50%;
+}
+
+.circularG{
+	position:absolute;
+	background-color:rgba(0,0,0,0.92);
+	width:19px;
+	height:19px;
+	border-radius:12px;
+		-o-border-radius:12px;
+		-ms-border-radius:12px;
+		-webkit-border-radius:12px;
+		-moz-border-radius:12px;
+	animation-name:bounce_circularG;
+		-o-animation-name:bounce_circularG;
+		-ms-animation-name:bounce_circularG;
+		-webkit-animation-name:bounce_circularG;
+		-moz-animation-name:bounce_circularG;
+	animation-duration:0.768s;
+		-o-animation-duration:0.768s;
+		-ms-animation-duration:0.768s;
+		-webkit-animation-duration:0.768s;
+		-moz-animation-duration:0.768s;
+	animation-iteration-count:infinite;
+		-o-animation-iteration-count:infinite;
+		-ms-animation-iteration-count:infinite;
+		-webkit-animation-iteration-count:infinite;
+		-moz-animation-iteration-count:infinite;
+	animation-direction:normal;
+		-o-animation-direction:normal;
+		-ms-animation-direction:normal;
+		-webkit-animation-direction:normal;
+		-moz-animation-direction:normal;
+}
+
+#circularG_1{
+	left:0;
+	top:33px;
+	animation-delay:0.288s;
+		-o-animation-delay:0.288s;
+		-ms-animation-delay:0.288s;
+		-webkit-animation-delay:0.288s;
+		-moz-animation-delay:0.288s;
+}
+
+#circularG_2{
+	left:8px;
+	top:8px;
+	animation-delay:0.384s;
+		-o-animation-delay:0.384s;
+		-ms-animation-delay:0.384s;
+		-webkit-animation-delay:0.384s;
+		-moz-animation-delay:0.384s;
+}
+
+#circularG_3{
+	top:0;
+	left:33px;
+	animation-delay:0.48s;
+		-o-animation-delay:0.48s;
+		-ms-animation-delay:0.48s;
+		-webkit-animation-delay:0.48s;
+		-moz-animation-delay:0.48s;
+}
+
+#circularG_4{
+	right:8px;
+	top:8px;
+	animation-delay:0.576s;
+		-o-animation-delay:0.576s;
+		-ms-animation-delay:0.576s;
+		-webkit-animation-delay:0.576s;
+		-moz-animation-delay:0.576s;
+}
+
+#circularG_5{
+	right:0;
+	top:33px;
+	animation-delay:0.672s;
+		-o-animation-delay:0.672s;
+		-ms-animation-delay:0.672s;
+		-webkit-animation-delay:0.672s;
+		-moz-animation-delay:0.672s;
+}
+
+#circularG_6{
+	right:8px;
+	bottom:8px;
+	animation-delay:0.768s;
+		-o-animation-delay:0.768s;
+		-ms-animation-delay:0.768s;
+		-webkit-animation-delay:0.768s;
+		-moz-animation-delay:0.768s;
+}
+
+#circularG_7{
+	left:33px;
+	bottom:0;
+	animation-delay:0.864s;
+		-o-animation-delay:0.864s;
+		-ms-animation-delay:0.864s;
+		-webkit-animation-delay:0.864s;
+		-moz-animation-delay:0.864s;
+}
+
+#circularG_8{
+	left:8px;
+	bottom:8px;
+	animation-delay:0.96s;
+		-o-animation-delay:0.96s;
+		-ms-animation-delay:0.96s;
+		-webkit-animation-delay:0.96s;
+		-moz-animation-delay:0.96s;
+}
+
+
+
+@keyframes bounce_circularG{
+	0%{
+		transform:scale(1);
+	}
+
+	100%{
+		transform:scale(.3);
+	}
+}
+
+@-o-keyframes bounce_circularG{
+	0%{
+		-o-transform:scale(1);
+	}
+
+	100%{
+		-o-transform:scale(.3);
+	}
+}
+
+@-ms-keyframes bounce_circularG{
+	0%{
+		-ms-transform:scale(1);
+	}
+
+	100%{
+		-ms-transform:scale(.3);
+	}
+}
+
+@-webkit-keyframes bounce_circularG{
+	0%{
+		-webkit-transform:scale(1);
+	}
+
+	100%{
+		-webkit-transform:scale(.3);
+	}
+}
+
+@-moz-keyframes bounce_circularG{
+	0%{
+		-moz-transform:scale(1);
+	}
+
+	100%{
+		-moz-transform:scale(.3);
+	}
 }

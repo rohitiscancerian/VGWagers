@@ -19,7 +19,9 @@ namespace VGWagers.Models
             return userIdentity;
         }
 
-        public DateTime BirthDate { get; set; } 
+        public DateTime BirthDate { get; set; }
+        public bool TermsAndConditionAccepted { get; set; }
+        public bool MarketingMailersAccepted { get; set; } 
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,CustomRole,int,CustomUserLogin,CustomUserRole,CustomUserClaim>

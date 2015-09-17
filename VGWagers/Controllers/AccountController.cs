@@ -204,7 +204,7 @@ namespace VGWagers.Controllers
                     //        break;
                     //}
                     //return Json(false);
-                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, BirthDate = model.DateOfBirth  };
+                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, BirthDate = model.DateOfBirth , TermsAndConditionAccepted = model.TermsAccepted, MarketingMailersAccepted = model.MarketingMailersAccepted };
                    
                   
                     var tempUser = await UserManager.FindByEmailAsync(model.Email);

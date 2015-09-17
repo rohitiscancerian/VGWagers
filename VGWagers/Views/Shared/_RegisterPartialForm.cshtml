@@ -14,15 +14,37 @@
 
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
-
+<script type="text/javascript" language="javascript">
+    $.validator.unobtrusive.adapters.addBool("mandatory", "required");
+</script>
+<div id="modal-loading-div-background" style="display:none">
+    <div id="modal-loading-div" class="modal-loading-div">
+        @*<img id="loadingImage" src="~/Content/images/ajax-loader.gif" alt="Loading.." />*@
+        <div id="circularG">
+            <div id="circularG_1" class="circularG"></div>
+            <div id="circularG_2" class="circularG"></div>
+            <div id="circularG_3" class="circularG"></div>
+            <div id="circularG_4" class="circularG"></div>
+            <div id="circularG_5" class="circularG"></div>
+            <div id="circularG_6" class="circularG"></div>
+            <div id="circularG_7" class="circularG"></div>
+            <div id="circularG_8" class="circularG"></div>
+        </div>
+    </div>
+</div>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title" id="myModalLabel">Register</h4>
 </div>
 <div class="modal-body">
+  
     <div class="row">
         <div class="col-md-12">
             <section id="registerForm">
+                @{
+                    Html.EnableUnobtrusiveJavaScript();
+                    Html.EnableClientValidation();
+                }
                 @using (Html.BeginForm("RegisterJson", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "registerform" }))
                 {
                     @Html.AntiForgeryToken()
@@ -66,6 +88,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                       
+                        @Html.CheckBoxFor(m => m.TermsAccepted, new { @class = "col-md-4 control-checkbox termsCheckbox" })
+                        <div class="col-md-8" >
+                            @*@Html.(m => m.AcceptTerms, new { @class = "col-md-4 control-label" })*@
+
+                            @Html.ActionLink("Accept Terms and Conditions", "Terms", "Home", null, new { target = "_blank" })
+                            <br />
+                            @Html.ValidationMessageFor(m => m.TermsAccepted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.MarketingMailersAccepted, new { @class = "col-md-4 control-checkbox termsCheckbox" })
+                        <div class="col-md-8">
+                            @*@Html.(m => m.AcceptTerms, new { @class = "col-md-4 control-label" })*@
+
+                            @Html.DisplayNameFor(m => m.MarketingMailersAccepted)
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
                             <input type="submit" class="btn btn-primary btn-lg" value="Register" />
                         </div>
@@ -78,7 +120,6 @@
 </div>
 
 <script type="text/javascript">
-
     $(function () {
 
         $('input[type="date"]').attr('type', 'text');
@@ -102,8 +143,12 @@
                 url: this.action,
                 type: this.method,
                 data: $(this).serialize(),
+                beforeSend: function () {
+                    $("#modal-loading-div-background").width($("#modalContent").width());
+                    $("#modal-loading-div-background").show();
+                }
             }).done(function (returnedJSON) {
-
+                $("#modal-loading-div-background").hide();
                 if (returnedJSON.success) {
                     $('#modal-container').modal('hide');
                 }
@@ -122,6 +167,8 @@
                 }
             });
         });
+
+       
         //allow validation framework to parse DOM
         $.validator.unobtrusive.parse('#registerform');
     });
