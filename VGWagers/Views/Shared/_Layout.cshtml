@@ -1,24 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using VGWagers.Resource
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>@WebsiteContent.WebsiteName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/vgwager.css")
-    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/moment")
-    
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
-
-    @*@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.js")
-        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js")
-        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js.map")
-        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
-        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")*@
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 
@@ -83,14 +77,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(WebsiteContent.WebsiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
                 @if (Session["MyMenu"] == null)
                 {
                     Session["MyMenu"] = Html.Partial("~/Views/Shared/_MenuPartial.cshtml");
@@ -110,25 +99,119 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            <div id="notFixedFooter" class="navbar navbar-default navbar-inverse">
+                <div class="footer-r2">
 
-    @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
-  
+                    <div class="col-md-3" style="text-align:left">
+                        <ul class="helplinks" style="list-style:none">
+                            <li>
+                                <i class="fa fa-question-circle ccHelpLinks"></i>  <a ui-sref="wg.help_faq" class="ccHelpLinks">Help &amp; FAQs</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-life-ring ccHelpLinks"></i>  <a href="#!/support" class="ccHelpLinks">Gamer Support Center</a>
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div class="col-md-3" style="text-align:left">
+                        <ul class="helplinks" style="list-style:none">
+                            <li>
+                                <i class="fa fa-users ccHelpLinks"></i> <a ui-sref="wg.fair_play" class="ccHelpLinks">Fair Play Guarantee</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-trophy ccHelpLinks"></i> <a ui-sref="wg.responsible_gaming" class="ccHelpLinks">Responsible gaming</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2" style="text-align:left">
+                        <ul class="helplinks" style="list-style:none">
+                            <li>
+                                <i class="fa fa-money ccHelpLinks"></i>  <a ui-sref="wg.affiliates" class="ccHelpLinks">Affiliates</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-file-text-o ccHelpLinks"></i> <a ui-sref="wg.corp" class="ccHelpLinks">Corporate Info</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2" style="text-align:left">
+                        <ul class="helplinks" style="list-style:none">
+                            <li>
+                                <i class="fa fa-comment ccHelpLinks"></i>  <a ui-sref="wg.contact" class="ccHelpLinks">Contact Us</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-gamepad ccHelpLinks"></i> <a ui-sref="wg.play" class="ccHelpLinks">Games Offered</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2" style="text-align:left">
+                        <ul class="helplinks" style="list-style:none">
+                            <li>
+                                <i class="fa fa-thumbs-up ccHelpLinks"></i> <a ui-sref="wg.careers" class="ccHelpLinks">Careers</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-eye ccHelpLinks"></i> <a ui-sref="wg.privacy_policy" class="ccHelpLinks">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
 
-    @*<div id="modal-container" class="modal fade" tabindex="-1" role="dialog" style="border:5px solid #3A87AD">
-        <a href="#close" title="Close" class="modal-close-btn">Close</a>
-        <div class="modal-content">
-            <div class="modal-body">
+                    <div class="clear"></div>
+
+                </div>
+                <div style="width:100%;display:inline-block;text-align:center">
+                    <div class="footer-r3 paymentOptionsDiv" style="display: inline-block;">
+                        <ul class="paymentOptions">
+                            <li>
+                                <img src="~/Content/images/footer-logo-1.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-2.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-3.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-4.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-5.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-6.png" />
+                            </li>
+                            <li>
+                                <img src="~/Content/images/footer-logo-7.png" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-r4 navbar-text" style="text-align:center;font-size:x-small">
+                    &COPY;2015 @WebsiteContent.WebsiteName &trade;. ALL RIGHTS RESERVED.
+                    <p>@WebsiteContent.WebsiteName is an online service that facilitates tournaments, leagues and ladders for users who play video games they have purchased on their own video game consoles. @WebsiteContent.WebsiteName does not sell or license video games and is not affiliated with, and our services are not endorsed by, any video game manufacturer or sports league.</p>
+                </div>
 
             </div>
-        </div>
-    </div>*@
-   
+            <div id="footer" class="navbar navbar-default navbar-inverse navbar-fixed-bottom navbar-collapse collapse">
+                
+                <div class="container">
+                    <div class="row">
+                        <div style="width:100%;display:inline-block;text-align:center">
+                            <div class="footer-r3" style="display:inline-block;">
+                                <ul class="social-network social-circle">
+                                    <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                    @*<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>*@
+                                    <li><a href="#" class="twitchBlank" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                      
+                   </div>
+                </div>
+            </div>
+        </footer>
+    </div>
     <div class='modal fade' id='modal-container' tabindex='-1' role='dialog' aria-labelledby='modal-containerlabel' aria-hidden='true'>
         <div class='modal-dialog' id="modal-dialog"  role="document">
 
