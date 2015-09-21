@@ -345,3 +345,46 @@ and (max-width : 359px){
 	}
 }
 
+#slider {
+        width: 500px;
+    }
+
+#slider li {
+            width: 250px;
+    }
+
+.main-body {
+    background: url("images/top_light_1.jpg") no-repeat center top ;
+}
+
+.news-box {
+    background: url("images/hn_box_bg.png") repeat-x top left #1f1f1f;
+    margin-right: 5px;
+    -webkit-border-radius: 5px;
+}
+
+@media (min-width: 992px) {
+    .news-box {
+        width: 32.8%;
+    }
+
+    .carousel-container {
+        height: 500px;
+    }
+}
+
+.news-title {
+    color: #2ac0ff;
+}
+
+.news-title:hover {
+    color: #fff;    
+}
+
+.news-content {
+    color: #99cccc;
+}
+
+.body-bg {
+    background:url("images/background_loop.jpg") repeat top left;
+}
