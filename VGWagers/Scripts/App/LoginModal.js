@@ -2,15 +2,20 @@
 
     $('input[type="date"]').attr('type', 'text');
 
-    $("#loading-div-background").css({ opacity: 0.8 });
+    $("#main-loading-div-background").css({ opacity: 0.8 });
 
-    $(document).ajaxStart(function () { $("#main-loading-div-background").show(); })
-               .ajaxStop(function () {  $("#main-loading-div-background").hide();  });
+     $("#main-loading-div-background").hide();
 
     var loginLink = $("a[id*='loginLink']");
 
     $("a[id*='loginLink']").on('click', function (e) {
+        $("#main-loading-div-background").addClass("loadingContainer");
+        $("#main-loading-div-background").show();
+
         $('#modalContent').load(this.href, function () {
+
+            $("#main-loading-div-background").hide();
+
             $('#modal-container').modal('show');
             $('#loginform', this).submit(function (e) {
                 e.preventDefault();
@@ -21,6 +26,7 @@
                     url: this.action,
                     type: this.method,
                     data: $(this).serialize(),
+                    async : true,
                     beforeSend: function () {
                         $("#modal-loading-div-background").width($("#modalContent").width());
                         $("#modal-loading-div-background").show();
@@ -56,7 +62,14 @@
     });
 
     $('#registerLink').on('click', function (e) {
+
+        $("#main-loading-div-background").addClass("loadingContainer");
+        $("#main-loading-div-background").show();
+
         $('#modalContent').load(this.href, function () {
+
+            $("#main-loading-div-background").hide();
+
             $('#modal-dialog').removeClass("modal-login");
             $('#modal-dialog').addClass("modal-register");
             $('#modal-container').modal('show');
