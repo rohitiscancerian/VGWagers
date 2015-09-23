@@ -23,8 +23,8 @@
 		    sliderIntervalID = setInterval(function () {
 		            base.goForward();
 		        }, delayLength);
-		    }
-            );
+		}
+        );
 
 		$('.game-img-slider').on('swipeleft', function () {
 		    base.goForward();
@@ -86,9 +86,9 @@
 			//    base.goForward();
 			//    return false;
 			//});
-			//sliderIntervalID = setInterval(function(){
-			//	base.goForward();
-			//}, delayLength);			
+			sliderIntervalID = setInterval(function(){
+				base.goForward();
+			}, delayLength);			
 			
 			// code to run to update MovingBoxes when the number of panels change
 			base.update({}, false);
@@ -210,9 +210,10 @@
 			base.padding = parseInt(base.$panels.css('padding-left'), 10) + parseInt(base.$panels.css('margin-left'), 10);
 
 			// save 'cur' numbers (current larger panel size), use stored sizes if they exist
-			base.curWidth = (o.panelWidth) ? (o.panelWidth <=2 ? o.panelWidth * base.width : o.panelWidth) : base.pWidth;
+			base.curWidth = (o.panelWidth) ? (o.panelWidth < 1 ? o.panelWidth * base.width : o.reducedSize * base.pWidth) : base.pWidth;
 			// save 'reg' (reduced size) numbers
-			base.regWidth = base.curWidth * o.reducedSize;
+			//base.regWidth = base.curWidth * o.reducedSize;
+			base.regWidth = (o.panelWidth) ? (o.panelWidth < 1 ? base.curWidth * o.reducedSize : o.reducedSize * base.pWidth) : base.pWidth;
 			// set image heights so base container height is correctly set
 			base.$panels.css({ width: base.curWidth, fontSize: '1em' }); // make all panels big
 			// save each panel height... script will resize container as needed
@@ -274,9 +275,15 @@
 		};
 
 		// Resize panels to normal
-		base.returnToNormal = function(num, time){
-			var panels = base.$panels.not(':eq(' + (num - base.adj) + ')').removeClass(o.currentPanel);
-			if (o.reducedSize === 1) {
+		base.returnToNormal = function(num, time, prevPanel){
+		    var panels = base.$panels.not(':eq(' + (num - base.adj) + ')').removeClass(o.currentPanel);
+		    
+		    base.$panels.not(':eq(' + (num - base.adj - 1) + ')').removeClass('before-current');
+		    base.$panels.not(':eq(' + (num - base.adj + 1) + ')').removeClass('after-current');
+		    base.$panels.eq(num - base.adj - 1).addClass('before-current');
+		    base.$panels.eq(num - base.adj + 1).addClass('after-current');
+
+		    if (o.reducedSize === 1) {
 				panels.css({ width: base.regWidth }); // excluding fontsize change to prevent video flicker
 			} else {
 				panels.stop(true,false).animate({ width: base.regWidth, fontSize: o.reducedSize + 'em' }, (time === 0) ? 0 : o.speed);
@@ -319,19 +326,19 @@
 		
 		// go forward/back
 		base.goForward = function(callback){
-			if (base.initialized) {
-				base.change(base.curPanel + 1, callback);
+		    if (base.initialized) {
+				base.change(base.curPanel + 1, callback, 0, base.curPanel);
 			}
 		};
 
 		base.goBack = function(callback){
 			if (base.initialized) {
-				base.change(base.curPanel - 1, callback);
+				base.change(base.curPanel - 1, callback, 0, base.curPanel);
 			}
 		};		
 				
 		// Change view to display selected panel
-		base.change = function(curPanel, callback, flag){
+		base.change = function(curPanel, callback, flag, prevPanel){
 
 			if (base.totalPanels < 1) {
 				if (typeof(callback) === 'function') { callback(base); }
@@ -391,17 +398,17 @@
 				if (o.delayBeforeAnimate) {
 					// delay starting slide animation
 					setTimeout(function(){
-						base.animateBoxes(curPanel, ani, flag, callback);
+						base.animateBoxes(curPanel, ani, flag, callback, prevPanel);
 					}, parseInt(o.delayBeforeAnimate, 10) || 0);
 				} else {
-					base.animateBoxes(curPanel, ani, flag, callback);
+					base.animateBoxes(curPanel, ani, flag, callback, prevPanel);
 				}
 			} else {
 				base.endAnimation();
 			}
 		};
 
-		base.animateBoxes = function(curPanel, ani, flag, callback){
+		base.animateBoxes = function(curPanel, ani, flag, callback, prevPanel){
 			// animate the panels
 			base.$window.scrollTop(0).stop(true,false).animate( ani,
 				{
@@ -418,7 +425,7 @@
 				}
 			);
 
-			base.returnToNormal(curPanel);
+			base.returnToNormal(curPanel, 0, prevPanel);
 			base.growBigger(curPanel, o.speed, flag);
 			base.updateArrows(curPanel);
 			if (o.hashTags && base.initialized) { base.setHash(curPanel); }
