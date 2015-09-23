@@ -34,7 +34,8 @@ namespace VGWagers
                       "~/Content/Site.css",
                       "~/Content/zocial.css",
                       "~/Content/bootstrap-datetimepicker.css",
-                      "~/Content/bootstrap-datetimepicker.min.css"
+                      "~/Content/bootstrap-datetimepicker.min.css",
+                      "~/Content/footer.css"
                       ));
         }
     }
