@@ -1,6 +1,6 @@
 ﻿@using VGWagers.Resource
 <!DOCTYPE html>
-<html>
+<html class="body-bg">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,11 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/vgwager.css")
+    @Styles.Render("~/Content/movingboxes.css")
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/moment")
+
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
@@ -19,14 +22,17 @@
     @RenderSection("scripts", required: false)
     @*@Html.RenderScripts()*@
     @Scripts.Render("~/Scripts/App/LoginModal.js")
-   <script type="text/javascript">
-      
-       //function openModal(e)
-       //{
-       //    e.preventDefault();
-       //    $(this).attr('data-target', '#modal-container');
-       //    $(this).attr('data-toggle', 'modal');
-       //}
+    @Scripts.Render("~/Scripts/jquery.event.move.js")
+    @Scripts.Render("~/Scripts/jquery.event.swipe.js")
+    @Scripts.Render("~/Scripts/jquery.movingboxes.js")
+    <script type="text/javascript">
+
+        //function openModal(e)
+        //{
+        //    e.preventDefault();
+        //    $(this).attr('data-target', '#modal-container');
+        //    $(this).attr('data-toggle', 'modal');
+        //}
        @*$(function () {
            debugger;
             // Initialize numeric spinner input boxes
@@ -65,10 +71,56 @@
                 return false;
             });
         });*@
+        $(function () {
+            //var device_width = $('#main-carousel').width();
+            var device_width = $(window).width();
+            var container_width = $('#main-carousel').width();
+            var panel_width = 0.29;
+            var build_nav = true;
+
+            if (device_width < 768) {
+                panel_width = 1;
+                build_nav = false;
+                //device_width = device_width - 20;
+            }
+            if (device_width == 768) {
+                panel_width = 0.5;
+            }
+            if (992 <= device_width > 768) {
+                panel_width = 0.39;
+            }
+
+            $('#slider').movingBoxes({
+                /* width and panelWidth options deprecated, but still work to keep the plugin backwards compatible
+                width: 500,
+                panelWidth: 0.5,
+                */
+                panelWidth: panel_width,
+                width: container_width,
+                startPanel: 1,      // start with this panel
+                wrap: true,  // if true, the panel will infinitely loop
+                buildNav: build_nav,   // if true, navigation links will be added
+                navFormatter: function () { return "&#9679;"; } // function which returns the navigation text for each panel
+            });
+
+        });
     </script>
 </head>
-<body>
-   
+<body class="main-body">
+    <div id="main-loading-div-background"  >
+        <div id="main-loading-div" class="main-loading-div">
+            <div id="circularG">
+                <div id="circularG_1" class="circularG"></div>
+                <div id="circularG_2" class="circularG"></div>
+                <div id="circularG_3" class="circularG"></div>
+                <div id="circularG_4" class="circularG"></div>
+                <div id="circularG_5" class="circularG"></div>
+                <div id="circularG_6" class="circularG"></div>
+                <div id="circularG_7" class="circularG"></div>
+                <div id="circularG_8" class="circularG"></div>
+            </div>
+        </div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -88,14 +140,10 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-       
+
     </div>
     <div class="container body-content">
-        <div id="main-loading-div-background" style="display:none;" class="row">
-            <div id="main-loading-div" class="main-loading-div">
-                <img src="~/Content/images/ajax-loader.gif" alt="Loading.." />
-            </div>
-        </div>
+       
         @RenderBody()
         <hr />
         <footer>
@@ -178,9 +226,7 @@
                             <li>
                                 <img src="~/Content/images/footer-logo-6.png" />
                             </li>
-                            <li>
-                                <img src="~/Content/images/footer-logo-7.png" />
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -203,17 +249,21 @@
                                     <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
                                     @*<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>*@
                                     <li><a href="#" class="twitchBlank" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                                </ul>
+                            </div>
+                            <div class="pull-right">
+                                <img src="~/Content/images/footer-logo-7.png" />
                             </div>
                         </div>
-                      
+                       
                    </div>
                 </div>
             </div>
         </footer>
     </div>
+       
+
     <div class='modal fade' id='modal-container' tabindex='-1' role='dialog' aria-labelledby='modal-containerlabel' aria-hidden='true'>
-        <div class='modal-dialog' id="modal-dialog"  role="document">
+        <div class='modal-dialog' id="modal-dialog" role="document">
 
             <div class='modal-content' id="modalContent">
 
@@ -221,9 +271,9 @@
             </div>
 
         </div>
-        
+
     </div>
-  
+
 </body>
 
 </html>
