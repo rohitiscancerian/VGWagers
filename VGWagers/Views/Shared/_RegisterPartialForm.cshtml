@@ -6,16 +6,15 @@
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/moment")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
+@Scripts.Render("~/bundles/register")
 
-@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 <script type="text/javascript" language="javascript">
-    $.validator.unobtrusive.adapters.addBool("mandatory", "required");
+    //$.validator.unobtrusive.adapters.addBool("mandatory", "required");
 </script>
 <div id="modal-loading-div-background" style="display:none">
     <div id="modal-loading-div" class="modal-loading-div">
@@ -120,56 +119,5 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-
-        $('input[type="date"]').attr('type', 'text');
-
-        $(".datepicker").datetimepicker({
-            format: 'DD/MM/YYYY',
-
-            showClose: true,
-
-            showClear: true,
-
-            toolbarPlacement: 'bottom'
-        });
-
-        $('#registerform', this).submit(function (e) {
-            e.preventDefault();
-            if (!$(this).valid()) {
-                return false;
-            }
-            $.ajax({
-                url: this.action,
-                type: this.method,
-                data: $(this).serialize(),
-                beforeSend: function () {
-                    $("#modal-loading-div-background").width($("#modalContent").width());
-                    $("#modal-loading-div-background").show();
-                }
-            }).done(function (returnedJSON) {
-                $("#modal-loading-div-background").hide();
-                if (returnedJSON.success) {
-                    $('#modal-container').modal('hide');
-                }
-                else {
-                    if (returnedJSON.msg != null) {
-                        var alertBox = $("#alertBox");
-                        alertBox.html(returnedJSON.msg);
-                        alertBox.css("display", "block");
-                    }
-                    $.each(returnedJSON.errors, function (key, val) {
-                        var container = $('span[data-valmsg-for="' + key + '"]');
-                        container.removeClass("field-validation-valid").addClass("field-validation-error");
-                        container.html(val[val.length - 1].ErrorMessage);
-                    });
-                    return false;
-                }
-            });
-        });
-
-       
-        //allow validation framework to parse DOM
-        $.validator.unobtrusive.parse('#registerform');
-    });
+   
 </script>

@@ -17,6 +17,9 @@ namespace VGWagers
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
                       "~/Scripts/moment*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryajax").Include(
+                    "~/Scripts/jquery.unobtrusive*"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -37,6 +40,25 @@ namespace VGWagers
                       "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Content/footer.css"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/loginmodal").Include(
+                   "~/Scripts/App/login.modal.js"
+               ));
+
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                    "~/Scripts/App/login.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/carousel").Include(
+                  "~/Scripts/jquery.event.move.js",
+                   "~/Scripts/jquery.event.swipe.js",
+                    "~/Scripts/jquery.movingboxes.js",
+                     "~/Scripts/App/carousel.js"
+              ));
+
+            bundles.Add(new ScriptBundle("~/bundles/register").Include(
+                   "~/Scripts/App/register.js"
+               ));
         }
     }
 }
