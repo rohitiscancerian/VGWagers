@@ -7,8 +7,8 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+@Scripts.Render("~/bundles/jqueryajax")
+
 
 <div id="modal-loading-div-background" style="display:none">
     <div id="modal-loading-div" class="modal-loading-div">
@@ -99,31 +99,4 @@
     </div>*@  
 </div>
 
-<script type="text/javascript">
-   
-    $(function () {
-
-        $('#newRegLink').on('click', function (e) {
-            debugger;
-            $('#modalContent').load(this.href, function () {
-                $('#modal-dialog').removeClass("modal-login");
-                $('#modal-dialog').addClass("modal-register");
-                $('#modal-container').modal('show');
-            });
-           
-            return false;
-        });
-
-        $('#forgotPasswordLink').on('click', function (e) {
-            debugger;
-            $('#modal-container').modal('hide');
-            $('#modalContent').load(this.href, function () {
-                $('#modal-container').modal('show');
- 
-            });
-            return false;
-        });
-        //allow validation framework to parse DOM
-        $.validator.unobtrusive.parse('#loginform');
-    });
-</script>
+@Scripts.Render("~/bundles/login")
