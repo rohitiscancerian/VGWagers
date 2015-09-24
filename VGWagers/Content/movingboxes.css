@@ -32,24 +32,36 @@
 /*** Slider panel ***/
 .mb-slider .mb-panel {
 	margin: 0;
-	padding: 20px;
 	display: block;
 	cursor: pointer;
 	float: left;
 	list-style: none;
+    /*transform-style: preserve-3d;*/ 
+    /*opacity: 1;*/ 
+    z-index: 350; 
+    /*transform: translateY(-0px) translateZ(-150px) translateX(124.404px) rotateY(-11.25deg) rotateX(-5deg);*/
 }
 
 /* Cursor to arrow over current panel, pointer for all others,
 change .current class name using plugin option, currentPanel : 'current' */
 .mb-slider .mb-panel.current {
 	cursor: auto;
-    margin-left:35px;
+    /*margin-left:35px;*/
+    /*transform-style: preserve-3d;*/ 
+    /*opacity: 1;*/ 
+    z-index: 500; 
+    /*transform: translateY(0px) translateZ(0px) translateX(0px) rotateY(0deg) rotateX(0deg);*/
 }
 
 @media only screen and (min-width : 768px) {
+    .mb-panel{
+        padding: 20px;	    
+    }
+
     .mb-slider .mb-panel.current {
         margin-left: 0px;
-        padding-left: 29px;
+        padding: 20px;
+	    padding-left: 29px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -67,7 +79,24 @@ change .current class name using plugin option, currentPanel : 'current' */
 
 @media only screen and (min-width : 320px) and (max-width : 768px) {
     .mb-inside {
-        padding-left:22px;
+        padding:11px;
+    }
+
+    .after-current {
+        /*transform: translateY(0px) translateZ(-172px) translateX(-104px) rotateY(-77.25deg) rotateX(0deg);*/
+    }
+
+    .before-current {
+        /*transform: translateY(0px) translateZ(-72px) translateX(120px) rotateY(77.25deg) rotateX(0deg);*/
+    }
+
+     .mb-slider .mb-panel.current {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.67);
+        -moz-box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.67);
+        box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.67);
     }
 }
 
