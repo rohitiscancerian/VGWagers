@@ -402,3 +402,41 @@ and (max-width : 359px){
 .body-bg {
     background:url("images/background_loop.jpg") repeat top left;
 }
+
+.div-bg {
+    background-color:#1f1f1f;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin-right:1px;
+    color:#428bca; 
+    /*-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);*/
+}
+
+.active-tab {
+    display: -webkit-box !important;
+    
+}
+
+@-moz-document url-prefix() {
+.active-tab {
+    display: inline-block !important;
+    
+}
+}
+
+.lookup-list-title {
+    padding-top:10px;
+}
+
+.Inactive {
+    background-color:darkgrey;
+}
+
+.remove {
+    color:red;
+}
+
+.cancel-link {
+    padding-left: 20px;
+}

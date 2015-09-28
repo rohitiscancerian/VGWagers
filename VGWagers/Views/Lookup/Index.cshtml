@@ -1,0 +1,107 @@
+﻿@using VGWagers.Models
+@model LookupViewModel
+
+<script>
+    $(function () {
+        
+        //$('#lookupTab a[href=$(location).attr("href")').tab('show');
+        $('#liGames').removeClass('active');
+        $('#divGames').removeClass('active active-tab');
+        $('#liConsoles').removeClass('active');
+        $('#divConsoles').removeClass('active active-tab');
+        $('#liDifficultyLevels').removeClass('active');
+        $('#divDifficultyLevels').removeClass('active active-tab');
+        $('#liGenre').removeClass('active');
+        $('#divGenre').removeClass('active active-tab');
+
+        switch ($('#hdnLookupType').val())
+        {
+            case "Game":
+                $('#liGames').addClass('active');
+                $('#divGames').addClass('active active-tab');
+                break;
+            case "Platform":
+                $('#liConsoles').addClass('active');
+                $('#divConsoles').addClass('active active-tab');
+                break;
+            case "DifficultyLevel":
+                $('#liDifficultyLevels').addClass('active');
+                $('#divDifficultyLevels').addClass('active active-tab');
+                break;
+            case "Genre":
+                $('#liGenre').addClass('active');
+                $('#divGenre').addClass('active active-tab');
+                break;
+        }
+    })
+</script>
+@{
+    ViewBag.Title = "Manage Lookups";
+}
+<div class="alert alert-warning">
+    <strong>Manage Lookups</strong>     
+    <br /> 
+    <p>
+        You won't be able to set "Active" as "No" for Games that are featured in Current Wagers / Tournaments. Use the "Active" field to retire old games - once made inactive, Games will stop appearing on pages through the entire website.
+    </p>
+    <p>
+        Consoles, Difficulty Levels and Game Genres defined in the respective Lookup tabs will be available on the Games tab and one or more can be mapped to each game.
+    </p>
+    @Html.Hidden("hdnLookupType", (object)@ViewBag.LookupType)
+</div>
+
+<ul class="nav nav-tabs" id="lookupTab">
+    <li id="liGames" class="div-bg" >@Html.ActionLink("Games", "Index", "Lookup")</li>
+    <li id="liConsoles" class="div-bg" >@Html.ActionLink("Consoles / Platforms", "PlatformList", "Lookup")</li>
+    <li id="liDifficultyLevels" class="div-bg" >@Html.ActionLink("Difficulty Levels", "DifficultyLevelList", "Lookup")</li>
+    <li id="liGenre" class="div-bg" >@Html.ActionLink("Genres", "GenreList", "Lookup")</li>   
+</ul>
+<div class="tab-content">
+    <div class="tab-pane div-bg" id="divGames">
+        @if (@ViewBag.LookupType == "Game" && @ViewBag.Mode == "List")
+        {
+            @Html.Partial("~/Views/Shared/Admin/_GameListPartial.cshtml", Model.GamesList)
+        }
+
+        @if (@ViewBag.LookupType == "Game" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
+        {
+            @Html.Partial("~/Views/Shared/Admin/_GameDetailPartialForm.cshtml", new GameViewModel())
+        }
+    </div>
+    <div class="tab-pane div-bg" id="divConsoles">
+        @if (@ViewBag.LookupType == "Platform" && @ViewBag.Mode == "List")
+        {
+            @Html.Partial("~/Views/Shared/Admin/_PlatformListPartial.cshtml", Model.PlatformList)
+        }
+
+        @if (@ViewBag.LookupType == "Platform" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
+        {
+            @Html.Partial("~/Views/Shared/Admin/_PlatformDetailPartialForm.cshtml", Model.Platform)
+        }
+    </div>
+    <div class="tab-pane div-bg" id="divDifficultyLevels">
+        @if (@ViewBag.LookupType == "DifficultyLevel" && @ViewBag.Mode == "List")
+        {
+            @Html.Partial("~/Views/Shared/Admin/_DifficultyLevelListPartial.cshtml", Model.DifficultyLevelList)
+        }
+
+        @if (@ViewBag.LookupType == "DifficultyLevel" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
+        {
+            @Html.Partial("~/Views/Shared/Admin/_DifficultyLevelDetailPartialForm.cshtml", Model.DifficultyLevel)
+        }
+    </div>
+    <div class="tab-pane div-bg" id="divGenre">
+        <!-- content -->
+        @if (@ViewBag.LookupType == "Genre" && @ViewBag.Mode == "List")
+        {
+            @Html.Partial("~/Views/Shared/Admin/_GenreListPartial.cshtml", Model.GenreList)
+        }
+        
+        @if (@ViewBag.LookupType == "Genre" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
+        { 
+            @Html.Partial("~/Views/Shared/Admin/_GenreDetailPartialForm.cshtml", Model.Genre)
+        }
+    </div>
+</div>
+
+
