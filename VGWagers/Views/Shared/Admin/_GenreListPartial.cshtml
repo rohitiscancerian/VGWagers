@@ -1,0 +1,78 @@
+﻿@using VGWagers.Resource
+@using VGWagers.Models
+@model IList<GenreViewModel>
+  
+    @*<div class="row">*@
+ <div class="col-md-12">
+    @*<section id="gameGrid">*@
+    @{
+        Html.EnableUnobtrusiveJavaScript();
+        Html.EnableClientValidation();
+    }
+
+            @Html.AntiForgeryToken()
+            <h4 class="lookup-list-title">List of Genres</h4>
+            <hr />
+            <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-12">
+                    @if (Model.Count > 0)
+                    {
+                        using (Html.BeginForm("Index", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "genrelistform" }))
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped ">
+                                    <tr>
+                                        <th>Genre Id</th>
+                                        <th>Genre</th>
+                                        <th>Active</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    @foreach (var genre in Model)
+                                    {
+                                        var rowClass = genre.ISACTIVE == true
+                                            ? ""
+                                            : "warning";
+                                        <tr class="Inactive">
+                                            <td>@genre.GENREID</td>
+                                            <td>@genre.GENRE</td>
+                                            <td>@genre.ISACTIVE.ToString()</td>
+                                            <td>
+                                                @Html.ActionLink(" ", "EditGenre", new { GenreId = @genre.GENREID }, new { @class = "glyphicon glyphicon-edit" })
+                                                @*<b class="glyphicon glyphicon-edit"></b>*@                                              
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink(" ", "DeleteGenre", new { GenreId = @genre.GENREID }, new { @class = "remove glyphicon glyphicon-remove" })
+                                                @*<b class="remove glyphicon glyphicon-remove"></b>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @Html.Label(".", "No records found", "label")
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-10 col-md-2">
+                    @using (Html.BeginForm("NewGenre", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "newgenreform" }))
+                    {
+                        <input type="submit" class="btn btn-primary btn-lg" value="Add new Genre" />
+                        <br />
+                        <br />
+                    }
+                </div>
+            </div>
+
+    @*</section>*@
+
+</div>
+
+    @*</div>*@
+
