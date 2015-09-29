@@ -120,4 +120,7 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="sesApplicationUser" xml:space="preserve">
+    <value>sesApplicationUser</value>
+  </data>
 </root>
