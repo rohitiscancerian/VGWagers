@@ -1,10 +1,10 @@
 ﻿@{
     var menus = new[]
                 {
-                   new { LinkText="Games", ActionName="Index",ControllerName="Games",Roles="All"  },
-                   new { LinkText="Tournaments", ActionName="Index",ControllerName="Tournaments",Roles="All"  },
-                   new { LinkText="About", ActionName="About",ControllerName="Home",Roles="All"  },
-                   new { LinkText="Lookups", ActionName="Index",ControllerName="Lookups",Roles="Administrator"  },
+                   new { LinkText="Open Wagers", ActionName="Index",ControllerName="Games",Roles="All"  },
+                   new { LinkText="Tournaments", ActionName="Index",ControllerName="Tournaments",Roles="Anonymous"  },
+                   new { LinkText="About", ActionName="About",ControllerName="Home",Roles="Anonymous"  },
+                   new { LinkText="Lookups", ActionName="Index",ControllerName="Lookup",Roles="Administrator"  },
                    new { LinkText="Manage Tournaments", ActionName="Index",ControllerName="ManageTournaments",Roles="Administrator"  },
                    new { LinkText="Users", ActionName="Index",ControllerName="Users",Roles="Administrator"  },
                    new { LinkText="News", ActionName="Index",ControllerName="News",Roles="Administrator"  },

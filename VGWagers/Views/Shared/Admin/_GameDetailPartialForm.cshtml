@@ -1,0 +1,47 @@
+﻿@using VGWagers.Resource
+@using VGWagers.Models
+@model GameViewModel
+  
+        <div class="col-md-12">
+            @*<section id="registerForm">*@
+                @{
+                    Html.EnableUnobtrusiveJavaScript();
+                    Html.EnableClientValidation();
+                }
+                @using (Html.BeginForm("EditGame", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamedetailform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4 class="lookup-list-title">Add a new Game</h4>
+                    <hr />
+                    <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GAMENAME, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GAMENAME, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GAMENAME, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GENRE, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownList("GENREID", String.Empty)
+                            @Html.ValidationMessageFor(m => m.GENREID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-7 col-md-1">
+                            <input type="submit" class="btn btn-primary btn-lg" value="Save" />                       
+                        </div>
+                        <div class="col-md-4 lookup-list-title">
+                            @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
+                        </div>
+                    </div>
+                }
+            @*</section>*@
+
+        </div>
+    

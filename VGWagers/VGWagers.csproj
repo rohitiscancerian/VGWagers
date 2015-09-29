@@ -241,7 +241,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\DifficultyLevelDAL.cs" />
+    <Compile Include="DAL\PlatformDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +254,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DifficultyLevelViewModel.cs" />
     <Compile Include="Models\Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -266,11 +270,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameViewModel.cs" />
+    <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LookupViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MySqlConfiguration.cs" />
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
+    <Compile Include="Models\PlatformViewModel.cs" />
     <Compile Include="Models\test.cs" />
     <Compile Include="Models\ValidationAttributes\AgeValidation.cs" />
     <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
@@ -318,6 +326,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\EmailService.cs" />
     <Compile Include="Utilities\SMSService.cs" />
+    <Compile Include="DAL\GameDAL.cs" />
+    <Compile Include="DAL\GenreDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -477,6 +487,15 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Shared\_GamesCarouselPartial.cshtml" />
+    <Content Include="Views\Shared\Admin\_GameListPartial.cshtml" />
+    <Content Include="Views\Shared\Admin\_GameDetailPartialForm.cshtml" />
+    <Content Include="Views\Shared\Admin\_GenreListPartial.cshtml" />
+    <Content Include="Views\Shared\Admin\_GenreDetailPartialForm.cshtml" />
+    <Content Include="Views\Lookup\Index.cshtml" />
+    <Content Include="Views\Shared\Admin\_DifficultyLevelDetailPartialForm.cshtml" />
+    <Content Include="Views\Shared\Admin\_DifficultyLevelListPartial.cshtml" />
+    <Content Include="Views\Shared\Admin\_PlatformDetailPartialForm.cshtml" />
+    <Content Include="Views\Shared\Admin\_PlatformListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
