@@ -272,6 +272,7 @@
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
     <Compile Include="Models\test.cs" />
+    <Compile Include="Models\ValidationAttributes\AgeValidation.cs" />
     <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
     <Compile Include="Models\vgw_address.cs">
       <DependentUpon>Entities.tt</DependentUpon>
@@ -304,6 +305,11 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\SessionVariables.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SessionVariables.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resource\TextContent.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -370,6 +376,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\App\carousel.js" />
+    <Content Include="Scripts\App\externalregister.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\login.modal.js" />
     <EntityDeploy Include="Models\Entities.edmx">
@@ -484,6 +491,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509151006270_CreateAllTables.resx">
       <DependentUpon>201509151006270_CreateAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource\SessionVariables.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SessionVariables.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\TextContent.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

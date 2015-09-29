@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using VGWagers.Models;
 using VGWagers.Utilities;
 using System.Collections.Generic;
+using VGWagers.Resource;
 
 namespace VGWagers.Controllers
 {
@@ -104,7 +105,7 @@ namespace VGWagers.Controllers
 
                     case SignInStatus.Success:
                         //var roles = await UserManager.GetRolesAsync(user.Id);
-                        Session["MyMenu"] = null;
+                        Session[SessionVariables.Menu] = null;
                         return Json(new { success = true, returnUrl = callbackUrl });
                     case SignInStatus.LockedOut:
                         return Json(new { success = false, msg = "Your account is locked out. Please use Forgot Password link to reset it." });
@@ -553,6 +554,7 @@ namespace VGWagers.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                Session[SessionVariables.Menu] = null;
                 return RedirectToAction("Index", "Manage");
             }
 
@@ -564,7 +566,7 @@ namespace VGWagers.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.DefaultUserName, Email = model.Email, BirthDate = model.DateOfBirth };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -582,6 +584,23 @@ namespace VGWagers.Controllers
             return View(model);
         }
 
+
+         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> CheckUsernameExists(ExternalLoginConfirmationViewModel model)
+        {
+             var user = await UserManager.FindByNameAsync(model.DefaultUserName);
+             if (user != null)
+             {
+                return Json(new {exists = true});
+             }
+             else
+             {
+                 return Json(new {exists = false});
+             }
+        }
+
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -589,7 +608,7 @@ namespace VGWagers.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            Session["MyMenu"] = null;
+            Session[SessionVariables.Menu] = null;
             return RedirectToAction("Index", "Home");
         }
 

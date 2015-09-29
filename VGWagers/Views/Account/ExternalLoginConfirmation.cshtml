@@ -3,8 +3,12 @@
     ViewBag.Title = "Register";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>Associate your @ViewBag.LoginProvider account.</h3>
 
+<h3>Associate your @ViewBag.LoginProvider account.</h3>
+@{
+    Html.EnableUnobtrusiveJavaScript();
+    Html.EnableClientValidation();
+}
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -20,16 +24,34 @@
     <div class="form-group">
         @Html.LabelFor(m => m.DefaultUserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.DefaultUserName, new { @class = "form-control" })
+            <div id="divUsername">
+                @Html.TextBoxFor(m => m.DefaultUserName, new { @class = "form-control", id = "txtUsername", action = "CheckUsernameExists" })
+                <i id="iconOK" data-toggle="tooltip" data-original-title="You may use this Username" class="glyphicon glyphicon-ok ccGreenColor  cchidden tip-right"></i>
+                <i id="iconExists" data-toggle="tooltip" data-original-title="This Username is taken" class="glyphicon glyphicon-remove ccRedColor cchidden tip-right"> </i> 
+                <i id="iconBusy" data-toggle="tooltip" data-original-title="Processing. Please wait." class="glyphicon glyphicon-refresh glyphicon-spin cchidden tip-right"></i>
+            </div>
             @Html.ValidationMessageFor(m => m.DefaultUserName, "", new { @class = "text-danger" })
         </div>
+        @*<div class="col-md-5 ccIconHolderInfront">
+            <label id="iconOK" class="glyphicon glyphicon-ok ccGreenColor  cchidden"></label> 
+            <label id="iconExists" class="glyphicon glyphicon-remove ccRedColor cchidden" > </label> 
+            <i id="iconBusy" class="glyphicon glyphicon-refresh glyphicon-spin"></i>
+        </div> *@
         <br />
-        <br />
+       <br />
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
+      <br />
+     <br />
+        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control datepicker", type = "date" })
+            @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -39,5 +61,5 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/externalregister")
 }

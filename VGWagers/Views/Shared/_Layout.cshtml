@@ -16,57 +16,9 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryajax")
     @RenderSection("scripts", required: false)
-    @*@Html.RenderScripts()*@
     @Scripts.Render("~/bundles/loginmodal")
     @Scripts.Render("~/bundles/carousel")
-    <script type="text/javascript">
-
-        //function openModal(e)
-        //{
-        //    e.preventDefault();
-        //    $(this).attr('data-target', '#modal-container');
-        //    $(this).attr('data-toggle', 'modal');
-        //}
-       @*$(function () {
-           debugger;
-            // Initialize numeric spinner input boxes
-            //$(".numeric-spinner").spinedit();
-            // Initialize modal dialog
-            // attach modal-container bootstrap attributes to links with .modal-link class.
-           // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-           if ('@ViewBag.OpenLoginDialog' == 'Y')
-           {
-               //$(this).attr('data-target', '#modal-container');
-               //$(this).attr('data-toggle', 'modal');
-               $('#modal-container').modal('hide');
-               $('#modal-container').modal('show');
-
-               var loginLink = $("a[id='loginLink']");
-               loginLink.attr({ "href": "#", "data-toggle": "modal", "data-target": "#ModalLogin" });
-           }
-
-            $('body').on('click', '.modal-link', function (e) {
-                e.preventDefault();
-                $(this).attr('data-target', '#modal-container');
-                $(this).attr('data-toggle', 'modal');
-                //debugger;
-                //openModal(e);
-            });
-            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-            $('body').on('click', '.modal-close-btn', function () {
-                $('#modal-container').modal('hide');
-            });
-            //clear modal cache, so that new content can be loaded
-            $('#modal-container').on('hidden.bs.modal', function () {
-                debugger;
-                $(this).removeData('bs.modal');
-            });
-            $('#CancelModal').on('click', function () {
-                return false;
-            });
-        });*@
-       
-    </script>
+   
 </head>
 <body class="main-body">
     <div id="main-loading-div-background"  >
@@ -94,11 +46,11 @@
                 @Html.ActionLink(WebsiteContent.WebsiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @if (Session["MyMenu"] == null)
+                @if (Session[SessionVariables.Menu] == null)
                 {
-                    Session["MyMenu"] = Html.Partial("~/Views/Shared/_MenuPartial.cshtml");
+                    Session[SessionVariables.Menu] = Html.Partial("~/Views/Shared/_MenuPartial.cshtml");
                 }
-                @Session["MyMenu"]
+                @Session[SessionVariables.Menu]
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -217,26 +169,16 @@
                                 <img src="~/Content/images/footer-logo-7.png" />
                             </div>
                         </div>
-                       
                    </div>
                 </div>
             </div>
         </footer>
     </div>
-       
-
     <div class='modal fade' id='modal-container' tabindex='-1' role='dialog' aria-labelledby='modal-containerlabel' aria-hidden='true'>
         <div class='modal-dialog' id="modal-dialog" role="document">
-
             <div class='modal-content' id="modalContent">
-
-
             </div>
-
         </div>
-
     </div>
-
 </body>
-
 </html>
