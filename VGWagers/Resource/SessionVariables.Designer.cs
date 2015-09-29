@@ -68,5 +68,14 @@ namespace VGWagers.Resource {
                 return ResourceManager.GetString("Menu", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sesApplicationUser.
+        /// </summary>
+        public static string sesApplicationUser {
+            get {
+                return ResourceManager.GetString("sesApplicationUser", resourceCulture);
+            }
+        }
     }
 }
