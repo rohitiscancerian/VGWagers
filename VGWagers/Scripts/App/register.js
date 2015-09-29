@@ -1,4 +1,38 @@
-﻿$.validator.unobtrusive.adapters.addBool("mandatory", "required");
+﻿$.validator.unobtrusive.adapters.add("agerangevalidation", ["minage", "maxage"], function (options) {
+    options.rules["agerangevalidation"] = options.params;
+    options.messages["agerangevalidation"] = options.message;
+});
+
+//$.validator.unobtrusive.adapters.add("minagevalidation", "minage");
+
+//$.validator.addMethod("minagevalidation", function (value, elements, param) {
+//    if (value) {
+//        var valdate = new Date(value);
+//        if (
+//            (new Date().getFullYear - valdate.getFullYear()) < parseInt(param.minage) 
+//            ) {
+//            return false;
+//        }
+//    }
+//    return true;
+//});
+
+$.validator.addMethod("agerangevalidation",function(value,elements,params){
+    if (value)
+    {
+        var valdate = new Date(value);
+        if (
+            (new Date().getFullYear - valdate.getFullYear()) < parseInt(params.minage) ||
+            (new Date().getFullYear - valdate.getFullYear()) > parseInt(params.maxage)
+            )
+        {
+            return false;
+        }
+    }
+    return true;
+});
+
+$.validator.unobtrusive.adapters.addBool("mandatory", "required");
 
 
 $(function () {

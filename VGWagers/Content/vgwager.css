@@ -440,3 +440,69 @@ and (max-width : 359px){
 .cancel-link {
     padding-left: 20px;
 }
+}
+
+.cchidden{
+    display:none ;
+}
+
+.ccIconHolderInfront{
+float: left;
+text-align: left;
+height: 34px;
+padding-top: 7px;
+font-size:larger;
+}
+
+.ccGreenColor{
+    color : rgb(29, 221, 7);
+}
+
+.ccRedColor{
+    color : red;
+}
+
+.glyphicon-spin {
+  -webkit-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.inner-addon { 
+    position: relative; 
+     max-width : 280px;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  /*pointer-events: none;*/
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
