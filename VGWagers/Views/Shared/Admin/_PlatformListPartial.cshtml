@@ -35,15 +35,26 @@
                                         var rowClass = platform.ISACTIVE == true
                                             ? ""
                                             : "warning";
-                                        <tr class="Inactive">
+                                        <tr class="rowClass">
                                             <td>@platform.PLATFORMID</td>
                                             <td>@platform.PLATFORMNAME</td>
                                             <td>@platform.ISACTIVE.ToString()</td>
                                             <td>
-                                                @Html.ActionLink(" ", "EditPlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "glyphicon glyphicon-edit" })                                                                                            
+                                                @Html.ActionLink(" ", "EditPlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "glyphicon glyphicon-edit" })
                                             </td>
                                             <td>
-                                                @Html.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "remove glyphicon glyphicon-remove" })                                                
+                                                @*@Html.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "remove glyphicon glyphicon-remove", onclick = "return confirm('Are you sure you want to delete this record?');" })*@
+                                                
+                                                @Ajax.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID },
+                                                                    new AjaxOptions()
+                                                                    {
+                                                                        HttpMethod="Delete",
+                                                                        Confirm="Are you sure you want to delete this record?",
+                                                                        OnComplete = "function() { $(this).parent().parent().remove() }"
+                                                                    },
+                                                                    new { @class = "remove glyphicon glyphicon-remove"}
+                                                                )   
+                                                                                                
                                             </td>
                                         </tr>
                                     }
@@ -58,7 +69,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-9 col-md-3">
+                <div class="col-md-offset-9 col-md-3 div-for-button-below-grid">
                     @using (Html.BeginForm("NewPlatform", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "newplatformform" }))
                     {
                         <input type="submit" class="btn btn-primary btn-lg" value="Add new Console / Platform" />

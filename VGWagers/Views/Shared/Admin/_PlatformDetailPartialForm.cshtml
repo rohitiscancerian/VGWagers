@@ -8,7 +8,7 @@
                     Html.EnableUnobtrusiveJavaScript();
                     Html.EnableClientValidation();
                 }
-                @using (Html.BeginForm("EditPlatform", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "platformdetailform" }))
+                @using (Html.BeginForm("SavePlatform", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "platformdetailform" }))
                 {
                     @Html.AntiForgeryToken()
                     if (@ViewBag.Mode == "Edit")
@@ -23,6 +23,7 @@
                     <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
+                        @Html.HiddenFor(m => m.PLATFORMID)
                         @Html.LabelFor(m => m.PLATFORMNAME, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
                             @Html.TextBoxFor(m => m.PLATFORMNAME, new { @class = "form-control" })

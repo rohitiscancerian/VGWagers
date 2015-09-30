@@ -506,3 +506,8 @@ font-size:larger;
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+.div-for-button-below-grid {
+    text-align: right;
+    margin-right: 15px;
+}

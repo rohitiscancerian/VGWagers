@@ -12,6 +12,7 @@ using VGWagers.Models;
 using VGWagers.Utilities;
 using System.Collections.Generic;
 using VGWagers.DAL;
+using VGWagers.Resource;
 
 namespace VGWagers.Controllers
 {
@@ -26,13 +27,13 @@ namespace VGWagers.Controllers
 
         public ActionResult Index()
         {
+            //Games List
+
             GameDAL gameDAL = new GameDAL();
-            //GenreDAL genreDAL = new GenreDAL();
             LookupViewModel lookupViewModel = new LookupViewModel();
             lookupViewModel.GamesList = gameDAL.GetAllGames();
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "List";
-            //ViewBag.GENREID = genreDAL.GetAllActiveGenre();
             return View(lookupViewModel);   
         }    
         
@@ -44,6 +45,20 @@ namespace VGWagers.Controllers
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "New";
             ViewBag.GENREID = genreDAL.GetAllActiveGenre();
+            return View("Index", lookupViewModel);
+        }
+
+        public ActionResult EditGame(int? GameId)
+        {
+            if (GameId == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            LookupViewModel lookupViewModel = new LookupViewModel();
+            GameDAL gameDAL = new GameDAL();
+            lookupViewModel.Game = gameDAL.FindByGameId((int)GameId);
+            ViewBag.LookupType = "Game";
+            ViewBag.Mode = "Edit";
             return View("Index", lookupViewModel);
         }
 
@@ -80,6 +95,77 @@ namespace VGWagers.Controllers
             ViewBag.Mode = "Edit";
             return View("Index", lookupViewModel);
         }
+
+        public ActionResult SavePlatform(PlatformViewModel platform)
+        {
+            PlatformDAL platformDAL = new PlatformDAL();
+            LookupViewModel lookupViewModel = new LookupViewModel();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+                        
+            if (platform.PLATFORMID > 0)
+            {
+                //Update
+                if (platformDAL.SavePlatform(platform, objCurrentUser.Id))
+                {
+                    ViewBag.Message = "Record modified successfully";
+                }                
+            }
+            else 
+            {
+                //Insert
+                if (platformDAL.SavePlatform(platform, objCurrentUser.Id))
+                {
+                    ViewBag.Message = "Record addded successfully";
+                }
+            }
+            ViewBag.LookupType = "Platform";
+            ViewBag.Mode = "List";
+            lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+            return View("Index", lookupViewModel);
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]        
+        public ActionResult DeletePlatform(int? PlatformId)
+        {
+            if (PlatformId == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            LookupViewModel lookupViewModel = new LookupViewModel();
+            PlatformDAL platformDAL = new PlatformDAL();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+            bool result = platformDAL.DeletePlatform((int)PlatformId, objCurrentUser.Id);
+
+            if (result)
+            {
+                ViewBag.Information = "Successfully deleted Platform record.";
+            }
+            else
+            {
+                ViewBag.Error = "Failed to delete Platform record. This may be due to the Platform being used in Games / Tournaments.";
+            }
+
+            lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+            ViewBag.LookupType = "Platform";
+            ViewBag.Mode = "List";
+            return View("Index", lookupViewModel);
+        }
+
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeletePlatformConfirmed(int PlatformId)
+        //{
+        //    LookupViewModel lookupViewModel = new LookupViewModel();
+        //    PlatformDAL platformDAL = new PlatformDAL();
+            
+        //    //to do: add call to DAL for delete
+
+        //    lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+        //    ViewBag.LookupType = "Platform";
+        //    ViewBag.Mode = "List";
+        //    return View("Index", lookupViewModel);
+        //}
 
         public ActionResult DifficultyLevelList()
         {
