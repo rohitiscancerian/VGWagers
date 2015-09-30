@@ -240,6 +240,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Common\Alert.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -496,6 +498,8 @@
     <Content Include="Views\Shared\Admin\_DifficultyLevelListPartial.cshtml" />
     <Content Include="Views\Shared\Admin\_PlatformDetailPartialForm.cshtml" />
     <Content Include="Views\Shared\Admin\_PlatformListPartial.cshtml" />
+    <Content Include="Views\Shared\_UserMessagePartial.cshtml" />
+    <Content Include="Views\Shared\_UserAlertsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

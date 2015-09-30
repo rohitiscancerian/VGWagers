@@ -16,7 +16,7 @@ using VGWagers.DAL;
 namespace VGWagers.Controllers
 {
     [Authorize(Roles="Administrator")]
-    public class LookupController : Controller
+    public class LookupController : BaseController
     {
         
         public LookupController()
