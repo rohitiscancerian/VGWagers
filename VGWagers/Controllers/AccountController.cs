@@ -16,7 +16,7 @@ using VGWagers.Resource;
 namespace VGWagers.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -518,6 +518,7 @@ namespace VGWagers.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallbackJson(string returnUrl)
         {
+            ViewBag.Information = "You have logged in successfully.";
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -555,6 +556,7 @@ namespace VGWagers.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
+            ViewBag.Information = "You have logged in successfully.";
             if (User.Identity.IsAuthenticated)
             {
                 Session[SessionVariables.Menu] = null;
@@ -584,6 +586,7 @@ namespace VGWagers.Controllers
             }
 
             ViewBag.ReturnUrl = returnUrl;
+            
             return View(model);
         }
 
