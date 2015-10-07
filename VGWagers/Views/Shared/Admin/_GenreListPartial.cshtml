@@ -2,9 +2,7 @@
 @using VGWagers.Models
 @model IList<GenreViewModel>
   
-    @*<div class="row">*@
- <div class="col-md-12">
-    @*<section id="gameGrid">*@
+<div class="col-md-12">
     @{
         Html.EnableUnobtrusiveJavaScript();
         Html.EnableClientValidation();
@@ -33,19 +31,26 @@
                                     @foreach (var genre in Model)
                                     {
                                         var rowClass = genre.ISACTIVE == true
-                                            ? ""
+                                            ? "Inactive"
                                             : "warning";
-                                        <tr class="Inactive">
+                                        <tr class=@rowClass>
                                             <td>@genre.GENREID</td>
-                                            <td>@genre.GENRE</td>
+                                            <td>@genre.GENRENAME</td>
                                             <td>@genre.ISACTIVE.ToString()</td>
                                             <td>
-                                                @Html.ActionLink(" ", "EditGenre", new { GenreId = @genre.GENREID }, new { @class = "glyphicon glyphicon-edit" })
-                                                @*<b class="glyphicon glyphicon-edit"></b>*@                                              
+                                                @Html.ActionLink(" ", "EditGenre", new { GenreId = @genre.GENREID }, new { @class = "glyphicon glyphicon-edit" })                                                                                      
                                             </td>
                                             <td>
-                                                @Html.ActionLink(" ", "DeleteGenre", new { GenreId = @genre.GENREID }, new { @class = "remove glyphicon glyphicon-remove" })
-                                                @*<b class="remove glyphicon glyphicon-remove"></b>*@
+                                                @Ajax.ActionLink(" ", "DeleteGenre", new { GenreId = @genre.GENREID },
+                                                                    new AjaxOptions()
+                                                                    {
+                                                                        HttpMethod = "Delete",
+                                                                        UpdateTargetId = "divMainContent",
+                                                                        Confirm = "Are you sure you want to delete this record?",
+                                                                        OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
+                                                                    },
+                                                                    new { @class = "remove glyphicon glyphicon-remove" }
+                                                                )   
                                             </td>
                                         </tr>
                                     }
@@ -60,7 +65,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-10 col-md-2">
+                <div class="col-md-offset-9 col-md-3 div-for-button-below-grid">
                     @using (Html.BeginForm("NewGenre", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "newgenreform" }))
                     {
                         <input type="submit" class="btn btn-primary btn-lg" value="Add new Genre" />
@@ -69,10 +74,5 @@
                     }
                 </div>
             </div>
-
-    @*</section>*@
-
 </div>
-
-    @*</div>*@
 

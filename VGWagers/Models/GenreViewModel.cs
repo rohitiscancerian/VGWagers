@@ -12,7 +12,7 @@ namespace VGWagers.Models
         public int GENREID { get; set; }
 
         [DisplayName("Genre")]
-        public string GENRE { get; set; }
+        public string GENRENAME { get; set; }
         
         [DisplayName("Active")]
         public bool ISACTIVE { get; set; }

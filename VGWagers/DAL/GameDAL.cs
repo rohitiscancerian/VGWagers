@@ -33,6 +33,17 @@ namespace VGWagers.DAL
                 .ToList();
         }
 
+
+        public GameViewModel FindByGameId(int GameId)
+        {
+            return dbCon.vgw_game.Where(g => g.GAMEID == GameId).Select(gv => new GameViewModel
+                                                                            {
+                                                                                GAMEID = gv.GAMEID,
+                                                                                GAMENAME = gv.GAMENAME,
+                                                                                ISACTIVE = gv.ISACTIVE
+                                                                            }
+                                                                        ).FirstOrDefault();
+        }
     }
 
     

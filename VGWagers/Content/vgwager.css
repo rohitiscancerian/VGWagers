@@ -23,7 +23,7 @@
         /*top: -0%;
         left:-0%;*/
         width:100%;
-        height:100%;
+        height:100%;        
         /*opacity:0.8;
         pointer-events:none;*/
 }
@@ -420,7 +420,7 @@ and (max-width : 359px){
 
 @-moz-document url-prefix() {
 .active-tab {
-    display: inline-block !important;
+    display:flex !important;
     
 }
 }
@@ -505,7 +505,6 @@ font-size:larger;
 
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
 
 .formBackground1{
    background: linear-gradient(to right,  #9c9e9f 0%,#9c9e9f 50%,#f6f6f6 50%,#f6f6f6 100%);
@@ -519,4 +518,24 @@ font-size:larger;
 
 .profileDisplayPad {
     padding-top:6px;
+}
+.right-addon input { padding-right: 30px; }
+
+.div-for-button-below-grid {
+    text-align: right;
+    margin-right: 15px;
+}
+
+.main-loading-div-background {
+    display: none;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+}
+
+.context-menu--active {
+  display: block;
 }

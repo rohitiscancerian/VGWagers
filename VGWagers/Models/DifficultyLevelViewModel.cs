@@ -12,7 +12,7 @@ namespace VGWagers.Models
         public int DIFFICULTYLEVELID { get; set; }
         
         [DisplayName("Difficulty Level")] 
-        public string DIFFICULTYLEVEL { get; set; }
+        public string DIFFICULTYLEVELNAME { get; set; }
 
         [DisplayName("Active")]
         public bool ISACTIVE { get; set; }

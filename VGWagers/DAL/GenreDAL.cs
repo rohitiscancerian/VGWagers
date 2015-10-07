@@ -22,7 +22,7 @@ namespace VGWagers.DAL
         {
             return dbCon.vgw_genre_enum.Select(g => new GenreViewModel { 
                                                     GENREID = g.GENREID, 
-                                                    GENRE = g.GENRE, 
+                                                    GENRENAME = g.GENRE, 
                                                     ISACTIVE = g.ISACTIVE 
                                                 }).ToList();
         }   
@@ -37,11 +37,71 @@ namespace VGWagers.DAL
             return dbCon.vgw_genre_enum.Where(g => g.GENREID == GenreId).Select(gv => new GenreViewModel
                                                                                     {
                                                                                         GENREID = gv.GENREID,
-                                                                                        GENRE = gv.GENRE,
+                                                                                        GENRENAME = gv.GENRE,
                                                                                         ISACTIVE = gv.ISACTIVE
                                                                                     }
                                                                                 ).FirstOrDefault();
         }
+
+        public vgw_genre_enum GetByGenreId(int GenreId)
+        {
+            return dbCon.vgw_genre_enum.Where(d => d.GENREID == GenreId).FirstOrDefault();
+        }
+
+        public bool SaveGenre(GenreViewModel genreViewModel, int iUserId)
+        {
+
+            if (genreViewModel.GENREID > 0)
+            {
+                vgw_genre_enum vgwGenre = GetByGenreId(genreViewModel.GENREID);
+
+                vgwGenre.GENRE = genreViewModel.GENRENAME;
+                vgwGenre.ISACTIVE = genreViewModel.ISACTIVE;
+                vgwGenre.LASTUPDATEDDATE = DateTime.Now;
+                vgwGenre.LASTUPDATEDBYUSERID = iUserId;
+            }
+            else
+            {
+                vgw_genre_enum vgwGenre = new vgw_genre_enum();
+
+                vgwGenre.GENRE = genreViewModel.GENRENAME;
+                vgwGenre.ISACTIVE = genreViewModel.ISACTIVE;
+                vgwGenre.LASTUPDATEDDATE = DateTime.Now;
+                vgwGenre.LASTUPDATEDBYUSERID = iUserId;
+                dbCon.vgw_genre_enum.Add(vgwGenre);
+            }
+
+            int result = dbCon.SaveChanges();
+            if (result == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteGenre(int GenreId, int iUserId)
+        {
+            bool result = false;
+            vgw_genre_enum vgwGenre = GetByGenreId(GenreId);
+            if (vgwGenre != null)
+            {
+                try
+                {
+                    dbCon.vgw_genre_enum.Remove(vgwGenre);
+                    dbCon.SaveChanges();
+                    result = true;
+                }
+                catch
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
     }
 
     

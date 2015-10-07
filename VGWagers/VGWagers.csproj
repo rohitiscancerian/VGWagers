@@ -384,6 +384,7 @@
     <Content Include="Content\images\Twitch_Normal.png" />
     <Content Include="Content\images\Twitter_Hover.png" />
     <Content Include="Content\images\Twitter_Normal.png" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\movingboxes-ie.css" />
     <Content Include="Content\movingboxes.css" />
     <Content Include="Content\vgwager.css" />
@@ -430,6 +431,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.event.move.js" />
     <Content Include="Scripts\jquery.event.swipe.js" />
     <Content Include="Scripts\jquery.movingboxes.js" />

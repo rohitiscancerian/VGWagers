@@ -10,7 +10,9 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/vgwager.css")
     @Styles.Render("~/Content/movingboxes.css")
+    @Styles.Render("~/Content/jquery-ui.min.css")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
@@ -21,7 +23,7 @@
    
 </head>
 <body class="main-body">
-    <div id="main-loading-div-background"  >
+    <div id="main-loading-div-background" class="main-loading-div-background">
         <div id="main-loading-div" class="main-loading-div">
             <div id="circularG">
                 <div id="circularG_1" class="circularG"></div>
@@ -56,7 +58,7 @@
         </div>
 
     </div>
-    <div class="container body-content">
+    <div id="divMainContent" class="container body-content">
        @*@Html.Partial("_UserMessagePartial")*@
         @Html.Partial("_UserAlertsPartial")
         @RenderBody()
