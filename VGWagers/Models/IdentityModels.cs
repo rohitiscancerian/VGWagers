@@ -19,9 +19,17 @@ namespace VGWagers.Models
             return userIdentity;
         }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public bool TermsAndConditionAccepted { get; set; }
-        public bool MarketingMailersAccepted { get; set; } 
+        public bool MarketingMailersAccepted { get; set; }
+
+        public int CountryId { get; set; }
+        public int StateId { get; set; }
+        public int TimeZoneId { get; set; }
+
+        public string TwitchId { get; set; }
+        public string XBoxId { get; set; }
+        public string PSNId { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,CustomRole,int,CustomUserLogin,CustomUserRole,CustomUserClaim>

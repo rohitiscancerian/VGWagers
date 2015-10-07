@@ -1,0 +1,213 @@
+﻿@using VGWagers.Models
+@model ProfileViewModel
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Html.EnableUnobtrusiveJavaScript();
+    Html.EnableClientValidation();
+}
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>
+<div class="div-bg" style="border-radius:5px">
+    <h2>Your Profile</h2>
+    <div class="col-md-12">
+        <div class="col-md-6">
+                Your current balance is
+        </div>
+        <div class="col-md-3">
+            <a href="#" title="Cash Out" >Cash Out</a>
+        </div>
+        <div class="col-md-3">
+            <a href="#" title="Top-up your Account">Top-up your Account</a>
+        </div>
+        <br />
+        <br />
+        <div class="alert alert-info alert-dismissable" >
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Do not ignore this.
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <br />
+           
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            You should not ignore this for sure.
+           
+        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#divProfile">Personal Details</a></li>
+                <li><a href="#divAcctActivity">Account Activity</a></li>
+            </ul>
+            <div  id="divProfile">
+                @using (Html.BeginForm("Save", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "editProfile" }))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.USERNAME, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                <div id="divUsername">
+                                    @Html.TextBoxFor(m => m.USERNAME, new { @class = "form-control", id = "txtUsername" })
+                                    <i id="iconOK" data-toggle="tooltip" data-original-title="You may use this Username" class="glyphicon glyphicon-ok ccGreenColor  cchidden tip-right"></i>
+                                    <i id="iconExists" data-toggle="tooltip" data-original-title="This Username is taken" class="glyphicon glyphicon-remove ccRedColor cchidden tip-right"> </i>
+                                    <i id="iconBusy" data-toggle="tooltip" data-original-title="Processing. Please wait." class="glyphicon glyphicon-refresh glyphicon-spin cchidden tip-right"></i>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.USERNAME, "", new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.USERNAME, new { @class = "control-label" })
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.COUNTRYNAME, new { @class = "col-md-3 control-label" })
+
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.DropDownListFor(m => m.SELECTEDCOUNTRYID, new SelectList(Model.COUNTRYLIST, "CountryId", "CountryName"), "-- Select Country --", new { @class = "form-control" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.COUNTRYNAME, new { @class = "form-control" })
+                            }
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.STATENAME, new { @class = "col-md-3 control-label" })
+
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.DropDownListFor(m => m.SELECTEDSTATEID, new SelectList(Model.STATELIST, "StateId", "StateName"), "-- Select State --", new { @class = "form-control" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.STATENAME, new { @class = "form-control" })
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.TIMEZONENAME, new { @class = "col-md-3 control-label" })
+
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.DropDownListFor(m => m.SELECTEDTIMEZONEID, new SelectList(Model.TIMEZONELIST, "TimeZoneId", "TimeZoneName"), "-- Select Time-Zone --", new { @class = "form-control" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.TIMEZONENAME, new { @class = "form-control" })
+                            }
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.DATEOFBIRTH, new { @class = "col-md-3 control-label" })
+
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.TextBoxFor(m => m.DATEOFBIRTH, new { @class = "form-control datepicker", type = "date" })
+                                @Html.ValidationMessageFor(m => m.DATEOFBIRTH, "", new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.DATEOFBIRTH, new { @class = "form-control" })
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        @Html.LabelFor(m => m.TWITCHUSERID, new { @class = "col-md-3 control-label" })
+
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.TextBoxFor(m => m.TWITCHUSERID, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.TWITCHUSERID, "", new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.TWITCHUSERID, new { @class = "form-control" })
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.XBOXID, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.TextBoxFor(m => m.XBOXID, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.XBOXID, "", new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.XBOXID, new { @class = "form-control" })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PSNID, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8 profileDisplayPad">
+                            @if (ViewBag.Edit == true)
+                            {
+                                @Html.TextBoxFor(m => m.PSNID, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.PSNID, "", new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.PSNID, new { @class = "form-control" })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-4 ">
+                            @if (ViewBag.Edit == true)
+                            {
+                                <input type="submit" class="btn btn-primary btn-lg" value="Save" id="btnSave" />
+
+                                @Html.ActionLink("Cancel", "Cancel", "Manage", routeValues: null, htmlAttributes: new { id = "cancelEdit" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Edit", "Edit", "Manage", routeValues: null, htmlAttributes: new { id = "profileEdit" })
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div id="divAcctActivity">
+
+            </div>
+        </div>
+           
+           
+</div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/Scripts/App/profile.js")
+}

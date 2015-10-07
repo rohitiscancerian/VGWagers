@@ -506,3 +506,17 @@ font-size:larger;
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+.formBackground1{
+   background: linear-gradient(to right,  #9c9e9f 0%,#9c9e9f 50%,#f6f6f6 50%,#f6f6f6 100%);
+   border-radius:3px;
+}
+
+.announcementBanner{
+   background: linear-gradient(to right, #9c9e9f, #f6f6f6);
+   border-radius:3px;
+}
+
+.profileDisplayPad {
+    padding-top:6px;
+}

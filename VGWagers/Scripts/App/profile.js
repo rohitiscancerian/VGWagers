@@ -1,11 +1,33 @@
-﻿$(function () {
+﻿
+$.validator.unobtrusive.adapters.add("agerangevalidation", ["minage", "maxage"], function (options) {
+    options.rules["agerangevalidation"] = options.params;
+    options.messages["agerangevalidation"] = options.message;
+});
+
+$.validator.addMethod("agerangevalidation", function (value, elements, params) {
+    if (value) {
+        var valdate = new Date(value);
+        if (
+            (new Date().getFullYear - valdate.getFullYear()) < parseInt(params.minage) ||
+            (new Date().getFullYear - valdate.getFullYear()) > parseInt(params.maxage)
+            ) {
+            return false;
+        }
+    }
+    return true;
+});
+
+
+
+$(function () {
 
     $("#iconExists").hide();
     $("#iconOK").hide();
     $("#iconBusy").hide();
-    
 
-    $('input[type="date"]').attr('type', 'text').val("");
+
+
+   // $('input[type="date"]').attr('type', 'text').val("");
 
     $(".datepicker").datetimepicker({
         format: 'DD/MM/YYYY',
@@ -16,7 +38,7 @@
 
         toolbarPlacement: 'bottom'
 
-   
+
     });
 
     $(".tip-right").tooltip({ placement: 'right' });
@@ -29,11 +51,11 @@
     $('#txtUsername').blur((function (e) {
         e.preventDefault();
         var extform = $("form");
+
        
-        debugger;
         if (this.value == "") return false;
         $.ajax({
-            url: "http://dev.vgwagers.com/Account/CheckUsernameExists",
+            url: "http://dev.vgwagers.com/Account/CheckUsernameExistsProfile",
             type: "POST",
             data: extform.serialize(),
             beforeSend: function () {
@@ -48,7 +70,7 @@
                 $("#divUsername").addClass("inner-addon right-addon");
                 $("#iconExists").show();
                 $("#iconOK").hide();
-               
+
             }
             else {
                 $("#divUsername").addClass("inner-addon right-addon");
@@ -58,6 +80,13 @@
             }
         });
     }));
+
+    //$('#editProfile', this).submit(function (e) {
+    //    e.preventDefault();
+    //    if (!$(this).valid()) {
+    //        return false;
+    //    }
+    //});
     //allow validation framework to parse DOM
-    $.validator.unobtrusive.parse('#ExternalLoginConfirmation');
+    $.validator.unobtrusive.parse('#editProfile');
 });

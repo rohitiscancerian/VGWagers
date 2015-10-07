@@ -24,6 +24,11 @@ namespace VGWagers.Models
         public DateTime DateOfBirth { get; set; }
     }
 
+    public class ClsUsername
+    {
+        public string Username { get; set; }
+    }
+
     public class LoginExtLoginViewModel
     {
         public ExternalLoginListViewModel extLoginlistViewModel { get; set; }

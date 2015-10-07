@@ -247,15 +247,17 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\DifficultyLevelDAL.cs" />
     <Compile Include="DAL\PlatformDAL.cs" />
+    <Compile Include="DAL\ProfileDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509151006270_CreateAllTables.cs" />
-    <Compile Include="Migrations\201509151006270_CreateAllTables.Designer.cs">
-      <DependentUpon>201509151006270_CreateAllTables.cs</DependentUpon>
+    <Compile Include="Migrations\201510021049549_CreateAllTables.cs" />
+    <Compile Include="Migrations\201510021049549_CreateAllTables.Designer.cs">
+      <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\DifficultyLevelViewModel.cs" />
     <Compile Include="Models\Entities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -281,7 +283,10 @@
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
     <Compile Include="Models\PlatformViewModel.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\State.cs" />
     <Compile Include="Models\test.cs" />
+    <Compile Include="Models\TimeZone.cs" />
     <Compile Include="Models\ValidationAttributes\AgeValidation.cs" />
     <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
     <Compile Include="Models\vgw_address.cs">
@@ -415,6 +420,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\VGWagers.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\App\profile.js" />
     <Content Include="Scripts\App\register.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -500,6 +506,7 @@
     <Content Include="Views\Shared\Admin\_PlatformListPartial.cshtml" />
     <Content Include="Views\Shared\_UserMessagePartial.cshtml" />
     <Content Include="Views\Shared\_UserAlertsPartial.cshtml" />
+    <Content Include="Views\Manage\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -512,8 +519,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509151006270_CreateAllTables.resx">
-      <DependentUpon>201509151006270_CreateAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510021049549_CreateAllTables.resx">
+      <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\SessionVariables.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
