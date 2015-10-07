@@ -23,7 +23,7 @@
         /*top: -0%;
         left:-0%;*/
         width:100%;
-        height:100%;
+        height:100%;        
         /*opacity:0.8;
         pointer-events:none;*/
 }
@@ -420,7 +420,7 @@ and (max-width : 359px){
 
 @-moz-document url-prefix() {
 .active-tab {
-    display: inline-block !important;
+    display:flex !important;
     
 }
 }
@@ -510,4 +510,18 @@ font-size:larger;
 .div-for-button-below-grid {
     text-align: right;
     margin-right: 15px;
+}
+
+.main-loading-div-background {
+    display: none;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+}
+
+.context-menu--active {
+  display: block;
 }

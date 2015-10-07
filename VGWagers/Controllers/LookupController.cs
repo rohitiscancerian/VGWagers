@@ -41,7 +41,10 @@ namespace VGWagers.Controllers
         {
             GenreDAL genreDAL = new GenreDAL();
             LookupViewModel lookupViewModel = new LookupViewModel();
-            lookupViewModel.Game = new GameViewModel();
+            GameViewModel game = new GameViewModel();
+            game.AVAILABLEONPLATFORMS = new SelectList(new List<PlatformViewModel>());
+            game.DIIFICULTYLEVELS = new SelectList(new List<DifficultyLevelViewModel>());
+            lookupViewModel.Game = game;
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "New";
             ViewBag.GENREID = genreDAL.GetAllActiveGenre();
@@ -72,6 +75,16 @@ namespace VGWagers.Controllers
             return View("Index", lookupViewModel);
         }
 
+        public JsonResult GetActivePlatforms(string searchText)
+        {
+            PlatformDAL platformDAL = new PlatformDAL();            
+            PlatformViewModel[] matching = string.IsNullOrWhiteSpace(searchText) ?
+            platformDAL.GetAllActivePlatforms().ToArray() :
+            platformDAL.GetAllActivePlatforms().Where(p => p.PLATFORMNAME.ToUpper().StartsWith(searchText.ToUpper())).ToArray();
+
+            return Json(matching, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult NewPlatform()
         {
             PlatformDAL platformDAL = new PlatformDAL();
@@ -99,7 +112,6 @@ namespace VGWagers.Controllers
         public ActionResult SavePlatform(PlatformViewModel platform)
         {
             PlatformDAL platformDAL = new PlatformDAL();
-            LookupViewModel lookupViewModel = new LookupViewModel();
             ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
                         
             if (platform.PLATFORMID > 0)
@@ -107,50 +119,58 @@ namespace VGWagers.Controllers
                 //Update
                 if (platformDAL.SavePlatform(platform, objCurrentUser.Id))
                 {
-                    ViewBag.Message = "Record modified successfully";
-                }                
+                    Success("Record modified successfully", true);
+                }  
+                else
+                {
+                    Danger("Failed to modify record. Please try again.", true);
+                }
             }
             else 
             {
                 //Insert
                 if (platformDAL.SavePlatform(platform, objCurrentUser.Id))
                 {
-                    ViewBag.Message = "Record addded successfully";
+                    Success("Record addded successfully", true);
+                }
+                else 
+                {
+                    Danger("Failed to insert new record. Please try again.", true);
                 }
             }
-            ViewBag.LookupType = "Platform";
-            ViewBag.Mode = "List";
-            lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
-            return View("Index", lookupViewModel);
+            return RedirectToAction("PlatformList");
         }
 
         [HttpDelete]
-        [ValidateAntiForgeryToken]        
         public ActionResult DeletePlatform(int? PlatformId)
         {
-            if (PlatformId == null)
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
-            LookupViewModel lookupViewModel = new LookupViewModel();
+            //LookupViewModel lookupViewModel = new LookupViewModel();
             PlatformDAL platformDAL = new PlatformDAL();
-            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
-
-            bool result = platformDAL.DeletePlatform((int)PlatformId, objCurrentUser.Id);
-
-            if (result)
+                
+            if (Request.IsAjaxRequest())
             {
-                ViewBag.Information = "Successfully deleted Platform record.";
-            }
-            else
-            {
-                ViewBag.Error = "Failed to delete Platform record. This may be due to the Platform being used in Games / Tournaments.";
+                if (PlatformId == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+                bool result = platformDAL.DeletePlatform((int)PlatformId, objCurrentUser.Id);
+
+                if (result)
+                {
+                    Success("Successfully deleted Platform record.", true);
+                }
+                else
+                {
+                    Danger("Failed to delete Platform record. This may be due to the Platform being used in Games / Tournaments.", true);
+                }                
             }
 
-            lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
-            ViewBag.LookupType = "Platform";
-            ViewBag.Mode = "List";
-            return View("Index", lookupViewModel);
+            //lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+            //ViewBag.LookupType = "Platform";
+            //ViewBag.Mode = "List";
+            return RedirectToAction("PlatformList");
         }
 
         //[HttpPost, ActionName("Delete")]
@@ -201,6 +221,65 @@ namespace VGWagers.Controllers
             return View("Index", lookupViewModel);
         }
 
+        public ActionResult SaveDifficultyLevel(DifficultyLevelViewModel difficultyLevel)
+        {
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+            
+            if (difficultyLevel.DIFFICULTYLEVELID > 0)
+            {
+                //Update
+                if (difficultyLevelDAL.SaveDifficultyLevel(difficultyLevel, objCurrentUser.Id))
+                {
+                    Success("Record modified successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to modify record. Please try again.", true);
+                }
+            }
+            else
+            {
+                //Insert
+                if (difficultyLevelDAL.SaveDifficultyLevel(difficultyLevel, objCurrentUser.Id))
+                {
+                    Success("Record addded successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to insert new record. Please try again.", true);
+                }
+            }
+            return RedirectToAction("DifficultyLevelList");
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteDifficultyLevel(int? DifficultyLevelId)
+        {
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+
+            if (Request.IsAjaxRequest())
+            {
+                if (DifficultyLevelId == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+                bool result = difficultyLevelDAL.DeleteDifficultyLevel((int)DifficultyLevelId, objCurrentUser.Id);
+
+                if (result)
+                {
+                    Success("Successfully deleted Platform record.", true);
+                }
+                else
+                {
+                    Danger("Failed to delete Platform record. This may be due to the Platform being used in Games / Tournaments.", true);
+                }
+            }
+            return RedirectToAction("DifficultyLevelList");
+        }
+
         public ActionResult GenreList()
         {
             GenreDAL genreDAL = new GenreDAL();
@@ -234,7 +313,66 @@ namespace VGWagers.Controllers
             ViewBag.Mode = "Edit";            
             return View("Index", lookupViewModel);
         }
-        
+
+        public ActionResult SaveGenre(GenreViewModel genre)
+        {
+            GenreDAL genreDAL = new GenreDAL();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+            if (genre.GENREID > 0)
+            {
+                //Update
+                if (genreDAL.SaveGenre(genre, objCurrentUser.Id))
+                {
+                    Success("Record modified successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to modify record. Please try again.", true);
+                }
+            }
+            else
+            {
+                //Insert
+                if (genreDAL.SaveGenre(genre, objCurrentUser.Id))
+                {
+                    Success("Record addded successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to insert new record. Please try again.", true);
+                }
+            }
+            return RedirectToAction("GenreList");
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteGenre(int? GenreId)
+        {
+            GenreDAL genreDAL = new GenreDAL();
+
+            if (Request.IsAjaxRequest())
+            {
+                if (GenreId == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+                bool result = genreDAL.DeleteGenre((int)GenreId, objCurrentUser.Id);
+
+                if (result)
+                {
+                    Success("Successfully deleted Platform record.", true);
+                }
+                else
+                {
+                    Danger("Failed to delete Platform record. This may be due to the Platform being used in Games / Tournaments.", true);
+                }
+            }
+            return RedirectToAction("GenreList");
+        }
+
         private Dictionary<string, ModelErrorCollection> GetErrorsFromModelState() //IEnumerable<string>
         {
             return ModelState.Keys.Where(key => ModelState[key].Errors.Count > 0).ToDictionary(key => key, key => ModelState[key].Errors);

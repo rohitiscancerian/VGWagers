@@ -1,10 +1,9 @@
 ﻿@using VGWagers.Resource
 @using VGWagers.Models
 @model IList<PlatformViewModel>
-  
-    @*<div class="row">*@
+
  <div class="col-md-12">
-    @*<section id="gameGrid">*@
+    
     @{
         Html.EnableUnobtrusiveJavaScript();
         Html.EnableClientValidation();
@@ -33,9 +32,9 @@
                                     @foreach (var platform in Model)
                                     {
                                         var rowClass = platform.ISACTIVE == true
-                                            ? ""
+                                            ? "Inactive"
                                             : "warning";
-                                        <tr class="rowClass">
+                                        <tr class=@rowClass>
                                             <td>@platform.PLATFORMID</td>
                                             <td>@platform.PLATFORMNAME</td>
                                             <td>@platform.ISACTIVE.ToString()</td>
@@ -43,18 +42,16 @@
                                                 @Html.ActionLink(" ", "EditPlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "glyphicon glyphicon-edit" })
                                             </td>
                                             <td>
-                                                @*@Html.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "remove glyphicon glyphicon-remove", onclick = "return confirm('Are you sure you want to delete this record?');" })*@
-                                                
                                                 @Ajax.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID },
                                                                     new AjaxOptions()
                                                                     {
                                                                         HttpMethod="Delete",
+                                                                        UpdateTargetId="divMainContent",
                                                                         Confirm="Are you sure you want to delete this record?",
-                                                                        OnComplete = "function() { $(this).parent().parent().remove() }"
+                                                                        OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
                                                                     },
                                                                     new { @class = "remove glyphicon glyphicon-remove"}
-                                                                )   
-                                                                                                
+                                                                )                                                                                                   
                                             </td>
                                         </tr>
                                     }
@@ -79,9 +76,4 @@
                 </div>
             </div>
 
-    @*</section>*@
-
 </div>
-
-    @*</div>*@
-

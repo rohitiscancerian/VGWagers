@@ -65,7 +65,7 @@
 
         @if (@ViewBag.LookupType == "Game" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
         {
-            @Html.Partial("~/Views/Shared/Admin/_GameDetailPartialForm.cshtml", new GameViewModel())
+            @Html.Partial("~/Views/Shared/Admin/_GameDetailPartialForm.cshtml", Model.Game)
         }
     </div>
     <div class="tab-pane div-bg" id="divConsoles">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using VGWagers.Models.ValidationAttributes;
+using System.Web.Mvc;
 
 namespace VGWagers.Models
 {
@@ -23,11 +24,14 @@ namespace VGWagers.Models
         [DisplayName("Active")]
         public bool ISACTIVE { get; set; }
 
-        [DisplayName("Available on Platforms")]
-        public IList<vgw_platform> AVAILABLEONPLATFORMS { get; set; }
+        [DisplayName("Release Date")]
+        public DateTime RELEASEDATE { get; set; }
 
-        [DisplayName("Difficulty Levels")] 
-        public IList<vgw_difficulty_level_enum> DIIFICULTYLEVELS { get; set; }
+        [DisplayName("Available on Platforms")]
+        public SelectList AVAILABLEONPLATFORMS { get; set; }
+
+        [DisplayName("Difficulty Levels")]
+        public SelectList DIIFICULTYLEVELS { get; set; }
     }
 
     
