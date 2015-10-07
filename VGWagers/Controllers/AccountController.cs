@@ -108,7 +108,6 @@ namespace VGWagers.Controllers
                     case SignInStatus.Success:
                         //var roles = await UserManager.GetRolesAsync(user.Id);
                         Session[SessionVariables.sesApplicationUser] = user;
-                        ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
                         Session[SessionVariables.Menu] = null;
                         return Json(new { success = true, returnUrl = callbackUrl });
                     case SignInStatus.LockedOut:
