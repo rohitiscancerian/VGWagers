@@ -539,3 +539,32 @@ font-size:larger;
 .context-menu--active {
   display: block;
 }
+
+.ui-widget-header {
+    border-color:#1F1F1F !important;
+    background-color:#1F1F1F !important;
+}
+
+.ui-state-active{
+    border-color:#428BCA !important;
+    border-bottom:none !important;
+    color:#428BCA !important;
+    background: #EEE url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") repeat-x scroll 50% top !important;
+}
+
+
+.ui-tabs-anchor {
+    color:#428BCA !important;
+}
+
+
+.ui-state-hover{
+    border-color:aliceblue !important;
+     color:aliceblue !important;
+     /*background-color :beige !important;*/
+}
+
+.ui-tabs-active{
+    color:blue !important;
+   
+}
