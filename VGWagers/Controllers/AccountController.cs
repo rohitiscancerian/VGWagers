@@ -208,7 +208,7 @@ namespace VGWagers.Controllers
                     //        break;
                     //}
                     //return Json(false);
-                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, BirthDate = model.DateOfBirth , TermsAndConditionAccepted = model.TermsAccepted, MarketingMailersAccepted = model.MarketingMailersAccepted };
+                    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, DateOfBirth = model.DateOfBirth , TermsAndConditionAccepted = model.TermsAccepted, MarketingMailersAccepted = model.MarketingMailersAccepted };
                    
                   
                     var tempUser = await UserManager.FindByEmailAsync(model.Email);
@@ -495,9 +495,11 @@ namespace VGWagers.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var user = await UserManager.FindByNameAsync(loginInfo.DefaultUserName);
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session[SessionVariables.sesApplicationUser] = user;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -571,7 +573,7 @@ namespace VGWagers.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.DefaultUserName, Email = model.Email, BirthDate = model.DateOfBirth };
+                var user = new ApplicationUser { UserName = model.DefaultUserName, Email = model.Email, DateOfBirth = model.DateOfBirth };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -594,9 +596,9 @@ namespace VGWagers.Controllers
          [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> CheckUsernameExists(ExternalLoginConfirmationViewModel model)
+        public async Task<JsonResult> CheckUsernameExists(ExternalLoginConfirmationViewModel extLoginConfViewModel)
         {
-             var user = await UserManager.FindByNameAsync(model.DefaultUserName);
+            var user = await UserManager.FindByNameAsync(extLoginConfViewModel.DefaultUserName);
              if (user != null)
              {
                 return Json(new {exists = true});
@@ -606,6 +608,25 @@ namespace VGWagers.Controllers
                  return Json(new {exists = false});
              }
         }
+
+         [HttpPost]
+         [AllowAnonymous]
+         [ValidateAntiForgeryToken]
+         public async Task<JsonResult> CheckUsernameExistsProfile(ProfileViewModel profileViewModel)
+         {
+             ApplicationUser loggedInUser = (ApplicationUser)Session["sesApplicationUser"];
+             if (loggedInUser.UserName == profileViewModel.USERNAME)
+             { return Json(new { exists = false }); }
+             var user = await UserManager.FindByNameAsync(profileViewModel.USERNAME);
+             if (user != null)
+             {
+                 return Json(new { exists = true });
+             }
+             else
+             {
+                 return Json(new { exists = false });
+             }
+         }
 
         //
         // POST: /Account/LogOff

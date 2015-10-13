@@ -1,5 +1,10 @@
 ﻿$(function () {
 
+    $("#iconExists").hide();
+    $("#iconOK").hide();
+    $("#iconBusy").hide();
+    
+
     $('input[type="date"]').attr('type', 'text').val("");
 
     $(".datepicker").datetimepicker({

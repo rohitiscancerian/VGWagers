@@ -13,7 +13,7 @@ namespace VGWagers.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201509151006270_CreateAllTables"; }
+            get { return "201510021049549_CreateAllTables"; }
         }
         
         string IMigrationMetadata.Source
