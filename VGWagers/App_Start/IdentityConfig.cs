@@ -38,6 +38,7 @@ namespace VGWagers
         public ApplicationUserManager(IUserStore<ApplicationUser,int> store)
             : base(store)
         {
+            
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 

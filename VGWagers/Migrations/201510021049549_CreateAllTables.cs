@@ -26,6 +26,17 @@ namespace VGWagers.Migrations
                 .PrimaryKey(t => t.ADDRESSID);
             
             CreateTable(
+                "dbo.vgw_country",
+                c => new
+                    {
+                        COUNTRYID = c.Int(nullable: false, identity: true),
+                        COUNTRYNAME = c.String(unicode: false),
+                        LASTUPDATEDDATE = c.DateTime(precision: 0),
+                        LASTUPDATEDBYUSERID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.COUNTRYID);
+            
+            CreateTable(
                 "dbo.vgw_difficulty_level_enum",
                 c => new
                     {
@@ -182,6 +193,30 @@ namespace VGWagers.Migrations
                 .Index(t => t.GAMEID);
             
             CreateTable(
+                "dbo.vgw_state",
+                c => new
+                    {
+                        STATEID = c.Int(nullable: false, identity: true),
+                        STATENAME = c.String(unicode: false),
+                        LASTUPDATEDDATE = c.DateTime(precision: 0),
+                        LASTUPDATEDBYUSERID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.STATEID);
+            
+            CreateTable(
+                "dbo.vgw_timezone",
+                c => new
+                    {
+                        TIMEZONEID = c.Int(nullable: false, identity: true),
+                        USEDAYLIGHTTIME = c.Boolean(nullable: false),
+                        GMTDIFFERENCE = c.Int(nullable: false),
+                        TIMEZONENAME = c.String(unicode: false),
+                        LASTUPDATEDDATE = c.DateTime(precision: 0),
+                        LASTUPDATEDBYUSERID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.TIMEZONEID);
+            
+            CreateTable(
                 "dbo.vgw_tournament",
                 c => new
                     {
@@ -320,6 +355,8 @@ namespace VGWagers.Migrations
             DropTable("dbo.vgw_tournament_match_xref");
             DropTable("dbo.vgw_tournament_format");
             DropTable("dbo.vgw_tournament");
+            DropTable("dbo.vgw_timezone");
+            DropTable("dbo.vgw_state");
             DropTable("dbo.vgw_platform_game_xref");
             DropTable("dbo.vgw_platform");
             DropTable("dbo.vgw_payment_method_enum");
@@ -331,6 +368,7 @@ namespace VGWagers.Migrations
             DropTable("dbo.vgw_game_difficulty_level_xref");
             DropTable("dbo.vgw_game");
             DropTable("dbo.vgw_difficulty_level_enum");
+            DropTable("dbo.vgw_country");
             DropTable("dbo.vgw_address");
         }
     }

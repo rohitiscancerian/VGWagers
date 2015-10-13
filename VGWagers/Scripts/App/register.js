@@ -3,20 +3,6 @@
     options.messages["agerangevalidation"] = options.message;
 });
 
-//$.validator.unobtrusive.adapters.add("minagevalidation", "minage");
-
-//$.validator.addMethod("minagevalidation", function (value, elements, param) {
-//    if (value) {
-//        var valdate = new Date(value);
-//        if (
-//            (new Date().getFullYear - valdate.getFullYear()) < parseInt(param.minage) 
-//            ) {
-//            return false;
-//        }
-//    }
-//    return true;
-//});
-
 $.validator.addMethod("agerangevalidation",function(value,elements,params){
     if (value)
     {

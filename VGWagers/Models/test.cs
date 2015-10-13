@@ -17,6 +17,7 @@ namespace VGWagers.Models
         public VGWagersDB()
             : base("name=DefaultConnection")
         {
+            
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
@@ -45,6 +46,11 @@ namespace VGWagers.Models
         public virtual DbSet<vgw_tournament_user_xref> vgw_tournament_user_xref { get; set; }
         public virtual DbSet<vgw_tournament_match_xref> vgw_tournament_match_xref { get; set; }
         public virtual DbSet<vgw_tournament_schedule> vgw_tournament_schedule { get; set; }
+
+        public virtual DbSet<vgw_country> vgw_country { get; set; }
+        public virtual DbSet<vgw_timezone> vgw_timezone { get; set; }
+        public virtual DbSet<vgw_state> vgw_state { get; set; }
+        
     }   
 
     public partial class vgw_wager
@@ -330,5 +336,35 @@ namespace VGWagers.Models
         public string FORMATNAME { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_country
+    {
+        [Key]
+        public int COUNTRYID { get; set; }
+        public string COUNTRYNAME { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        
+    }
+
+    public partial class vgw_timezone
+    {
+        [Key]
+        public int TIMEZONEID { get; set; }
+        public bool USEDAYLIGHTTIME { get; set; }
+        public int GMTDIFFERENCE { get; set; }
+        public string TIMEZONENAME { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+    }
+
+    public partial class vgw_state
+    {
+        [Key]
+        public int STATEID { get; set; }
+        public string STATENAME { get; set; }
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
     }
 }
