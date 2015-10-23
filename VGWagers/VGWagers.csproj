@@ -255,6 +255,10 @@
     <Compile Include="Migrations\201510021049549_CreateAllTables.Designer.cs">
       <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510182104168_AlterColumn.cs" />
+    <Compile Include="Migrations\201510182104168_AlterColumn.Designer.cs">
+      <DependentUpon>201510182104168_AlterColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
@@ -283,12 +287,14 @@
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
     <Compile Include="Models\PlatformViewModel.cs" />
+    <Compile Include="Models\ProfilePhotoModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\test.cs" />
     <Compile Include="Models\TimeZone.cs" />
     <Compile Include="Models\ValidationAttributes\AgeValidation.cs" />
     <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
+    <Compile Include="Models\ValidationAttributes\FileTypeValidation.cs" />
     <Compile Include="Models\vgw_address.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -331,6 +337,7 @@
       <DependentUpon>TextContent.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CommonFunctions.cs" />
     <Compile Include="Utilities\EmailService.cs" />
     <Compile Include="Utilities\SMSService.cs" />
     <Compile Include="DAL\GameDAL.cs" />
@@ -379,6 +386,7 @@
     <Content Include="Content\images\hn_box_bg.png" />
     <Content Include="Content\images\Microsoft_Hover.png" />
     <Content Include="Content\images\Microsoft_Normal.png" />
+    <Content Include="Content\images\nophoto.jpg" />
     <Content Include="Content\images\top_light_1.jpg" />
     <Content Include="Content\images\Twitch_Hover.png" />
     <Content Include="Content\images\Twitch_Normal.png" />
@@ -427,6 +435,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\App\carousel.js" />
+    <Content Include="Scripts\App\ChangePassword.js" />
     <Content Include="Scripts\App\externalregister.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\login.modal.js" />
@@ -558,6 +567,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510021049549_CreateAllTables.resx">
       <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510182104168_AlterColumn.resx">
+      <DependentUpon>201510182104168_AlterColumn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\SessionVariables.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

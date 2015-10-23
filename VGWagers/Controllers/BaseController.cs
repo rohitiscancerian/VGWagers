@@ -45,5 +45,10 @@ namespace VGWagers.Controllers
 
             TempData[Alert.TempDataKey] = alerts;
         }
+
+        public Dictionary<string, ModelErrorCollection> GetErrorsFromModelState() //IEnumerable<string>
+        {
+            return ModelState.Keys.Where(key => ModelState[key].Errors.Count > 0).ToDictionary(key => key, key => ModelState[key].Errors);
+        }
     }
 }

@@ -23,6 +23,8 @@ namespace VGWagers.DAL
                CountryName = d.COUNTRYNAME 
 
             }).ToList();
+
+            
         }
 
         public IList<State> GetAllStates()

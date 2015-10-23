@@ -344,7 +344,7 @@ namespace VGWagers.Models
         public int COUNTRYID { get; set; }
         public string COUNTRYNAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
         
     }
 
@@ -356,7 +356,7 @@ namespace VGWagers.Models
         public int GMTDIFFERENCE { get; set; }
         public string TIMEZONENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 
     public partial class vgw_state
@@ -365,6 +365,6 @@ namespace VGWagers.Models
         public int STATEID { get; set; }
         public string STATENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 }

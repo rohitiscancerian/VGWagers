@@ -30,6 +30,8 @@ namespace VGWagers.Models
         public string TwitchId { get; set; }
         public string XBoxId { get; set; }
         public string PSNId { get; set; }
+
+        public byte[] ProfilePhoto { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,CustomRole,int,CustomUserLogin,CustomUserRole,CustomUserClaim>

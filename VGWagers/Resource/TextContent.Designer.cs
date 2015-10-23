@@ -22,14 +22,14 @@ namespace VGWagers.Resource {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WebsiteContent {
+    public class TextContent {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WebsiteContent() {
+        internal TextContent() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace VGWagers.Resource {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VGWagers.Resource.TextContent", typeof(WebsiteContent).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VGWagers.Resource.TextContent", typeof(TextContent).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,24 @@ namespace VGWagers.Resource {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error ! Password could not be changed.
+        /// </summary>
+        public static string Failure_ChangePassword {
+            get {
+                return ResourceManager.GetString("Failure_ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password has been changed Successfully.
+        /// </summary>
+        public static string Success_ChangePassword {
+            get {
+                return ResourceManager.GetString("Success_ChangePassword", resourceCulture);
             }
         }
         
