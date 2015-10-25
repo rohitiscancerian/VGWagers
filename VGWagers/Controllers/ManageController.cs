@@ -122,9 +122,12 @@ namespace VGWagers.Controllers
             objProfileViewModel.SELECTEDTIMEZONEID = user.TimeZoneId;
             objProfileViewModel.profilePhoto = new ProfilePhotoModel();
             objProfileViewModel.profilePhoto.PHOTOBINARY = user.ProfilePhoto;
+
+            objProfileViewModel.AccountActivity = _profileDAL.GetAccountActivity(user.Id);
             
         }
 
+       
         public ActionResult Edit()
         {
             ViewBag.Edit = true;

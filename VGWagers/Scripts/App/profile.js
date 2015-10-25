@@ -194,4 +194,8 @@ $(function () {
     $.validator.unobtrusive.parse('#formPhoto');
 
     $.validator.unobtrusive.parse('#editProfile');
+
+    
+
+
 });

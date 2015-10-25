@@ -50,5 +50,7 @@ namespace VGWagers.Models
         public string PSNID { get; set; }
 
         public ProfilePhotoModel profilePhoto { get; set; }
+
+        public IQueryable<AccountActivityModel> AccountActivity { get; set; }
     }
 }

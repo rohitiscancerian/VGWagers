@@ -1,4 +1,7 @@
 ﻿@using VGWagers.Models
+@using GridMvc.Html;
+@using GridMvc.Sorting;
+
 @model ProfileViewModel
 @{
     ViewBag.Title = "UserProfile";
@@ -11,7 +14,30 @@
 }
 <script type="text/javascript">
     $(function () {
-        $("#tabs").tabs();
+
+        var index = 'key';
+        //  Define friendly data store name
+        var dataStore = window.sessionStorage;
+        //  Start magic!
+        try {
+            // getter: Fetch previous value
+            var oldIndex = dataStore.getItem(index);
+        } catch (e) {
+            // getter: Always default to first tab in error state
+            var oldIndex = 0;
+        }
+
+        $("#tabs").tabs({
+            active: oldIndex,
+            activate: function (event, ui) {
+                //  Get future value
+                var newIndex = ui.newTab.parent().children().index(ui.newTab);
+                //  Set future value
+                try {
+                    dataStore.setItem(index, newIndex);
+                } catch (e) { }
+            }
+        });
     });
 </script>
 <div class="div-bg" style="border-radius:5px">
@@ -237,6 +263,17 @@
                 </div>
             </div>
             <div class="tab-pane div-bg active-tab" id="divAcctActivity">
+                
+               @Html.Grid(Model.AccountActivity).Columns(columns =>
+               {
+                   columns.Add(foo => foo.PaymentDate).Titled("Date").Sortable(true).Format("{0:dd/MM/yyyy}");
+                   columns.Add(foo => foo.PaymentDesc).Titled("Transaction");
+                   columns.Add(foo => foo.Debit).Titled("Debit Amount");
+                   columns.Add(foo => foo.Credit).Titled("Credit Amount");
+                   columns.Add(foo => foo.Balance).Titled("Balance");
+                
+               }).WithPaging(20)
+
 
             </div>
         </div>

@@ -72,5 +72,17 @@ namespace VGWagers.DAL
                 TimeZoneName = tv.TIMEZONENAME
             }).FirstOrDefault();
         }
+
+        public IQueryable<AccountActivityModel> GetAccountActivity(int userId)
+        {
+            return dbCon.vgw_payment.Where(t => t.USERID == userId).Select(pt => new AccountActivityModel
+            {
+                PaymentDate = pt.PAYMENTDATE,
+                PaymentDesc = pt.PAYMENTDESCRIPTION,
+                Credit = pt.AMOUNT > 0 ? pt.AMOUNT : (decimal?)null,
+                Debit = pt.AMOUNT < 0 ? pt.AMOUNT : (decimal?)null,
+                Balance = pt.BALANCE
+            }).OrderBy(p => p.PaymentDate).AsQueryable();
+        }
     }
 }

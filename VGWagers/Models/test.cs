@@ -196,6 +196,8 @@ namespace VGWagers.Models
         public decimal AMOUNT { get; set; }
         public bool ISPAYOUT { get; set; }
         public int PAYMENTMETHODID { get; set; }
+        public string PAYMENTDESCRIPTION { get; set; }
+        public decimal BALANCE { get; set; }
         public int PAYMENTCARDLASTFOURDIGITS { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
