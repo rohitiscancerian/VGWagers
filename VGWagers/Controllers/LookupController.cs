@@ -30,8 +30,16 @@ namespace VGWagers.Controllers
             //Games List
 
             GameDAL gameDAL = new GameDAL();
+            PlatformDAL platformDAL = new PlatformDAL();
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+            GenreDAL genreDAL = new GenreDAL();
+            
             LookupViewModel lookupViewModel = new LookupViewModel();
             lookupViewModel.GamesList = gameDAL.GetAllGames();
+            //lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+            //lookupViewModel.DifficultyLevelList = difficultyLevelDAL.GetAllDifficultyLevels();
+            //lookupViewModel.GenreList = genreDAL.GetAllGenre();
+
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "List";
             return View(lookupViewModel);   
@@ -196,6 +204,17 @@ namespace VGWagers.Controllers
             lookupViewModel.DifficultyLevelList = difficultyLevelDAL.GetAllDifficultyLevels();
             return View("Index", lookupViewModel);
         }
+
+        public JsonResult GetActiveDifficultyLevels(string searchText)
+        {
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+            DifficultyLevelViewModel[] matching = string.IsNullOrWhiteSpace(searchText) ?
+                                        difficultyLevelDAL.GetAllActiveDifficultyLevels().ToArray() :
+                                        difficultyLevelDAL.GetAllActiveDifficultyLevels().Where(p => p.DIFFICULTYLEVELNAME.ToUpper().StartsWith(searchText.ToUpper())).ToArray();
+
+            return Json(matching, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult NewDifficultyLevel()
         {

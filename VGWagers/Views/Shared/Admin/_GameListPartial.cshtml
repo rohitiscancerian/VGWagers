@@ -21,6 +21,18 @@
                     {
                         using (Html.BeginForm("Index", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamelistform" }))
                         {
+                            <div class="table-responsive">
+                                <table class="table table-striped ">
+                                    <tr>
+                                        <th>Game Id</th>
+                                        <th>Game</th>
+                                        <th>Image</th>
+                                        <th>Active</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </table>
+                            </div>                        
                         }
                     }
                     else

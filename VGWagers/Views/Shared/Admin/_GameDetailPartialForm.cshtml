@@ -24,63 +24,135 @@
         <hr />
         <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                
-        <div class="form-group">                
-            @Html.LabelFor(m => m.GAMENAME, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.GAMENAME, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.GAMENAME, "", new { @class = "text-danger" })
-            </div>
+        @Html.Hidden("hdnPageMode", (Object)ViewBag.Mode)
+        <div class="col-md-8">
 
-            @Html.LabelFor(m => m.GENRE, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4">
-                @Html.DropDownList("GENREID", null, String.Empty, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.GENREID, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.GAMENAME, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.GAMENAME, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.GAMENAME, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(m => m.GENRE, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.DropDownList("GENREID", null, String.Empty, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.GENREID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ISACTIVE, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4 form-control-static">
-                @Html.CheckBoxFor(m => m.ISACTIVE)
-            </div>
-                    
+            <div class="form-group">
+                @Html.LabelFor(m => m.ISACTIVE, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4 form-control-static">
+                    @Html.CheckBoxFor(m => m.ISACTIVE, new { @class = "checkbox" } )
+                </div>
+
                 @Html.LabelFor(m => m.RELEASEDATE, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4 form-control-static">
-                @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date" })
-                @Html.ValidationMessageFor(m => m.RELEASEDATE, "", new { @class = "text-danger" })
+                <div class="col-md-4 form-control-static">
+                    @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date" })
+                    @Html.ValidationMessageFor(m => m.RELEASEDATE, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.AVAILABLEONPLATFORMS, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4 form-control-static">
-                @Html.TextBox("txtPlatform", "",
-                                new
-                                {
-                                    @class = "autocomplete-with-hidden form-control",
-                                    data_url = Url.Action("GetActivePlatforms", "Lookup"),
-                                    autocomplete = "on"
-                                })
-                @Html.Hidden("hdnSelectedPlatform")
-                @Html.ListBoxFor(m => m.AVAILABLEONPLATFORMS, new MultiSelectList(Model.AVAILABLEONPLATFORMS), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;" })                                
-            </div>
-
-            @Html.LabelFor(m => m.DIIFICULTYLEVELS, new { @class = "col-md-2 control-label" })
-            <div class="col-md-4 form-control-static">
-                @*@Html.DropDownList("DIFFICULTYLEVELID", String.Empty)*@
-                @Html.ListBoxFor(m => m.DIIFICULTYLEVELS, new MultiSelectList(Model.DIIFICULTYLEVELS), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;" })
+            <div class="form-group margin-bottom-5">
+                @Html.LabelFor(m => m.AVAILABLEONPLATFORMS, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4 form-control-static">
+                    @Html.TextBox("txtPlatform", "",
+                                        new
+                                        {
+                                            @class = "autocomplete-with-hidden form-control",
+                                            data_url = Url.Action("GetActivePlatforms", "Lookup"),
+                                            autocomplete = "on"
+                                        })
+                    @Html.Hidden("hdnSelectedPlatform")
+                    @Html.ListBoxFor(m => m.AVAILABLEONPLATFORMS, new MultiSelectList(Model.AVAILABLEONPLATFORMS), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    <ul id="ulPlatforms" class="list-inline"></ul>
+                </div>
                 
+                @Html.LabelFor(m => m.DIIFICULTYLEVELS, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4 form-control-static">
+                    @*@Html.DropDownList("DIFFICULTYLEVELID", String.Empty)*@
+                    @Html.TextBox("txtDifficultyLevel", "",
+                                    new
+                                    {
+                                        @class = "autocomplete-with-hidden form-control",
+                                        data_url = Url.Action("GetActiveDifficultyLevels", "Lookup"),
+                                        autocomplete = "on"
+                                    })
+                    @Html.Hidden("hdnSelectedDifficultyLevel")
+                    @Html.ListBoxFor(m => m.DIIFICULTYLEVELS, new MultiSelectList(Model.DIIFICULTYLEVELS), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    <ul id="ulDifficultyLevels" class="list-inline"></ul>
+                </div>
+            </div>
+            <div class="form-group" id="removeItems" style="display:none;">
+                <div class="col-md-4 col-md-offset-2 form-control-static no-top-padding">
+                    @{
+                        if (@ViewBag.Mode == "Edit")
+                        {
+                            <div id="removePlatformsEdit" style="display:none;">
+                                @Ajax.ActionLink(" Remove selected Platforms(s)", "RemoveGamePlatform", new { GameId = Model.GAMEID },
+                                                                        new AjaxOptions()
+                                                                        {
+                                                                            HttpMethod = "Delete",
+                                                                            UpdateTargetId = "divMainContent",
+                                                                            Confirm = "Are you sure you want to remove the selected console(s) / platform(s) for this game?",
+                                                                            OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
+                                                                        },
+                                                                        new { @class = "remove glyphicon glyphicon-remove link-cursor" }
+                                                        )
+                            </div>
+                        }
+                        else if (@ViewBag.Mode == "New")
+                        {
+                            @*<div id="removePlatformsNew" style="display:none;">
+                                <a class="remove glyphicon glyphicon-remove link-cursor" onclick="removeSelectedItems('lstPlatforms');"> </a>
+                                <a class="remove link-cursor" onclick="removeSelectedItems('lstPlatforms');"> Click here to remove selected Platforms(s)</a>
+                            </div>*@
+                        }
+                    }
+                </div>
+
+                <div class="col-md-4 col-md-offset-2 form-control-static no-top-padding">
+                    @{
+                        if (@ViewBag.Mode == "Edit")
+                        {
+                            <div id="removeDifficultyLevelsEdit" style="display:none;">
+                                @Ajax.ActionLink(" Remove selected Difficulty Level(s)", "RemoveGameDifficultyLevel", new { GameId = Model.GAMEID },
+                                                                        new AjaxOptions()
+                                                                        {
+                                                                            HttpMethod = "Delete",
+                                                                            UpdateTargetId = "divMainContent",
+                                                                            Confirm = "Are you sure you want to remove the selected Difficulty Level(s) for this game?",
+                                                                            OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
+                                                                        },
+                                                                  new { @class = "glyphicon glyphicon-remove link-cursor" }
+                                                                )
+                            </div>
+                        }
+                        else if (ViewBag.mode == "New")
+                        {
+                            @*<div id="removeDifficultyLevelsNew" style="display:none;">
+                                <a class="glyphicon glyphicon-remove link-cursor" onclick="removeSelectedItems('lstDifficultyLevels');"> </a>
+                                <a class="link-cursor" onclick="removeSelectedItems('lstDifficultyLevels');"> Click here to remove selected Difficulty Level(s)</a>
+                            </div>*@
+                        }
+                    }
+                </div>
             </div>
         </div>
+
+        <div class="col-md-3">
+
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-7 col-md-1">
-                <input type="submit" class="btn btn-primary btn-lg" value="Save" />                       
+                <input type="submit" class="btn btn-primary btn-lg" value="Save" />
             </div>
             <div class="col-md-4 lookup-list-title">
                 @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
             </div>
         </div>
-    }            
-</div>
+        }
+    </div>
 
 <nav class="context-menu">
     <ul class="context-menu__items">
@@ -95,6 +167,20 @@
     
 <script>
     $(function () {
+        if ($('#hdnPageMode').val() == 'Edit')
+        {
+            if ($('#lstPlatforms').length() > 0)
+            {
+                $('#removeItems').show();
+                $('#removePlatformsEdit').show();
+            }
+            
+            if ($('#lstDifficultyLevels').length() > 0) {
+                $('#removeItems').show();
+                $('#removeDifficultyLevelsEdit').show();
+            }
+        }
+
         $('#txtPlatform').autocomplete({
             minLength: 1,
             source: function (request, response) {
@@ -129,17 +215,31 @@
                         ui.item.label +
                         "</option>"
                         );
+                    $('#ulPlatforms').append('<li style="margin:2px;" value=' + ui.item.value1 +
+                                             '><span style="" class="badge platform-badge">' +
+                                             ui.item.label + '</span></li>');
+
+                    $('#ulPlatforms > li[value=' +
+                            ui.item.value1 +
+                            '] > span').append("<a style='' > | <span  onclick='removeItem(\"ulPlatforms\", \"lstPlatforms\", " +
+                                                ui.item.value1 +
+                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-remove"></span></a>'
+                                              );
+
                     $(event.target).val('');
+                    //$('#removeItems').show();
+                    //$('#removePlatformsEdit').show();
+                    //$('#removePlatformsNew').show();
                     return false;
                 }
                 else {
-                    $(event.target).val(ui.item.label + ' - Platform already in list');
+                    $(event.target).val(ui.item.label + ' - already added!');
                     return false;
                 }
                 
             },
             change: function (event, ui) {
-                if (!ui.item) {
+               if (!ui.item) {
                     $(event.target).val('').next('input[type=hidden]').val('');
                 }
             }
@@ -151,133 +251,98 @@
             }
         );
 
-        var platformClassName = 'platformList';
-        var menu = document.querySelector("#context-menu");
-        var menuState = 0;
-        var active = "context-menu--active";
-        var menuPosition;
-        var menuPositionX;
-        var menuPositionY;
+        $('#txtDifficultyLevel').autocomplete({
+            minLength: 1,
+            source: function (request, response) {
+                var url = $(this.element).data('url');
 
-        function init() {
-            contextListener();
-            clickListener();
-            keyupListener();
-        }
+                $.getJSON(url, { searchText: request.term }, function (data) {
+                    response($.map(data,
+                        function (item) {
+                            return {
+                                label: item.DIFFICULTYLEVELNAME,
+                                value1: item.DIFFICULTYLEVELID
+                            }
+                        }));
+                })
+            },
+            select: function (event, ui) {
+                $(event.target).next('input[type=hidden]').val(ui.item.value1);
+                //$(event.target).val(ui.item.label);
 
-        /**
-         * Listens for contextmenu events.
-         */
-        function contextListener() {
-            document.addEventListener("contextmenu", function (e) {
-                if (clickInsideElement(e, taskItemClassName)) {
-                    e.preventDefault();
-                    toggleMenuOn();
-                    positionMenu(e);
-                } else {
-                    toggleMenuOff();
+                var optionVal = ui.item.value1;
+                var exists = false;
+                $('#lstDifficultyLevels option').each(function () {
+                    $(this).removeAttr("selected");
+
+                    if (this.value == optionVal) {
+                        exists = true;
+                    }
+                });
+
+                if (!exists) {
+                    $('#lstDifficultyLevels').append('<option value="' + ui.item.value1 + '" selected data-icon="glyphicon-remove">' +
+                        ui.item.label +
+                        "</option>"
+                        );
+                    $('#ulDifficultyLevels').append('<li style="margin:2px;" value=' + ui.item.value1 +
+                                             '><span style="" class="badge platform-badge">' +
+                                             ui.item.label + '</span></li>');
+
+                    $('#ulDifficultyLevels > li[value=' +
+                            ui.item.value1 +
+                            '] > span').append("<a style='' > | <span  onclick='removeItem(\"ulDifficultyLevels\", \"lstDifficultyLevels\", " +
+                                                ui.item.value1 +
+                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-remove"></span></a>'
+                                              );
+                    $(event.target).val('');
+                    //$('#removeItems').show();
+                    //$('#removeDifficultyLevelsEdit').show();
+                    //$('#removeDifficultyLevelsNew').show();
+                    return false;
                 }
-            });
-        }
-
-        /**
-         * Listens for click events.
-         */
-        function clickListener() {
-            document.addEventListener("click", function (e) {
-                var button = e.which || e.button;
-                if (button === 1) {
-                    toggleMenuOff();
+                else {
+                    $(event.target).val(ui.item.label + ' - already added!');
+                    return false;
                 }
-            });
-        }
-
-        /**
-         * Listens for keyup events.
-         */
-        function keyupListener() {
-            window.onkeyup = function (e) {
-                if (e.keyCode === 27) {
-                    toggleMenuOff();
+                
+            },
+            change: function (event, ui) {
+                if (!ui.item) {
+                    $(event.target).val('').next('input[type=hidden]').val('');
                 }
             }
-        }
-
-        $("#lstPlatforms option").each(function () {
-            // Add $(this).val() to your list
-            var taskItem = (this);
-            contextMenuListener(taskItem);
         });
 
-        function contextMenuListener(el) {
-            el.addEventListener("contextmenu", function (e) {
-                //console.log(e, el);
-                e.preventDefault();
-                toggleMenuOn();
-            });
-        }
-
-        function toggleMenuOn() {
-            if (menuState !== 1) {
-                menuState = 1;
-                menu.classList.add(active);
+        $('#txtDifficultyLevel').click(
+            function () {
+                $('#txtDifficultyLevel').val('');
             }
-        }
+        );
 
-        function toggleMenuOff() {
-            if (menuState !== 0) {
-                menuState = 0;
-                menu.classList.remove(activeClassName);
-            }
-        }
-
-        function clickInsideElement(e, className) {
-            var el = e.srcElement || e.target;
-
-            if (el.classList.contains(className)) {
-                return el;
-            } else {
-                while (el = el.parentNode) {
-                    if (el.classList && el.classList.contains(className)) {
-                        return el;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        function getPosition(e) {
-            var posx = 0;
-            var posy = 0;
-
-            if (!e) var e = window.event;
-
-            if (e.pageX || e.pageY) {
-                posx = e.pageX;
-                posy = e.pageY;
-            } else if (e.clientX || e.clientY) {
-                posx = e.clientX + document.body.scrollLeft +
-                                   document.documentElement.scrollLeft;
-                posy = e.clientY + document.body.scrollTop +
-                                   document.documentElement.scrollTop;
-            }
-
-            return {
-                x: posx,
-                y: posy
-            }
-        }
-
-        function positionMenu(e) {
-            menuPosition = getPosition(e);
-            menuPositionX = menuPosition.x + "px";
-            menuPositionY = menuPosition.y + "px";
-
-            menu.style.left = menuPositionX;
-            menu.style.top = menuPositionY;
-        }
-
-        init();
     })
+
+    function removeSelectedItems(listBoxControl) {
+        var action_list = document.getElementById(listBoxControl);
+
+        // Remember selected items.
+        var is_selected = [];
+        for (var i = 0; i < action_list.options.length; ++i) {
+            is_selected[i] = action_list.options[i].selected;
+        }
+
+        // Remove selected items.
+        i = action_list.options.length;
+        while (i--) {
+            if (is_selected[i]) {
+                action_list.remove(i);
+            }
+        }
+    }
+
+    function removeItem(ulControl, listBoxControl, value) {
+        $('#' + ulControl + " > li[value=" + value + "]").remove();
+        $('#' + listBoxControl + " option[value=" + value + "]").remove();
+        
+    }
 </script>

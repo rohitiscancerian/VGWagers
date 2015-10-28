@@ -38,7 +38,7 @@
                                             <td>@genre.GENRENAME</td>
                                             <td>@genre.ISACTIVE.ToString()</td>
                                             <td>
-                                                @Html.ActionLink(" ", "EditGenre", new { GenreId = @genre.GENREID }, new { @class = "glyphicon glyphicon-edit" })                                                                                      
+                                                @Html.ActionLink(" ", "EditGenre", new { GenreId = @genre.GENREID }, new { @class = "glyphicon glyphicon-edit  edit" })                                                                                      
                                             </td>
                                             <td>
                                                 @Ajax.ActionLink(" ", "DeleteGenre", new { GenreId = @genre.GENREID },

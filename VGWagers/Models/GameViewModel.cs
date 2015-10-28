@@ -18,7 +18,8 @@ namespace VGWagers.Models
         public byte[] GAMEIMAGE { get; set; }
         
         public int GENREID { get; set; }
-        
+
+        [DisplayName("Genre")] 
         public string GENRE { get; set; }
 
         [DisplayName("Active")]

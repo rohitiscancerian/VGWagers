@@ -26,11 +26,20 @@ namespace VGWagers.DAL
                                                     DIFFICULTYLEVELNAME = d.DIFFICULTYLEVEL, 
                                                     ISACTIVE = d.ISACTIVE 
                                                 }).ToList();
-        }   
+        }
 
-        public SelectList GetAllActiveDifficultyLevels()
+        public IList<DifficultyLevelViewModel> GetAllActiveDifficultyLevels()
         {
-            return new SelectList(dbCon.vgw_difficulty_level_enum.Where(d => d.ISACTIVE == true).ToList(), "DIFFICULTYLEVELID", "DIFFICULTYLEVEL");
+            return dbCon.vgw_difficulty_level_enum
+                                        .Where(d => d.ISACTIVE == true)
+                                        .Select(d => new DifficultyLevelViewModel
+                                                    {
+                                                        DIFFICULTYLEVELID = d.DIFFICULTYLEVELID,
+                                                        DIFFICULTYLEVELNAME = d.DIFFICULTYLEVEL,
+                                                        ISACTIVE = d.ISACTIVE
+                                                    }                                                         
+                                               )
+                                        .ToList();
         }
 
         public DifficultyLevelViewModel FindByDifficultyLevelId(int DifficultyLevelId)
