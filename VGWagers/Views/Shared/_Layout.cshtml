@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>@WebsiteContent.WebsiteName</title>
+    <title>@TextContent.WebsiteName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/vgwager.css")
@@ -20,7 +20,12 @@
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/loginmodal")
     @Scripts.Render("~/bundles/carousel")
-   
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/ladda-bootstrap/ladda-themeless.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/gridmvc-ext.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ladda-bootstrap/spin.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ladda-bootstrap/ladda.min.js")" type="text/javascript"></script>
 </head>
 <body class="main-body">
     <div id="main-loading-div-background" class="main-loading-div-background">
@@ -45,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(WebsiteContent.WebsiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(TextContent.WebsiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 @if (Session[SessionVariables.Menu] == null)
@@ -143,18 +148,18 @@
                             <li>
                                 <img src="~/Content/images/footer-logo-6.png" />
                             </li>
-                           
+
                         </ul>
                     </div>
                 </div>
                 <div class="footer-r4 navbar-text" style="text-align:center;font-size:x-small">
-                    &COPY;2015 @WebsiteContent.WebsiteName &trade;. ALL RIGHTS RESERVED.
-                    <p>@WebsiteContent.WebsiteName is an online service that facilitates tournaments, leagues and ladders for users who play video games they have purchased on their own video game consoles. @WebsiteContent.WebsiteName does not sell or license video games and is not affiliated with, and our services are not endorsed by, any video game manufacturer or sports league.</p>
+                    &COPY;2015 @TextContent.WebsiteName &trade;. ALL RIGHTS RESERVED.
+                    <p>@TextContent.WebsiteName is an online service that facilitates tournaments, leagues and ladders for users who play video games they have purchased on their own video game consoles. @TextContent.WebsiteName does not sell or license video games and is not affiliated with, and our services are not endorsed by, any video game manufacturer or sports league.</p>
                 </div>
 
             </div>
             <div id="footer" class="navbar navbar-default navbar-inverse navbar-fixed-bottom navbar-collapse ">
-                
+
                 <div class="container">
                     <div class="row">
                         <div style="width:100%;display:inline-block;text-align:center">

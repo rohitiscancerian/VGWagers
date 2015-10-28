@@ -196,6 +196,8 @@ namespace VGWagers.Models
         public decimal AMOUNT { get; set; }
         public bool ISPAYOUT { get; set; }
         public int PAYMENTMETHODID { get; set; }
+        public string PAYMENTDESCRIPTION { get; set; }
+        public decimal BALANCE { get; set; }
         public int PAYMENTCARDLASTFOURDIGITS { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
@@ -344,7 +346,7 @@ namespace VGWagers.Models
         public int COUNTRYID { get; set; }
         public string COUNTRYNAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
         
     }
 
@@ -356,7 +358,7 @@ namespace VGWagers.Models
         public int GMTDIFFERENCE { get; set; }
         public string TIMEZONENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 
     public partial class vgw_state
@@ -365,6 +367,6 @@ namespace VGWagers.Models
         public int STATEID { get; set; }
         public string STATENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 }

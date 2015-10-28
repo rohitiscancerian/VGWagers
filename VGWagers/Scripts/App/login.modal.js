@@ -54,7 +54,7 @@
                     alert('failed');
                 });
             });
-        }).html('<img src="./Content/images/ajax-loader.gif" alt="Loading.." />');
+        });
 
         $('#modal-dialog').removeClass("modal-register");
         $('#modal-dialog').addClass("modal-login");

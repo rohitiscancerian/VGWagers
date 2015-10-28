@@ -9,6 +9,9 @@ using Microsoft.Owin.Security;
 
 using VGWagers.Models;
 using VGWagers.DAL;
+using VGWagers.Resource;
+using VGWagers.Utilities;
+using System.IO;
 
 namespace VGWagers.Controllers
 {
@@ -117,9 +120,14 @@ namespace VGWagers.Controllers
             objProfileViewModel.SELECTEDCOUNTRYID = user.CountryId;
             objProfileViewModel.SELECTEDSTATEID = user.StateId;
             objProfileViewModel.SELECTEDTIMEZONEID = user.TimeZoneId;
+            objProfileViewModel.profilePhoto = new ProfilePhotoModel();
+            objProfileViewModel.profilePhoto.PHOTOBINARY = user.ProfilePhoto;
+
+            objProfileViewModel.AccountActivity = _profileDAL.GetAccountActivity(user.Id);
             
         }
 
+       
         public ActionResult Edit()
         {
             ViewBag.Edit = true;
@@ -203,6 +211,43 @@ namespace VGWagers.Controllers
             return View();
         }
 
+        public ActionResult UploadProfilePhoto(HttpPostedFileBase file)
+        { 
+            HttpPostedFile pic = null;
+          
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                 pic = System.Web.HttpContext.Current.Request.Files["profileImage"];
+                 if (pic == null)
+                {
+                    return Json(new { success = false, msg = "No file uploaded. Please upload a valid image file" });
+                }
+            }
+
+           if (CommonFunctions.IsImage(pic))
+           {
+               ApplicationUser objuser = (ApplicationUser)Session["sesApplicationUser"];
+
+               var user = UserManager.FindById(objuser.Id);
+
+               byte[] fileByteArray = null;
+               using (var binaryReader = new BinaryReader(pic.InputStream))
+               {
+                   pic.InputStream.Position = 0;
+                   fileByteArray = binaryReader.ReadBytes(pic.ContentLength);
+               }
+
+               user.ProfilePhoto = fileByteArray;
+               Session["sesApplicationUser"] = user;
+               UserManager.Update(user);
+           }
+           else
+           {
+               return Json(new { success = false, msg = "The file is not an image. Please upload a valid image file"});
+           }
+
+            return Json(new { success = true });
+        }
         //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
@@ -333,8 +378,10 @@ namespace VGWagers.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
+                Success(TextContent.Success_ChangePassword, true);
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+            Danger(TextContent.Failure_ChangePassword, true);
             AddErrors(result);
             return View(model);
         }
