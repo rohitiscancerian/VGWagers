@@ -441,7 +441,7 @@ and (max-width : 359px){
 .cancel-link {
     padding-left: 20px;
 }
-}
+
 
 .cchidden{
     display:none ;
@@ -594,6 +594,10 @@ a.btn-lg{
 
 .vgw-col-offset12{
     margin-left:13.5%;
+}
+
+.vgw-col-offset36{
+    margin-left:36%;
 }
 
 .vgw-col-width40{

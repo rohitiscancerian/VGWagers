@@ -155,9 +155,9 @@ namespace VGWagers.Controllers
 
                 var user = UserManager.FindById(objuser.Id);
                 user.UserName = paramProfileViewModel.USERNAME;
-                user.CountryId = paramProfileViewModel.SELECTEDCOUNTRYID;
-                user.StateId = paramProfileViewModel.SELECTEDSTATEID;
-                user.TimeZoneId = paramProfileViewModel.SELECTEDTIMEZONEID;
+                user.CountryId =  paramProfileViewModel.SELECTEDCOUNTRYID == null ? 0 : (int)paramProfileViewModel.SELECTEDCOUNTRYID;
+                user.StateId = paramProfileViewModel.SELECTEDSTATEID == null ? 0 : (int)paramProfileViewModel.SELECTEDSTATEID;
+                user.TimeZoneId = paramProfileViewModel.SELECTEDTIMEZONEID == null ? 0 : (int)paramProfileViewModel.SELECTEDTIMEZONEID;
 
                 user.DateOfBirth = paramProfileViewModel.DATEOFBIRTH;
                 user.TwitchId = paramProfileViewModel.TWITCHUSERID;
@@ -174,6 +174,7 @@ namespace VGWagers.Controllers
                 ViewBag.Edit = true;
                 _profileDAL = new ProfileDAL();
                 paramProfileViewModel.COUNTRYLIST = _profileDAL.GetAllCountries();
+
                 paramProfileViewModel.STATELIST = _profileDAL.GetAllStates();
                 paramProfileViewModel.TIMEZONELIST = _profileDAL.GetAllTimezones();
             }

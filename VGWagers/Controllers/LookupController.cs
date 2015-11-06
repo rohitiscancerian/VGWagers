@@ -373,10 +373,7 @@ namespace VGWagers.Controllers
             return RedirectToAction("GenreList");
         }
 
-        private Dictionary<string, ModelErrorCollection> GetErrorsFromModelState() //IEnumerable<string>
-        {
-            return ModelState.Keys.Where(key => ModelState[key].Errors.Count > 0).ToDictionary(key => key, key => ModelState[key].Errors);
-        }
+
 
         
         protected override void Dispose(bool disposing)

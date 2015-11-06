@@ -5,14 +5,22 @@ $.validator.unobtrusive.adapters.add("agerangevalidation", ["minage", "maxage"],
 });
 
 $.validator.addMethod("agerangevalidation", function (value, elements, params) {
-    if (value) {
-        var valdate = new Date(value);
-        if (
-            (new Date().getFullYear - valdate.getFullYear()) < parseInt(params.minage) ||
-            (new Date().getFullYear - valdate.getFullYear()) > parseInt(params.maxage)
-            ) {
-            return false;
-        }
+    debugger;
+    var dateOfBirth = value;
+    var arr_dateText = dateOfBirth.split("/");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+
+    var mydate = new Date();
+    mydate.setFullYear(year, month - 1, day);
+
+    var maxDate = new Date();
+    maxDate.setYear(maxDate.getYear() - 18);
+
+    if (maxDate < mydate) {
+        $.validator.messages.agerangevalidation = "Sorry, only persons over the age of 16 can be covered";
+        return false;
     }
     return true;
 });
@@ -33,10 +41,7 @@ $.validator.addMethod("uploadFile", function (val, element) {
 
 }, "File type error");
 
-jQuery.validator.setDefaults({
-    debug: true,
-    success: "valid"
-});
+
 
 $(function () {
 
@@ -44,7 +49,11 @@ $(function () {
     $("#iconOK").hide();
     $("#iconBusy").hide();
 
-
+    $("#editProfile").validate({
+        rules: {
+            txtDOB: { agerangevalidation: true }
+        }
+    });
 
    // $('input[type="date"]').attr('type', 'text').val("");
 
@@ -100,32 +109,6 @@ $(function () {
         });
     }));
     
-    //$("#pickPhoto").change(function () {
-    //    debugger;
-    //    var data = new FormData();
-    //    var files = $("#pickPhoto").get(0).files;
-    //    if (files.length > 0) {
-    //        data.append("profileImage", files[0]);
-    //    }
-    //    $.ajax({
-    //        url: "http://dev.vgwagers.com/Manage/UploadProfilePhoto",
-    //        //url: "@Url.Action('UploadProfilePhoto', 'Manage')",
-    //        type: "POST",
-    //        processData: false,
-    //        contentType: false,
-    //        data: data,
-    //        success: function (response) {
-    //            //code after success
-    //            var photo = $("#pickPhoto").get(0).files;
-    //            if (photo.length > 0) {
-    //                $("#profilePhoto").attr("src", URL.createObjectURL(photo[0]));
-    //            }
-    //        },
-    //        error: function (er) {
-    //            alert(er);
-    //        }
-    //    });
-    //});
 
     $("#formPhoto", this).submit(function (e) {
         e.preventDefault();
@@ -193,7 +176,7 @@ $(function () {
     //allow validation framework to parse DOM
     $.validator.unobtrusive.parse('#formPhoto');
 
-    $.validator.unobtrusive.parse('#editProfile');
+    //$.validator.unobtrusive.parse('#editProfile');
 
     
 
