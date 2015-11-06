@@ -6,6 +6,8 @@ namespace VGWagers.Models
     using System.Data.Entity.Migrations;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections;
+    using System.Collections.Generic;
     public class VGWagersDB : DbContext
     {
         // Your context has been configured to use a 'test' connection string from your application's 
@@ -28,8 +30,8 @@ namespace VGWagers.Models
         public virtual DbSet<vgw_game> vgw_game { get; set; }
         public virtual DbSet<vgw_match> vgw_match { get; set; }
         public virtual DbSet<vgw_match_users_xref> vgw_match_users_xref { get; set; }
-        public virtual DbSet<vgw_platform> vgw_platform { get; set; }
-        public virtual DbSet<vgw_platform_game_xref> vgw_platform_game_xref { get; set; }
+        public virtual DbSet<vgw_platform_enum> vgw_platform_enum { get; set; }
+        public virtual DbSet<vgw_game_platform_xref> vgw_game_platform_xref { get; set; }
         //public virtual DbSet<vgw_role> vgw_role { get; set; }
         public virtual DbSet<vgw_tournament> vgw_tournament { get; set; }
         public virtual DbSet<vgw_tournament_format> vgw_tournament_format { get; set; }
@@ -103,17 +105,16 @@ namespace VGWagers.Models
         public System.DateTime LASTUPDATEDDATE { get; set; }
     }
 
-    public partial class vgw_game_difficulty_level_xref
+    public partial class vgw_platform_enum
     {
         [Key]
-        public int GAMEDIFFICULTYLEVELID { get; set; }
-        public int GAMEID { get; set; }
-        public int DIFFICULTYLEVELID { get; set; }
-        public int SORTORDER { get; set; }
+        public int PLATFORMID { get; set; }
+        public string PLATFORMNAME { get; set; }
+        public bool ISACTIVE { get; set; }
+        //[ForeignKey("Id")]
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
     }
-
 
     public partial class vgw_address
     {
@@ -142,8 +143,47 @@ namespace VGWagers.Models
       //  [ForeignKey("Id")]
         public int GENREID { get; set; }
         public bool ISACTIVE { get; set; }
+        public System.DateTime RELEASEDATE { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
+        public ICollection<vgw_game_platform_xref> AVAILABLEONPLATFORMS { get; set; }
+        public ICollection<vgw_game_difficulty_level_xref> DIFFICULTYLEVELS { get; set; }
+    }
+
+    public partial class vgw_game_difficulty_level_xref
+    {
+        [Key]
+        public int GAMEDIFFICULTYLEVELID { get; set; }
+        public int DIFFICULTYLEVELID { get; set; }
+        [ForeignKey("DIFFICULTYLEVELID")]
+        public vgw_difficulty_level_enum vgw_difficulty_level_enum { get; set; }
+
+        public int GAMEID { get; set; }
+        [ForeignKey("GAMEID")]
+        public vgw_game vgw_game { get; set; }
+
+        public int SORTORDER { get; set; }
+        public int LASTUPDATEDBYUSERID { get; set; }
+        public System.DateTime LASTUPDATEDDATE { get; set; }
+    }
+
+    public partial class vgw_game_platform_xref
+    {
+        [Key]
+        public int PLATFORMGAMEID { get; set; }
+
+        public int PLATFORMID { get; set; }
+        [ForeignKey("PLATFORMID")]
+        public vgw_platform_enum vgw_platform { get; set; }
+        
+        public int GAMEID { get; set; }
+        [ForeignKey("GAMEID")]
+        public vgw_game vgw_game { get; set; }
+
+        public bool ISACTIVE { get; set; }
+        public Nullable<int> LASTUPDATEDUSERID { get; set; }
+
+        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
     }
 
     public partial class vgw_match
@@ -196,6 +236,8 @@ namespace VGWagers.Models
         public decimal AMOUNT { get; set; }
         public bool ISPAYOUT { get; set; }
         public int PAYMENTMETHODID { get; set; }
+        public string PAYMENTDESCRIPTION { get; set; }
+        public decimal BALANCE { get; set; }
         public int PAYMENTCARDLASTFOURDIGITS { get; set; }
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
@@ -232,40 +274,7 @@ namespace VGWagers.Models
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
         public string TEAMNAME { get; set; }
     }
-
-    public partial class vgw_platform
-    {   
-        [Key]
-        public int PLATFORMID { get; set; }
-        public string PLATFORMNAME { get; set; }
-        public bool ISACTIVE { get; set; }
-        //[ForeignKey("Id")]
-        public int LASTUPDATEDBYUSERID { get; set; }
-        public System.DateTime LASTUPDATEDDATE { get; set; }
-    }
-
-    public partial class vgw_platform_game_xref
-    {
-        //[ForeignKey("PLATFORMID")]
-        [Key]
-        public int PLATFORMGAMEID { get; set; }
-       
-        public int PLATFORMID { get; set; }
-        [ForeignKey("PLATFORMID")]
-        public vgw_platform vgw_platform { get; set; }
-        //[ForeignKey("GAMEID")]
-                
-        public int GAMEID { get; set; }
-        [ForeignKey("GAMEID")]
-        public vgw_game vgw_game { get; set; }
-
-        public bool ISACTIVE { get; set; }
-        public Nullable<int> LASTUPDATEDUSERID { get; set; }
-      
-
-        public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-    }
-
+    
     public partial class vgw_tournament
     {
         [Key]
@@ -344,7 +353,7 @@ namespace VGWagers.Models
         public int COUNTRYID { get; set; }
         public string COUNTRYNAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
         
     }
 
@@ -356,7 +365,7 @@ namespace VGWagers.Models
         public int GMTDIFFERENCE { get; set; }
         public string TIMEZONENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 
     public partial class vgw_state
@@ -365,6 +374,6 @@ namespace VGWagers.Models
         public int STATEID { get; set; }
         public string STATENAME { get; set; }
         public Nullable<System.DateTime> LASTUPDATEDDATE { get; set; }
-        public int LASTUPDATEDBYUSERID { get; set; }
+        public Nullable<int> LASTUPDATEDBYUSERID { get; set; }
     }
 }

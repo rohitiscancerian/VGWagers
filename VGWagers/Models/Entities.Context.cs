@@ -29,8 +29,8 @@ namespace VGWagers.Models
         public virtual DbSet<vgw_game> vgw_game { get; set; }
         public virtual DbSet<vgw_match> vgw_match { get; set; }
         public virtual DbSet<vgw_match_users_xref> vgw_match_users_xref { get; set; }
-        public virtual DbSet<vgw_platform> vgw_platform { get; set; }
-        public virtual DbSet<vgw_platform_game_xref> vgw_platform_game_xref { get; set; }
+        public virtual DbSet<vgw_platform_enum> vgw_platform { get; set; }
+        public virtual DbSet<vgw_game_platform_xref> vgw_platform_game_xref { get; set; }
         //public virtual DbSet<vgw_role> vgw_role { get; set; }
         public virtual DbSet<vgw_tournament> vgw_tournament { get; set; }
         public virtual DbSet<vgw_tournament_format> vgw_tournament_format { get; set; }

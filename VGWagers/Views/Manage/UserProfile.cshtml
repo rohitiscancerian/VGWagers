@@ -1,4 +1,7 @@
 ﻿@using VGWagers.Models
+@using GridMvc.Html;
+@using GridMvc.Sorting;
+
 @model ProfileViewModel
 @{
     ViewBag.Title = "UserProfile";
@@ -11,7 +14,30 @@
 }
 <script type="text/javascript">
     $(function () {
-        $("#tabs").tabs();
+
+        var index = 'key';
+        //  Define friendly data store name
+        var dataStore = window.sessionStorage;
+        //  Start magic!
+        try {
+            // getter: Fetch previous value
+            var oldIndex = dataStore.getItem(index);
+        } catch (e) {
+            // getter: Always default to first tab in error state
+            var oldIndex = 0;
+        }
+
+        $("#tabs").tabs({
+            active: oldIndex,
+            activate: function (event, ui) {
+                //  Get future value
+                var newIndex = ui.newTab.parent().children().index(ui.newTab);
+                //  Set future value
+                try {
+                    dataStore.setItem(index, newIndex);
+                } catch (e) { }
+            }
+        });
     });
 </script>
 <div class="div-bg" style="border-radius:5px">
@@ -45,14 +71,15 @@
                 <li class="div-bg"><a href="#divProfile">Personal Details</a></li>
                 <li class="div-bg"><a href="#divAcctActivity">Account Activity</a></li>
             </ul>
-            <div class="tab-pane div-bg" id="divProfile">
-                @using (Html.BeginForm("Save", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "editProfile" }))
-                {
+            <div class="tab-pane div-bg active-tab" id="divProfile">
+                <div class="col-md-7">
+                    @using (Html.BeginForm("Save", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "editProfile" }))
+                    {
                     <div class="form-group">
-                        @Html.LabelFor(m => m.USERNAME, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-8 profileDisplayPad">
+                        @Html.LabelFor(m => m.USERNAME, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 <div id="divUsername">
                                     @Html.TextBoxFor(m => m.USERNAME, new { @class = "form-control", id = "txtUsername" })
                                     <i id="iconOK" data-toggle="tooltip" data-original-title="You may use this Username" class="glyphicon glyphicon-ok ccGreenColor  cchidden tip-right"></i>
@@ -60,147 +87,193 @@
                                     <i id="iconBusy" data-toggle="tooltip" data-original-title="Processing. Please wait." class="glyphicon glyphicon-refresh glyphicon-spin cchidden tip-right"></i>
                                 </div>
                                 @Html.ValidationMessageFor(m => m.USERNAME, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.USERNAME, new { @class = "control-label" })
-                            }
+                                }
                         </div>
                     </div>
 
 
                     <div class="form-group">
 
-                        @Html.LabelFor(m => m.COUNTRYNAME, new { @class = "col-md-3 control-label" })
+                        @Html.LabelFor(m => m.COUNTRYNAME, new { @class = "col-md-4 control-label" })
 
-                        <div class="col-md-8 profileDisplayPad">
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.DropDownListFor(m => m.SELECTEDCOUNTRYID, new SelectList(Model.COUNTRYLIST, "CountryId", "CountryName"), "-- Select Country --", new { @class = "form-control" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.COUNTRYNAME, new { @class = "form-control" })
-                            }
+                                }
                         </div>
 
                     </div>
                     <div class="form-group">
 
-                        @Html.LabelFor(m => m.STATENAME, new { @class = "col-md-3 control-label" })
+                        @Html.LabelFor(m => m.STATENAME, new { @class = "col-md-4 control-label" })
 
-                        <div class="col-md-8 profileDisplayPad">
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.DropDownListFor(m => m.SELECTEDSTATEID, new SelectList(Model.STATELIST, "StateId", "StateName"), "-- Select State --", new { @class = "form-control" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.STATENAME, new { @class = "form-control" })
-                            }
+                                }
 
                         </div>
 
                     </div>
                     <div class="form-group">
 
-                        @Html.LabelFor(m => m.TIMEZONENAME, new { @class = "col-md-3 control-label" })
+                        @Html.LabelFor(m => m.TIMEZONENAME, new { @class = "col-md-4 control-label" })
 
-                        <div class="col-md-8 profileDisplayPad">
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.DropDownListFor(m => m.SELECTEDTIMEZONEID, new SelectList(Model.TIMEZONELIST, "TimeZoneId", "TimeZoneName"), "-- Select Time-Zone --", new { @class = "form-control" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.TIMEZONENAME, new { @class = "form-control" })
-                            }
+                                }
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ">
 
-                        @Html.LabelFor(m => m.DATEOFBIRTH, new { @class = "col-md-3 control-label" })
+                        @Html.LabelFor(m => m.DATEOFBIRTH, new { @class = "col-md-4 control-label" })
 
-                        <div class="col-md-8 profileDisplayPad">
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.TextBoxFor(m => m.DATEOFBIRTH, new { @class = "form-control datepicker", type = "date" })
                                 @Html.ValidationMessageFor(m => m.DATEOFBIRTH, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.DATEOFBIRTH, new { @class = "form-control" })
-                            }
+                                }
 
                         </div>
 
                     </div>
                     <div class="form-group">
 
-                        @Html.LabelFor(m => m.TWITCHUSERID, new { @class = "col-md-3 control-label" })
+                        @Html.LabelFor(m => m.TWITCHUSERID, new { @class = "col-md-4 control-label" })
 
-                        <div class="col-md-8 profileDisplayPad">
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.TextBoxFor(m => m.TWITCHUSERID, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.TWITCHUSERID, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.TWITCHUSERID, new { @class = "form-control" })
-                            }
+                                }
 
                         </div>
 
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.XBOXID, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-8 profileDisplayPad">
+                        @Html.LabelFor(m => m.XBOXID, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.TextBoxFor(m => m.XBOXID, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.XBOXID, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.XBOXID, new { @class = "form-control" })
-                            }
+                                }
 
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.PSNID, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-8 profileDisplayPad">
+                        @Html.LabelFor(m => m.PSNID, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 @Html.TextBoxFor(m => m.PSNID, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.PSNID, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 @Html.DisplayFor(m => m.PSNID, new { @class = "form-control" })
-                            }
+                                }
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-3 col-md-4 ">
+                        <div class="vgw-col-offset12 vgw-col-width40">
                             @if (ViewBag.Edit == true)
-                            {
+                                {
                                 <input type="submit" class="btn btn-primary btn-lg" value="Save" id="btnSave" />
 
-                                @Html.ActionLink("Cancel", "Cancel", "Manage", routeValues: null, htmlAttributes: new { id = "cancelEdit" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Edit", "Edit", "Manage", routeValues: null, htmlAttributes: new { id = "profileEdit" })
-                            }
+                                @Html.ActionLink("Cancel", "Cancel", "Manage", routeValues: null, htmlAttributes: new { id = "cancelEdit", @class = "btn btn-primary btn-lg" })
+                                }
+                                else
+                                {
+                                @Html.ActionLink("Edit", "Edit", "Manage", routeValues: null, htmlAttributes: new { id = "profileEdit", @class = "btn btn-primary btn-lg" })
+                                }
                         </div>
+
                     </div>
-                }
+
+                    }
+                </div>
+                <div class="col-md-5 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto" >
+                   
+                    @using (Html.BeginForm("UploadProfilePhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data", id = "formPhoto" }))
+                    {
+                        string base64 = string.Empty;
+                        string imgSrc = string.Empty;
+                        if (Model.profilePhoto.PHOTOBINARY != null)
+                        {
+                            base64 = Convert.ToBase64String(Model.profilePhoto.PHOTOBINARY);
+                            imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                        }
+                        else
+                        {
+                            imgSrc = "../Content/images/nophoto.jpg";
+                        }
+                        <div id="divProfilePhoto" style="width:50%">
+                                <img style="width:200px;height:200px" id="profilePhoto" src="@imgSrc" />
+                        </div>
+                        <div style="float:right;width:50%">
+                            <input type="submit" id="btnUpload" value="Upload" class="btn btn-primary btn-lg" style="width:50%" />
+                        </div>
+                        <div style="width:50%">
+                            @Html.TextBoxFor(m => m.profilePhoto.PROFILEPHOTO, new { type = "file", id = "pickPhoto", @class = "vgw-width100percent" })
+                            @Html.ValidationMessageFor(m => m.profilePhoto.PROFILEPHOTO)
+                        </div>
+                        <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
+                    }
+                    <div style="text-align:center;height:200px;vertical-align:middle;display:table-cell">
+                        @Html.ActionLink("Change Password", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { id = "changePassword", @class = "btn btn-primary btn-lg" })
+                    </div>
+
+                </div>
             </div>
-            <div class="tab-pane div-bg" id="divAcctActivity">
+            <div class="tab-pane div-bg active-tab" id="divAcctActivity">
+                
+               @Html.Grid(Model.AccountActivity).Columns(columns =>
+               {
+                   columns.Add(foo => foo.PaymentDate).Titled("Date").Sortable(true).Format("{0:dd/MM/yyyy}");
+                   columns.Add(foo => foo.PaymentDesc).Titled("Transaction");
+                   columns.Add(foo => foo.Debit).Titled("Debit Amount");
+                   columns.Add(foo => foo.Credit).Titled("Credit Amount");
+                   columns.Add(foo => foo.Balance).Titled("Balance");
+                
+               }).WithPaging(20)
+
 
             </div>
         </div>

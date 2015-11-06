@@ -192,7 +192,7 @@ and (max-width : 359px){
 	width:83px;
 	height:83px;
 	margin: auto;
-    top:50%;
+    top:30%;
 }
 
 .circularG{
@@ -415,14 +415,15 @@ and (max-width : 359px){
 }
 
 .active-tab {
-    display: -webkit-box !important;
+    /*display: -webkit-box !important;*/
+    overflow:auto;
     
 }
 
 @-moz-document url-prefix() {
 .active-tab {
-    display:flex !important;
-    
+    /*display:flex !important;*/
+        overflow:auto;
 }
 }
 
@@ -551,7 +552,8 @@ font-size:larger;
 }
 
 .ui-state-active{
-    border-color:#428BCA !important;
+    
+    border:1px solid #428BCA !important;
     border-bottom:none !important;
     color:#428BCA !important;
     background: #EEE url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") repeat-x scroll 50% top !important;
@@ -564,13 +566,63 @@ font-size:larger;
 
 
 .ui-state-hover{
-    border-color:aliceblue !important;
-     color:aliceblue !important;
+    border-color :#428BCA !important;
+    border:0px 0px 0px 0px solid #428BCA !important;
+    color: #1F1F1F !important;
      /*background-color :beige !important;*/
 }
 
 .ui-tabs-active{
     color:blue !important;
+    border-color:none !important;
+}
+
+/*.ui-widget-content a{
+    color:white !important;
+}*/
+
+.vgwButton{
+    color:white;
+}
+
+.vgw-form-group{
+    width:50% !important;
+}
+
+.vgw-col-md-8{
+    /*width:70% !important;*/
+}
+
+a.btn-lg{
+    font-size: 15.5px !important;
+}
+
+.vgw-col-offset12{
+    margin-left:13.5%;
+}
+
+.vgw-col-width40{
+    width:40%;
+}
+
+.vgw-profile-photo{
+ width:50%;
+}
+
+.vgw-form-float-right{
+    float:right;
+}
+
+
+.vgw-div-border-radius{
+    border-radius: 5px;
+    padding:0px 0px 5px 0px;
+}
+
+.vgw-align-div-content-center{
+    align-content:center;
+    align-items:center;
+    vertical-align:middle;
    
 }
 
@@ -589,4 +641,18 @@ font-size:larger;
 .platform-badge {
     font-size:larger;
     background-color:black;
+}
+
+.imgLoadingContainer{
+    opacity:0.8;
+    display: block;
+    z-index: 900000;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(0,0,0,0.8);
+}
+
+.vgw-width100percent{
+    width:100%
 }

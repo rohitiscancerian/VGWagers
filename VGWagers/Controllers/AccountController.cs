@@ -133,10 +133,7 @@ namespace VGWagers.Controllers
             return Json(new { success = false });
         }
 
-        private Dictionary<string, ModelErrorCollection> GetErrorsFromModelState() //IEnumerable<string>
-        {
-            return ModelState.Keys.Where(key => ModelState[key].Errors.Count > 0).ToDictionary(key => key, key => ModelState[key].Errors);
-        }
+
 
         //
         // GET: /Account/VerifyCode

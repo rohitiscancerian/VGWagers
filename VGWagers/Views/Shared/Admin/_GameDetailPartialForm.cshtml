@@ -1,15 +1,83 @@
 ﻿@using VGWagers.Resource
 @using VGWagers.Models
 @model GameViewModel
+<script>
+    $.validator.addMethod("uploadFile", function (val, element) {
+        debugger;
+        var size = element.files[0].size;
+        console.log(size);
 
+        if (size > 1048576)// checks the file more than 1 MB
+        {
+            console.log("returning false");
+            return false;
+        } else {
+            console.log("returning true");
+            return true;
+        }
 
+    }, "File type error");
+
+    $("#gamedetailform", this).submit(function (e) {
+        e.preventDefault();
+        var alertBox = $("#alertBox");
+        alertBox.css("display", "none");
+
+        $("#main-loading-div-background").addClass("imgLoadingContainer");
+        var offsetImg = $("#divProfilePhoto").offset();
+        $("#main-loading-div-background").css("left", offsetImg.left);
+        $("#main-loading-div-background").css("top", offsetImg.top);
+
+        $("#main-loading-div-background").show();
+
+        if (!$(this).valid()) {
+            return false;
+        }
+        var data = $(this).serialize();
+        var files = $("#pickPhoto").get(0).files;
+        if (files.length > 0) {
+            data.append("profileImage", files[0]);
+        }
+        $.ajax({
+            url: "~/Lookup/SaveGame",
+            @*url: "@Url.Action('SaveGame', 'Lookup')",*@
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                //code after success
+                var photo = $("#pickPhoto").get(0).files;
+                if (photo.length > 0) {
+                    $("#profilePhoto").attr("src", URL.createObjectURL(photo[0]));
+                }
+
+                $("#main-loading-div-background").hide();
+            },
+            error: function (er) {
+                alert(er);
+            }
+        }).done(function (returnedJSON) {
+            if (returnedJSON.success) {
+
+            }
+            else {
+                var alertBox = $("#alertBox");
+                alertBox.html(returnedJSON.msg);
+                alertBox.css("display", "block");
+
+                return false;
+            }
+        });
+    });
+</script>
   
 <div class="col-md-12">
     @{
         Html.EnableUnobtrusiveJavaScript();
         Html.EnableClientValidation();
     }
-    @using (Html.BeginForm("EditGame", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamedetailform" }))
+    @using (Html.BeginForm("SaveGame", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", id = "gamedetailform" }))
     {
         @Html.AntiForgeryToken()
 
@@ -25,7 +93,7 @@
         <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.Hidden("hdnPageMode", (Object)ViewBag.Mode)
-        <div class="col-md-8">
+        <div class="col-md-9" style=" min-height: 230px;">
 
             <div class="form-group">
                 @Html.LabelFor(m => m.GAMENAME, new { @class = "col-md-2 control-label" })
@@ -36,7 +104,8 @@
 
                 @Html.LabelFor(m => m.GENRE, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4">
-                    @Html.DropDownList("GENREID", null, String.Empty, new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.GENREID, @Model.ACTIVEGENRES)
+                    @*@Html.DropDownList("GENRES", null, String.Empty, new { @class = "form-control" })*@
                     @Html.ValidationMessageFor(m => m.GENREID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -63,11 +132,22 @@
                                             autocomplete = "on"
                                         })
                     @Html.Hidden("hdnSelectedPlatform")
-                    @Html.ListBoxFor(m => m.AVAILABLEONPLATFORMS, new MultiSelectList(Model.AVAILABLEONPLATFORMS), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
-                    <ul id="ulPlatforms" class="list-inline"></ul>
+                    @Html.ListBoxFor(m => m.PLATFORMS, new MultiSelectList(Model.PLATFORMS, "PLATFORMID", "PLATFORMNAME"), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    <ul id="ulPlatforms" class="list-inline">
+                        @{
+                            foreach (var platform in Model.PLATFORMS)
+                            {
+                                <li style="margin:2px;" value= @platform.PLATFORMID >
+                                    <span style="" class="badge platform-badge">
+                                        @platform.PLATFORMNAME                                        
+                                    </span>
+                                </li>
+                            }
+                        }
+                    </ul>
                 </div>
                 
-                @Html.LabelFor(m => m.DIIFICULTYLEVELS, new { @class = "col-md-2 control-label" })
+                @Html.LabelFor(m => m.DIFFICULTYLEVELS, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
                     @*@Html.DropDownList("DIFFICULTYLEVELID", String.Empty)*@
                     @Html.TextBox("txtDifficultyLevel", "",
@@ -78,8 +158,19 @@
                                         autocomplete = "on"
                                     })
                     @Html.Hidden("hdnSelectedDifficultyLevel")
-                    @Html.ListBoxFor(m => m.DIIFICULTYLEVELS, new MultiSelectList(Model.DIIFICULTYLEVELS), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
-                    <ul id="ulDifficultyLevels" class="list-inline"></ul>
+                    @Html.ListBoxFor(m => m.LEVELS, new MultiSelectList(Model.LEVELS, "DIFFICULTYLEVELID", "DIFFICULTYLEVELNAME"), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    <ul id="ulDifficultyLevels" class="list-inline">
+                        @{
+                            foreach (var difficultyLevel in Model.LEVELS)
+                            {
+                                <li style="margin:2px;" value=@difficultyLevel.DIFFICULTYLEVELID>
+                                    <span style="" class="badge platform-badge">
+                                        @difficultyLevel.DIFFICULTYLEVELNAME
+                                    </span>
+                                </li>
+                            }
+                        }
+                    </ul>
                 </div>
             </div>
             <div class="form-group" id="removeItems" style="display:none;">
@@ -87,7 +178,7 @@
                     @{
                         if (@ViewBag.Mode == "Edit")
                         {
-                            <div id="removePlatformsEdit" style="display:none;">
+                            @*<div id="removePlatformsEdit" style="display:none;">
                                 @Ajax.ActionLink(" Remove selected Platforms(s)", "RemoveGamePlatform", new { GameId = Model.GAMEID },
                                                                         new AjaxOptions()
                                                                         {
@@ -98,7 +189,7 @@
                                                                         },
                                                                         new { @class = "remove glyphicon glyphicon-remove link-cursor" }
                                                         )
-                            </div>
+                            </div>*@
                         }
                         else if (@ViewBag.Mode == "New")
                         {
@@ -114,7 +205,7 @@
                     @{
                         if (@ViewBag.Mode == "Edit")
                         {
-                            <div id="removeDifficultyLevelsEdit" style="display:none;">
+                            @*<div id="removeDifficultyLevelsEdit" style="display:none;">
                                 @Ajax.ActionLink(" Remove selected Difficulty Level(s)", "RemoveGameDifficultyLevel", new { GameId = Model.GAMEID },
                                                                         new AjaxOptions()
                                                                         {
@@ -125,7 +216,7 @@
                                                                         },
                                                                   new { @class = "glyphicon glyphicon-remove link-cursor" }
                                                                 )
-                            </div>
+                            </div>*@
                         }
                         else if (ViewBag.mode == "New")
                         {
@@ -139,8 +230,28 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-
+        <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto">
+            @{
+                string base64 = string.Empty;
+                string imgSrc = string.Empty;
+                if (Model.GAMEIMAGE != null && Model.GAMEIMAGE.GAMEIMAGEBINARY != null)
+                {
+                    base64 = Convert.ToBase64String(Model.GAMEIMAGE.GAMEIMAGEBINARY);
+                    imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                }
+                else
+                {
+                    imgSrc = "../Content/images/default_image.png";
+                }
+                <div id="divProfilePhoto" style="width:50%">
+                    <img style="width:200px;height:200px" id="profilePhoto" src="@imgSrc" />
+                </div>
+                <div >
+                    @Html.TextBoxFor(m => m.GAMEIMAGE.GAMEIMAGE, new { type = "file", id = "pickPhoto", @class = "vgw-width100percent" })
+                    @Html.ValidationMessageFor(m => m.GAMEIMAGE.GAMEIMAGE)
+                </div>
+                <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
+            }
         </div>
 
         <div class="form-group">
@@ -203,7 +314,7 @@
                 var optionVal = ui.item.value1;
                 var exists = false;
                 $('#lstPlatforms option').each(function () {
-                    $(this).removeAttr("selected");
+                    //$(this).removeAttr("selected");
 
                     if (this.value == optionVal) {
                         exists = true;
@@ -211,8 +322,8 @@
                 });
 
                 if (!exists) {
-                    $('#lstPlatforms').append('<option value="' + ui.item.value1 + '" selected data-icon="glyphicon-remove">' +
-                        ui.item.label +
+                    $('#lstPlatforms').append('<option value="' + ui.item.value1 + '" selected>' +
+                        ui.item.value1 +
                         "</option>"
                         );
                     $('#ulPlatforms').append('<li style="margin:2px;" value=' + ui.item.value1 +
@@ -273,7 +384,7 @@
                 var optionVal = ui.item.value1;
                 var exists = false;
                 $('#lstDifficultyLevels option').each(function () {
-                    $(this).removeAttr("selected");
+                    //$(this).removeAttr("selected");
 
                     if (this.value == optionVal) {
                         exists = true;
@@ -281,8 +392,8 @@
                 });
 
                 if (!exists) {
-                    $('#lstDifficultyLevels').append('<option value="' + ui.item.value1 + '" selected data-icon="glyphicon-remove">' +
-                        ui.item.label +
+                    $('#lstDifficultyLevels').append('<option value="' + ui.item.value1 + '" selected>' +
+                        ui.item.value1 +
                         "</option>"
                         );
                     $('#ulDifficultyLevels').append('<li style="margin:2px;" value=' + ui.item.value1 +
@@ -345,4 +456,6 @@
         $('#' + listBoxControl + " option[value=" + value + "]").remove();
         
     }
+
+    
 </script>

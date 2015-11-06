@@ -50,6 +50,12 @@
     <Reference Include="Forloop.HtmlHelpers">
       <HintPath>..\packages\Forloop.HtmlHelpers.1.2.0.0\lib\net45\Forloop.HtmlHelpers.dll</HintPath>
     </Reference>
+    <Reference Include="Grid.Mvc.Ajax">
+      <HintPath>..\packages\Grid.Mvc.Ajax.1.0.31\lib\Grid.Mvc.Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -255,7 +261,24 @@
     <Compile Include="Migrations\201510021049549_CreateAllTables.Designer.cs">
       <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510182104168_AlterColumn.cs" />
+    <Compile Include="Migrations\201510182104168_AlterColumn.Designer.cs">
+      <DependentUpon>201510182104168_AlterColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510231414509_PaymentColumns.cs" />
+    <Compile Include="Migrations\201510231414509_PaymentColumns.Designer.cs">
+      <DependentUpon>201510231414509_PaymentColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510301158377_gameChanges.cs" />
+    <Compile Include="Migrations\201510301158377_gameChanges.Designer.cs">
+      <DependentUpon>201510301158377_gameChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510301526417_gameReleaseDate.cs" />
+    <Compile Include="Migrations\201510301526417_gameReleaseDate.Designer.cs">
+      <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountActivityModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\DifficultyLevelViewModel.cs" />
@@ -274,6 +297,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameImageModel.cs" />
+    <Compile Include="Models\GamePlatformViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -283,12 +308,14 @@
     <Compile Include="Models\MySqlHistoryContext.cs" />
     <Compile Include="Models\MySqlInitializer.cs" />
     <Compile Include="Models\PlatformViewModel.cs" />
+    <Compile Include="Models\ProfilePhotoModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\test.cs" />
     <Compile Include="Models\TimeZone.cs" />
     <Compile Include="Models\ValidationAttributes\AgeValidation.cs" />
     <Compile Include="Models\ValidationAttributes\CheckboxValidation.cs" />
+    <Compile Include="Models\ValidationAttributes\FileTypeValidation.cs" />
     <Compile Include="Models\vgw_address.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -331,6 +358,7 @@
       <DependentUpon>TextContent.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CommonFunctions.cs" />
     <Compile Include="Utilities\EmailService.cs" />
     <Compile Include="Utilities\SMSService.cs" />
     <Compile Include="DAL\GameDAL.cs" />
@@ -343,9 +371,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\footer.css" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\gridmvc.datepicker.css" />
+    <Content Include="Content\gridmvc.datepicker.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\background_loop.jpg" />
+    <Content Include="Content\images\default_image.png" />
     <Content Include="Content\images\Facebook_Hover.png" />
     <Content Include="Content\images\Facebook_Normal.png" />
     <Content Include="Content\images\footer-logo-1.png" />
@@ -379,12 +413,14 @@
     <Content Include="Content\images\hn_box_bg.png" />
     <Content Include="Content\images\Microsoft_Hover.png" />
     <Content Include="Content\images\Microsoft_Normal.png" />
+    <Content Include="Content\images\nophoto.jpg" />
     <Content Include="Content\images\top_light_1.jpg" />
     <Content Include="Content\images\Twitch_Hover.png" />
     <Content Include="Content\images\Twitch_Normal.png" />
     <Content Include="Content\images\Twitter_Hover.png" />
     <Content Include="Content\images\Twitter_Normal.png" />
     <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\ladda-bootstrap\ladda-themeless.min.css" />
     <Content Include="Content\movingboxes-ie.css" />
     <Content Include="Content\movingboxes.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -427,6 +463,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\App\carousel.js" />
+    <Content Include="Scripts\App\ChangePassword.js" />
     <Content Include="Scripts\App\externalregister.js" />
     <Content Include="Scripts\App\login.js" />
     <Content Include="Scripts\App\login.modal.js" />
@@ -452,7 +489,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="Grid.Mvc.Ajax.readme" />
     <None Include="Properties\PublishProfiles\VGWagers.pubxml" />
+    <Content Include="Scripts\gridmvc-ext.js" />
+    <Content Include="Scripts\gridmvc.customwidgets.js" />
+    <Content Include="Scripts\gridmvc.lang.fr.js" />
+    <Content Include="Scripts\gridmvc.min.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\App\profile.js" />
     <Content Include="Scripts\App\register.js" />
@@ -460,6 +503,9 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -478,6 +524,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\ladda-bootstrap\ladda.min.js" />
+    <Content Include="Scripts\ladda-bootstrap\spin.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -486,6 +534,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\URI.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -544,6 +593,9 @@
     <Content Include="Views\Shared\_UserMessagePartial.cshtml" />
     <Content Include="Views\Shared\_UserAlertsPartial.cshtml" />
     <Content Include="Views\Manage\UserProfile.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Shared\_AjaxGridPager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -558,6 +610,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510021049549_CreateAllTables.resx">
       <DependentUpon>201510021049549_CreateAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510182104168_AlterColumn.resx">
+      <DependentUpon>201510182104168_AlterColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510231414509_PaymentColumns.resx">
+      <DependentUpon>201510231414509_PaymentColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301158377_gameChanges.resx">
+      <DependentUpon>201510301158377_gameChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301526417_gameReleaseDate.resx">
+      <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\SessionVariables.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
