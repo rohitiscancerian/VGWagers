@@ -3,17 +3,23 @@
     options.messages["agerangevalidation"] = options.message;
 });
 
-$.validator.addMethod("agerangevalidation",function(value,elements,params){
-    if (value)
-    {
-        var valdate = new Date(value);
-        if (
-            (new Date().getFullYear - valdate.getFullYear()) < parseInt(params.minage) ||
-            (new Date().getFullYear - valdate.getFullYear()) > parseInt(params.maxage)
-            )
-        {
-            return false;
-        }
+$.validator.addMethod("agerangevalidation", function (value, elements, params) {
+    debugger;
+    var dateOfBirth = value;
+    var arr_dateText = dateOfBirth.split("/");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+
+    var mydate = new Date();
+    mydate.setFullYear(year, month - 1, day);
+
+    var maxDate = new Date();
+    maxDate.setYear(maxDate.getYear() - 18);
+
+    if (maxDate < mydate) {
+        $.validator.messages.agerangevalidation = "Sorry, only persons over the age of 16 can be covered";
+        return false;
     }
     return true;
 });
@@ -24,7 +30,7 @@ $.validator.unobtrusive.adapters.addBool("mandatory", "required");
 $(function () {
 
     $('input[type="date"]').attr('type', 'text');
-
+        
     $(".datepicker").datetimepicker({
         format: 'DD/MM/YYYY',
 
@@ -33,6 +39,12 @@ $(function () {
         showClear: true,
 
         toolbarPlacement: 'bottom'
+    });
+
+    $("#registerform").validate({
+        rules: {
+            txtDOB: { agerangevalidation: true }
+        }
     });
 
     $('#registerform', this).submit(function (e) {
@@ -52,6 +64,7 @@ $(function () {
             $("#modal-loading-div-background").hide();
             if (returnedJSON.success) {
                 $('#modal-container').modal('hide');
+                window.location.reload(true);
             }
             else {
                 if (returnedJSON.msg != null) {
