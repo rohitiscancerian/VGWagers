@@ -152,7 +152,7 @@
                         <div class="col-md-7 profileDisplayPad vgw-col-md-8">
                             @if (ViewBag.Edit == true)
                                 {
-                                @Html.TextBoxFor(m => m.DATEOFBIRTH, new { @class = "form-control datepicker", type = "date" })
+                                @Html.TextBoxFor(m => m.DATEOFBIRTH, new { @class = "form-control datepicker", id="txtDOB" , type = "date" })
                                 @Html.ValidationMessageFor(m => m.DATEOFBIRTH, "", new { @class = "text-danger" })
                                 }
                                 else
@@ -212,18 +212,25 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="vgw-col-offset12 vgw-col-width40">
+                        <div class="vgw-col-offset36 vgw-col-width40">
                             @if (ViewBag.Edit == true)
-                                {
-                                <input type="submit" class="btn btn-primary btn-lg" value="Save" id="btnSave" />
-
+                            {
+                                @*<input type="submit" class="btn btn-primary btn-lg" value="Save" id="btnSave" />*@
+                                <div style="display:inline-block">
+                                    @*@Html.ActionLink("Save", "Save", "Manage", routeValues: null, htmlAttributes: new { id = "btnSave", @class = "btn btn-primary btn-lg" })*@
+                                    <input type="submit" class="btn btn-primary btn-lg" value="Save" id="btnSave" />
+                                </div>
+                                <div style="display:inline-block">
                                 @Html.ActionLink("Cancel", "Cancel", "Manage", routeValues: null, htmlAttributes: new { id = "cancelEdit", @class = "btn btn-primary btn-lg" })
-                                }
-                                else
-                                {
+                                </div>
+                            }
+                            else
+                            {
                                 @Html.ActionLink("Edit", "Edit", "Manage", routeValues: null, htmlAttributes: new { id = "profileEdit", @class = "btn btn-primary btn-lg" })
-                                }
+                            }
                         </div>
+
+
 
                     </div>
 
@@ -235,10 +242,17 @@
                     {
                         string base64 = string.Empty;
                         string imgSrc = string.Empty;
-                        if (Model.profilePhoto.PHOTOBINARY != null)
+                        if (Model.profilePhoto != null)
                         {
-                            base64 = Convert.ToBase64String(Model.profilePhoto.PHOTOBINARY);
-                            imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                            if (Model.profilePhoto.PHOTOBINARY != null)
+                            { 
+                                base64 = Convert.ToBase64String(Model.profilePhoto.PHOTOBINARY);
+                                imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                            }
+                            else
+                            {
+                                imgSrc = "../Content/images/nophoto.jpg";
+                            }
                         }
                         else
                         {

@@ -256,8 +256,8 @@ namespace VGWagers.Controllers
                         //   "Confirm your account", "Please confirm your account by clicking <a href=\""
                         //   + callbackUrl + "\">here</a>");
 
-
-                        return Json(new { success = false, msg = "Check your email and confirm your account, you must be confirmed before you can log in." });
+                        Success("Check your email and confirm your account, you must be confirmed before you can log in.", true);
+                        return Json(new { success = true, msg = "Check your email and confirm your account, you must be confirmed before you can log in." });
                     }
                     else
                     { 
