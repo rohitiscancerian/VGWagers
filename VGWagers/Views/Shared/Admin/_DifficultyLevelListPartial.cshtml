@@ -38,7 +38,7 @@
                                     <td>@difficultyLevel.DIFFICULTYLEVELNAME</td>
                                     <td>@difficultyLevel.ISACTIVE.ToString()</td>
                                     <td>
-                                        @Html.ActionLink(" ", "EditDifficultyLevel", new { DifficultyLevelId = @difficultyLevel.DIFFICULTYLEVELID }, new { @class = "glyphicon glyphicon-edit" })                                                                                      
+                                        @Html.ActionLink(" ", "EditDifficultyLevel", new { DifficultyLevelId = @difficultyLevel.DIFFICULTYLEVELID }, new { @class = "glyphicon glyphicon-edit edit" })                                                                                      
                                     </td>
                                     <td>
                                         @Ajax.ActionLink(" ", "DeleteDifficultyLevel", new { DifficultyLevelId = @difficultyLevel.DIFFICULTYLEVELID },

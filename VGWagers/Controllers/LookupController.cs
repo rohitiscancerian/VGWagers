@@ -13,6 +13,7 @@ using VGWagers.Utilities;
 using System.Collections.Generic;
 using VGWagers.DAL;
 using VGWagers.Resource;
+using System.IO;
 
 namespace VGWagers.Controllers
 {
@@ -30,8 +31,16 @@ namespace VGWagers.Controllers
             //Games List
 
             GameDAL gameDAL = new GameDAL();
+            PlatformDAL platformDAL = new PlatformDAL();
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+            GenreDAL genreDAL = new GenreDAL();
+            
             LookupViewModel lookupViewModel = new LookupViewModel();
             lookupViewModel.GamesList = gameDAL.GetAllGames();
+            //lookupViewModel.PlatformList = platformDAL.GetAllPlatforms();
+            //lookupViewModel.DifficultyLevelList = difficultyLevelDAL.GetAllDifficultyLevels();
+            //lookupViewModel.GenreList = genreDAL.GetAllGenre();
+
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "List";
             return View(lookupViewModel);   
@@ -42,12 +51,12 @@ namespace VGWagers.Controllers
             GenreDAL genreDAL = new GenreDAL();
             LookupViewModel lookupViewModel = new LookupViewModel();
             GameViewModel game = new GameViewModel();
-            game.AVAILABLEONPLATFORMS = new SelectList(new List<PlatformViewModel>());
-            game.DIIFICULTYLEVELS = new SelectList(new List<DifficultyLevelViewModel>());
+            ViewBag.ACTIVEPLATFORMS = new List<PlatformViewModel>();
+            ViewBag.ACTIVEDIFFICULTYLEVELS = new List<DifficultyLevelViewModel>();
             lookupViewModel.Game = game;
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "New";
-            ViewBag.GENREID = genreDAL.GetAllActiveGenre();
+            game.ACTIVEGENRES = genreDAL.GetAllActiveGenre();
             return View("Index", lookupViewModel);
         }
 
@@ -59,10 +68,88 @@ namespace VGWagers.Controllers
             }
             LookupViewModel lookupViewModel = new LookupViewModel();
             GameDAL gameDAL = new GameDAL();
-            lookupViewModel.Game = gameDAL.FindByGameId((int)GameId);
+            GenreDAL genreDAL = new GenreDAL();
+            GameViewModel game = gameDAL.GetGameDetails((int)GameId);
+            game.ACTIVEGENRES = genreDAL.GetAllActiveGenre();
+            lookupViewModel.Game = game;
             ViewBag.LookupType = "Game";
-            ViewBag.Mode = "Edit";
+            ViewBag.Mode = "Edit";             
             return View("Index", lookupViewModel);
+        }
+
+        public ActionResult SaveGame(GameViewModel game, HttpPostedFileBase file)
+        {
+            GameDAL gameDAL = new GameDAL();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+            HttpPostedFile pic = null;
+
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                pic = System.Web.HttpContext.Current.Request.Files["GAMEIMAGE.GAMEIMAGE"];
+                if (pic == null)
+                {
+                    return Json(new { success = false, msg = "No file uploaded. Please upload a valid image file" });
+                }
+            }
+
+            if (CommonFunctions.IsImage(pic))
+            {
+                byte[] fileByteArray = null;
+                using (var binaryReader = new BinaryReader(pic.InputStream))
+                {
+                    pic.InputStream.Position = 0;
+                    fileByteArray = binaryReader.ReadBytes(pic.ContentLength);
+                }
+
+                game.GAMEIMAGE.GAMEIMAGEBINARY = fileByteArray;
+                
+            }
+            else
+            {
+                return Json(new { success = false, msg = "The file is not an image. Please upload a valid image file" });
+            }            
+
+            if (game.GAMEID > 0)
+            {
+                //Update
+                if (gameDAL.SaveGame(game, objCurrentUser.Id))
+                {
+                    Success("Record modified successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to modify record. Please try again.", true);
+                }
+            }
+            else
+            {
+                //Insert
+                if (gameDAL.SaveGame(game, objCurrentUser.Id))
+                {
+                    Success("Record addded successfully", true);
+                }
+                else
+                {
+                    Danger("Failed to insert new record. Please try again.", true);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult GetGameImage(int gameId)
+        {
+            GameDAL gameDAL = new GameDAL();
+            byte[] gameImage = gameDAL.GetGameImage(gameId);
+            String base64 = Convert.ToBase64String(gameImage);
+            return Json(base64, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetGamePlatforms(int gameId)
+        {
+            GameDAL gameDAL = new GameDAL();
+            string[] gamePlatforms = gameDAL.GetGamePlatforms(gameId);
+            return Json(gamePlatforms, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PlatformList()
@@ -196,6 +283,17 @@ namespace VGWagers.Controllers
             lookupViewModel.DifficultyLevelList = difficultyLevelDAL.GetAllDifficultyLevels();
             return View("Index", lookupViewModel);
         }
+
+        public JsonResult GetActiveDifficultyLevels(string searchText)
+        {
+            DifficultyLevelDAL difficultyLevelDAL = new DifficultyLevelDAL();
+            DifficultyLevelViewModel[] matching = string.IsNullOrWhiteSpace(searchText) ?
+                                        difficultyLevelDAL.GetAllActiveDifficultyLevels().ToArray() :
+                                        difficultyLevelDAL.GetAllActiveDifficultyLevels().Where(p => p.DIFFICULTYLEVELNAME.ToUpper().StartsWith(searchText.ToUpper())).ToArray();
+
+            return Json(matching, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult NewDifficultyLevel()
         {

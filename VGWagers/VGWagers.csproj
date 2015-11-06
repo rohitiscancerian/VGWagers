@@ -53,9 +53,8 @@
     <Reference Include="Grid.Mvc.Ajax">
       <HintPath>..\packages\Grid.Mvc.Ajax.1.0.31\lib\Grid.Mvc.Ajax.dll</HintPath>
     </Reference>
-    <Reference Include="GridMvc, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Grid.Mvc.Redux.1.0.4\lib\GridMvc.dll</HintPath>
+    <Reference Include="GridMvc">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,9 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\MySQL\Connector.NET 6.9\Assemblies\v4.5\MySql.Data.Entity.EF6.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.Entity.6.9.7\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Web, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -270,6 +269,14 @@
     <Compile Include="Migrations\201510231414509_PaymentColumns.Designer.cs">
       <DependentUpon>201510231414509_PaymentColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510301158377_gameChanges.cs" />
+    <Compile Include="Migrations\201510301158377_gameChanges.Designer.cs">
+      <DependentUpon>201510301158377_gameChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510301526417_gameReleaseDate.cs" />
+    <Compile Include="Migrations\201510301526417_gameReleaseDate.Designer.cs">
+      <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountActivityModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -290,6 +297,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameImageModel.cs" />
+    <Compile Include="Models\GamePlatformViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -370,6 +379,7 @@
     <Content Include="Content\gridmvc.datepicker.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\background_loop.jpg" />
+    <Content Include="Content\images\default_image.png" />
     <Content Include="Content\images\Facebook_Hover.png" />
     <Content Include="Content\images\Facebook_Normal.png" />
     <Content Include="Content\images\footer-logo-1.png" />
@@ -606,6 +616,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510231414509_PaymentColumns.resx">
       <DependentUpon>201510231414509_PaymentColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301158377_gameChanges.resx">
+      <DependentUpon>201510301158377_gameChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301526417_gameReleaseDate.resx">
+      <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\SessionVariables.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

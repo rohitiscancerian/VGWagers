@@ -83,42 +83,52 @@ namespace VGWagers.Controllers
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> LoginJson(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
-            { 
-                var errors = GetErrorsFromModelState();
-                return Json(new { success = false, errors = errors });
-            }
-            else
-            { 
-                var user = await UserManager.FindByNameAsync(model.Username);
-                var callbackUrl = Url.Action("Index", "Home",null,protocol: Request.Url.Scheme);
-                if (user != null)
+            try
+            {
+
+
+                if (!ModelState.IsValid)
                 {
-                    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                    var errors = GetErrorsFromModelState();
+                    return Json(new { success = false, errors = errors });
+                }
+                else
+                {
+                    var user = await UserManager.FindByNameAsync(model.Username);
+                    var callbackUrl = Url.Action("Index", "Home", null, protocol: Request.Url.Scheme);
+                    if (user != null)
                     {
-                        return Json(new { success = false, msg = "You must have a confirmed email to log on. Please verify your email by opening the email sent after registration and clicking the link within." });
+                        if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                        {
+                            return Json(new { success = false, msg = "You must have a confirmed email to log on. Please verify your email by opening the email sent after registration and clicking the link within." });
+                        }
+                    }
+
+                    var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
+
+                    switch (result)
+                    {
+
+                        case SignInStatus.Success:
+                            //var roles = await UserManager.GetRolesAsync(user.Id);
+                            Session[SessionVariables.sesApplicationUser] = user;
+                            Session[SessionVariables.Menu] = null;
+                            return Json(new { success = true, returnUrl = callbackUrl });
+                        case SignInStatus.LockedOut:
+                            return Json(new { success = false, msg = "Your account is locked out. Please use Forgot Password link to reset it." });
+                        case SignInStatus.RequiresVerification:
+                            return Json(new { success = false, msg = "Your account requires verification." });
+                        case SignInStatus.Failure:
+                            return Json(new { success = false, msg = "Login failed. Incorrect Username and/or Password." });
+                        default:
+                            break;
                     }
                 }
+            }   
 
-                var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
-         
-                switch (result)
-                {
-
-                    case SignInStatus.Success:
-                        //var roles = await UserManager.GetRolesAsync(user.Id);
-                        Session[SessionVariables.sesApplicationUser] = user;
-                        Session[SessionVariables.Menu] = null;
-                        return Json(new { success = true, returnUrl = callbackUrl });
-                    case SignInStatus.LockedOut:
-                        return Json(new { success = false, msg = "Your account is locked out. Please use Forgot Password link to reset it." });
-                    case SignInStatus.RequiresVerification:
-                        return Json(new { success = false, msg = "Your account requires verification." });
-                    case SignInStatus.Failure:
-                        return Json(new { success = false, msg = "Login failed. Incorrect Username and/or Password." });
-                    default:
-                        break;
-                }
+            catch(Exception ex)
+            {
+                throw ex;   
             }
             return Json(new { success = false });
         }

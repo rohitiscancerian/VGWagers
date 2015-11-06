@@ -20,7 +20,7 @@ namespace VGWagers.DAL
 
         public IList<PlatformViewModel> GetAllPlatforms()
         {
-            return dbCon.vgw_platform.Select(p => new PlatformViewModel 
+            return dbCon.vgw_platform_enum.Select(p => new PlatformViewModel 
                                                 { 
                                                     PLATFORMID = p.PLATFORMID, 
                                                     PLATFORMNAME = p.PLATFORMNAME, 
@@ -30,7 +30,7 @@ namespace VGWagers.DAL
 
         public IList<PlatformViewModel> GetAllActivePlatforms()
         {
-            return dbCon.vgw_platform.Where(p => p.ISACTIVE == true)
+            return dbCon.vgw_platform_enum.Where(p => p.ISACTIVE == true)
                                      .Select(p => new PlatformViewModel 
                                              {
                                                 PLATFORMID = p.PLATFORMID, 
@@ -42,7 +42,7 @@ namespace VGWagers.DAL
 
         public PlatformViewModel FindByPlatformId(int PlatformId)
         {
-            return dbCon.vgw_platform.Where(p => p.PLATFORMID == PlatformId).Select(pv => new PlatformViewModel
+            return dbCon.vgw_platform_enum.Where(p => p.PLATFORMID == PlatformId).Select(pv => new PlatformViewModel
                                                                                         {
                                                                                             PLATFORMID = pv.PLATFORMID,
                                                                                             PLATFORMNAME = pv.PLATFORMNAME,
@@ -51,9 +51,9 @@ namespace VGWagers.DAL
                                                                                    ).FirstOrDefault();
         }
 
-        public vgw_platform GetByPlatformId(int PlatformId)
+        public vgw_platform_enum GetByPlatformId(int PlatformId)
         {
-            return dbCon.vgw_platform.Where(p => p.PLATFORMID == PlatformId).FirstOrDefault();
+            return dbCon.vgw_platform_enum.Where(p => p.PLATFORMID == PlatformId).FirstOrDefault();
         }
 
         public bool SavePlatform(PlatformViewModel platformViewModel, int iUserId)
@@ -61,7 +61,7 @@ namespace VGWagers.DAL
             
             if (platformViewModel.PLATFORMID > 0)
             {
-                vgw_platform vgwPlatform = GetByPlatformId(platformViewModel.PLATFORMID);
+                vgw_platform_enum vgwPlatform = GetByPlatformId(platformViewModel.PLATFORMID);
 
                 vgwPlatform.PLATFORMNAME = platformViewModel.PLATFORMNAME;
                 vgwPlatform.ISACTIVE = platformViewModel.ISACTIVE;
@@ -70,13 +70,13 @@ namespace VGWagers.DAL
             }
             else
             {
-                vgw_platform vgwPlatform = new vgw_platform();
+                vgw_platform_enum vgwPlatform = new vgw_platform_enum();
                 
                 vgwPlatform.PLATFORMNAME = platformViewModel.PLATFORMNAME;
                 vgwPlatform.ISACTIVE = platformViewModel.ISACTIVE;
                 vgwPlatform.LASTUPDATEDDATE = DateTime.Now;
                 vgwPlatform.LASTUPDATEDBYUSERID = iUserId;
-                dbCon.vgw_platform.Add(vgwPlatform);
+                dbCon.vgw_platform_enum.Add(vgwPlatform);
             }
 
             int result = dbCon.SaveChanges();
@@ -93,12 +93,12 @@ namespace VGWagers.DAL
         public bool DeletePlatform(int PlatformId, int iUserId)
         {
             bool result = false;
-            vgw_platform vgwPlatform = GetByPlatformId(PlatformId);
+            vgw_platform_enum vgwPlatform = GetByPlatformId(PlatformId);
             if (vgwPlatform != null)
             {
                 try 
                 {
-                    dbCon.vgw_platform.Remove(vgwPlatform);
+                    dbCon.vgw_platform_enum.Remove(vgwPlatform);
                     dbCon.SaveChanges();
                     result = true;
                 }                        

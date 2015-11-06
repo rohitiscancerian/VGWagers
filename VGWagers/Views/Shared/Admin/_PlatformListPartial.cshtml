@@ -39,7 +39,7 @@
                                             <td>@platform.PLATFORMNAME</td>
                                             <td>@platform.ISACTIVE.ToString()</td>
                                             <td>
-                                                @Html.ActionLink(" ", "EditPlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "glyphicon glyphicon-edit" })
+                                                @Html.ActionLink(" ", "EditPlatform", new { PlatformId = @platform.PLATFORMID }, new { @class = "glyphicon glyphicon-edit edit" })
                                             </td>
                                             <td>
                                                 @Ajax.ActionLink(" ", "DeletePlatform", new { PlatformId = @platform.PLATFORMID },

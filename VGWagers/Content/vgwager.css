@@ -409,6 +409,7 @@ and (max-width : 359px){
     border-top-right-radius: 6px;
     margin-right:1px;
     color:#428bca; 
+    overflow: auto;
     /*-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);*/
 }
@@ -435,7 +436,11 @@ and (max-width : 359px){
 }
 
 .remove {
-    color:red;
+    color:red !important;
+}
+
+.edit {
+    color:#428bca !important;   
 }
 
 .cancel-link {
@@ -623,6 +628,23 @@ a.btn-lg{
     align-items:center;
     vertical-align:middle;
    
+}
+
+.link-cursor {
+    cursor:pointer;
+}
+
+.no-top-padding {
+    padding-top:0px;
+}
+
+.margin-bottom-5 {
+    margin-bottom:5px;
+}
+
+.platform-badge {
+    font-size:larger;
+    background-color:black;
 }
 
 .imgLoadingContainer{
