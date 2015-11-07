@@ -660,3 +660,27 @@ a.btn-lg{
 .vgw-width100percent{
     width:100%
 }
+
+.width-0 {
+    width: 0px;    
+}
+
+.width-30 {
+    width: 30px;
+}
+
+.height-30 {
+    height: 30px;
+}
+
+.tag-ul {
+    display: inline;
+}
+
+.link-add {
+    color: #428BC8;
+}
+
+.margin-top-3 {
+    margin-top: 3px;
+}

@@ -16,7 +16,7 @@
             return true;
         }
 
-    }, "File type error");
+    }, "File type error");    
 
     $("#gamedetailform", this).submit(function (e) {
         e.preventDefault();
@@ -104,7 +104,7 @@
 
                 @Html.LabelFor(m => m.GENRE, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4">
-                    @Html.DropDownListFor(m => m.GENREID, @Model.ACTIVEGENRES)
+                    @Html.DropDownListFor(m => m.GENREID, @Model.ACTIVEGENRES, new { @class = "form-control dropdown" })
                     @*@Html.DropDownList("GENRES", null, String.Empty, new { @class = "form-control" })*@
                     @Html.ValidationMessageFor(m => m.GENREID, "", new { @class = "text-danger" })
                 </div>
@@ -112,7 +112,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.ISACTIVE, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
-                    @Html.CheckBoxFor(m => m.ISACTIVE, new { @class = "checkbox" } )
+                    @Html.CheckBoxFor(m => m.ISACTIVE, new { @class = "form-control checkbox width-30 height-30" })
                 </div>
 
                 @Html.LabelFor(m => m.RELEASEDATE, new { @class = "col-md-2 control-label" })
@@ -124,53 +124,61 @@
             <div class="form-group margin-bottom-5">
                 @Html.LabelFor(m => m.AVAILABLEONPLATFORMS, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
-                    @Html.TextBox("txtPlatform", "",
-                                        new
-                                        {
-                                            @class = "autocomplete-with-hidden form-control",
-                                            data_url = Url.Action("GetActivePlatforms", "Lookup"),
-                                            autocomplete = "on"
-                                        })
                     @Html.Hidden("hdnSelectedPlatform")
                     @Html.ListBoxFor(m => m.PLATFORMS, new MultiSelectList(Model.PLATFORMS, "PLATFORMID", "PLATFORMNAME"), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
-                    <ul id="ulPlatforms" class="list-inline">
+                    <ul id="ulPlatforms" class="list-inline tag-ul">
                         @{
                             foreach (var platform in Model.PLATFORMS)
                             {
-                                <li style="margin:2px;" value= @platform.PLATFORMID >
-                                    <span style="" class="badge platform-badge">
-                                        @platform.PLATFORMNAME                                        
-                                    </span>
-                                </li>
+                                    <li style="margin:2px;" value=@platform.PLATFORMID>
+                                        <span style="" class="badge platform-badge">
+                                            @platform.PLATFORMNAME
+                                        </span>
+                                    </li>
                             }
                         }
                     </ul>
+
+                    <span id="lnkAddPlatform" class="glyphicon glyphicon-plus link-cursor link-add"></span>
+                    <br />
+                    @Html.TextBox("txtPlatform", "",
+                                        new
+                                        {
+                                            @class = "autocomplete-with-hidden form-control cchidden width-0 margin-top-3",
+                                            data_url = Url.Action("GetActivePlatforms", "Lookup"),
+                                            autocomplete = "on"
+                                        })
+
+
                 </div>
                 
                 @Html.LabelFor(m => m.DIFFICULTYLEVELS, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
                     @*@Html.DropDownList("DIFFICULTYLEVELID", String.Empty)*@
-                    @Html.TextBox("txtDifficultyLevel", "",
-                                    new
-                                    {
-                                        @class = "autocomplete-with-hidden form-control",
-                                        data_url = Url.Action("GetActiveDifficultyLevels", "Lookup"),
-                                        autocomplete = "on"
-                                    })
+                    
                     @Html.Hidden("hdnSelectedDifficultyLevel")
                     @Html.ListBoxFor(m => m.LEVELS, new MultiSelectList(Model.LEVELS, "DIFFICULTYLEVELID", "DIFFICULTYLEVELNAME"), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
-                    <ul id="ulDifficultyLevels" class="list-inline">
+                    <ul id="ulDifficultyLevels" class="list-inline tag-ul">
                         @{
                             foreach (var difficultyLevel in Model.LEVELS)
                             {
-                                <li style="margin:2px;" value=@difficultyLevel.DIFFICULTYLEVELID>
-                                    <span style="" class="badge platform-badge">
-                                        @difficultyLevel.DIFFICULTYLEVELNAME
-                                    </span>
-                                </li>
+                                    <li style="margin:2px;" value=@difficultyLevel.DIFFICULTYLEVELID>
+                                        <span style="" class="badge platform-badge">
+                                            @difficultyLevel.DIFFICULTYLEVELNAME
+                                        </span>
+                                    </li>
                             }
                         }
                     </ul>
+                    <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add"></span>
+                    <br />
+                    @Html.TextBox("txtDifficultyLevel", "",
+                                    new
+                                    {
+                                        @class = "autocomplete-with-hidden form-control cchidden width-0 margin-top-3",
+                                        data_url = Url.Action("GetActiveDifficultyLevels", "Lookup"),
+                                        autocomplete = "on"
+                                    })
                 </div>
             </div>
             <div class="form-group" id="removeItems" style="display:none;">
@@ -253,8 +261,9 @@
                 <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
             }
         </div>
-
+        
         <div class="form-group">
+            
             <div class="col-md-offset-7 col-md-1">
                 <input type="submit" class="btn btn-primary btn-lg" value="Save" />
             </div>
@@ -280,17 +289,18 @@
     $(function () {
         if ($('#hdnPageMode').val() == 'Edit')
         {
-            if ($('#lstPlatforms').length() > 0)
+            if ($('#lstPlatforms').length > 0)
             {
                 $('#removeItems').show();
                 $('#removePlatformsEdit').show();
             }
             
-            if ($('#lstDifficultyLevels').length() > 0) {
+            if ($('#lstDifficultyLevels').length > 0) {
                 $('#removeItems').show();
                 $('#removeDifficultyLevelsEdit').show();
             }
         }
+        
 
         $('#txtPlatform').autocomplete({
             minLength: 1,
@@ -338,6 +348,9 @@
                                               );
 
                     $(event.target).val('');
+                    $("#lnkAddPlatform").show();
+                    $('#txtPlatform').width('0px');
+                    $('#txtPlatform').hide();
                     //$('#removeItems').show();
                     //$('#removePlatformsEdit').show();
                     //$('#removePlatformsNew').show();
@@ -354,6 +367,29 @@
                     $(event.target).val('').next('input[type=hidden]').val('');
                 }
             }
+        });
+
+        $('#lnkAddPlatform').click(function () {
+            $("#lnkAddPlatform").hide();
+            $('#txtPlatform').show();
+            $('#txtPlatform').animate({               
+                width: '100%',
+                backgroundColor: '#fff', // background color
+                paddingRight: '43px'
+            }, 300, function () {                
+                $('#txtPlatform').focus();
+            }).addClass('focus');
+
+            return false;
+        });
+
+        $('#txtPlatform').focusout(function () {
+            $('#txtPlatform').animate({
+                width: '0px'              
+            }, 300, function () {
+                $('#txtPlatform').hide();
+                $("#lnkAddPlatform").show();
+            }).addClass('focus');
         });
 
         $('#txtPlatform').click(
@@ -423,6 +459,29 @@
                     $(event.target).val('').next('input[type=hidden]').val('');
                 }
             }
+        });
+
+        $('#lnkAddDifficultyLevel').click(function () {
+            $("#lnkAddDifficultyLevel").hide();
+            $('#txtDifficultyLevel').show();
+            $('#txtDifficultyLevel').animate({
+                width: '100%',
+                backgroundColor: '#fff', // background color
+                paddingRight: '43px'
+            }, 300, function () {
+                $('#txtDifficultyLevel').focus();
+            }).addClass('focus');
+
+            return false;
+        });
+
+        $('#txtDifficultyLevel').focusout(function () {
+            $('#txtDifficultyLevel').animate({
+                width: '0px'
+            }, 300, function () {
+                $('#txtDifficultyLevel').hide();
+                $("#lnkAddDifficultyLevel").show();
+            }).addClass('focus');
         });
 
         $('#txtDifficultyLevel').click(
