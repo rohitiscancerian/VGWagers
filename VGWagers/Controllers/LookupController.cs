@@ -51,8 +51,8 @@ namespace VGWagers.Controllers
             GenreDAL genreDAL = new GenreDAL();
             LookupViewModel lookupViewModel = new LookupViewModel();
             GameViewModel game = new GameViewModel();
-            ViewBag.ACTIVEPLATFORMS = new List<PlatformViewModel>();
-            ViewBag.ACTIVEDIFFICULTYLEVELS = new List<DifficultyLevelViewModel>();
+            game.PLATFORMS = new List<PlatformViewModel>();
+            game.LEVELS = new List<DifficultyLevelViewModel>();
             lookupViewModel.Game = game;
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "New";
