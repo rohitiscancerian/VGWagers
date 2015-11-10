@@ -10,7 +10,7 @@ namespace VGWagers.Models
 {
     public class GameImageModel
     {
-        [Required(ErrorMessage = "Please select an image")]
+        //[Required(ErrorMessage = "Please select an image")]
         [Display(Name = "Upload Game Image")]
         [ValidateFile]
         public HttpPostedFileBase GAMEIMAGE { get; set; }

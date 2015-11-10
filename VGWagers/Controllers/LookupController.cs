@@ -105,10 +105,10 @@ namespace VGWagers.Controllers
                 game.GAMEIMAGE.GAMEIMAGEBINARY = fileByteArray;
                 
             }
-            else
-            {
-                return Json(new { success = false, msg = "The file is not an image. Please upload a valid image file" });
-            }            
+            //else
+            //{
+            //    return Json(new { success = false, msg = "The file is not an image. Please upload a valid image file" });
+            //}            
 
             if (game.GAMEID > 0)
             {

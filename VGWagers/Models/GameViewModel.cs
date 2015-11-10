@@ -31,6 +31,8 @@ namespace VGWagers.Models
         public bool ISACTIVE { get; set; }
 
         [DisplayName("Release Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime RELEASEDATE { get; set; }
 
         [DisplayName("Available on Platforms")]
@@ -39,8 +41,12 @@ namespace VGWagers.Models
         [DisplayName("Difficulty Levels")]
         public string[] DIFFICULTYLEVELS { get; set; }
 
+        public IEnumerable<int> SELECTEDPLATFORMS { get; set; }
         public List<PlatformViewModel> PLATFORMS { get; set; }
+
+        public IEnumerable<int> SELECTEDLEVELS { get; set; }
         public List<DifficultyLevelViewModel> LEVELS { get; set; }
+
 
         public SelectList ACTIVEGENRES { get; set; }
 

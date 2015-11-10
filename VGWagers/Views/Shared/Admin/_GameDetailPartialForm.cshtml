@@ -1,6 +1,11 @@
 ﻿@using VGWagers.Resource
 @using VGWagers.Models
 @model GameViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript();
+    Html.EnableClientValidation();
+}
+
 <script>
     $.validator.addMethod("uploadFile", function (val, element) {
         debugger;
@@ -89,13 +94,14 @@
         {
             <h4 class="lookup-list-title">Add a new Game</h4>
         }
-        <hr />
+        <hr style="border-top:1px solid #333;" />
         <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.Hidden("hdnPageMode", (Object)ViewBag.Mode)
-        <div class="col-md-9" style=" min-height: 230px;">
+        <div class="col-md-8" style=" min-height: 435px;">
 
             <div class="form-group">
+                @Html.HiddenFor(m => m.GAMEID, new { id = "hdnGameId" })
                 @Html.LabelFor(m => m.GAMENAME, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4">
                     @Html.TextBoxFor(m => m.GAMENAME, new { @class = "form-control" })
@@ -125,7 +131,7 @@
                 @Html.LabelFor(m => m.AVAILABLEONPLATFORMS, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
                     @Html.Hidden("hdnSelectedPlatform")
-                    @Html.ListBoxFor(m => m.PLATFORMS, new MultiSelectList(Model.PLATFORMS, "PLATFORMID", "PLATFORMNAME"), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    @Html.ListBoxFor(m => m.SELECTEDPLATFORMS, new MultiSelectList(Model.PLATFORMS, "PLATFORMID", "PLATFORMNAME"), new { id = "lstPlatforms", @class = "form-control platformList", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
                     <ul id="ulPlatforms" class="list-inline tag-ul">
                         @{
                             foreach (var platform in Model.PLATFORMS)
@@ -141,7 +147,8 @@
 
                     <span id="lnkAddPlatform" class="glyphicon glyphicon-plus link-cursor link-add"></span>
                     <br />
-                    @Html.TextBox("txtPlatform", "",
+                    <div style="height:34px;">
+                        @Html.TextBox("txtPlatform", "",
                                         new
                                         {
                                             @class = "autocomplete-with-hidden form-control cchidden width-0 margin-top-3",
@@ -150,14 +157,14 @@
                                         })
 
 
+                    </div>
                 </div>
                 
                 @Html.LabelFor(m => m.DIFFICULTYLEVELS, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
-                    @*@Html.DropDownList("DIFFICULTYLEVELID", String.Empty)*@
                     
                     @Html.Hidden("hdnSelectedDifficultyLevel")
-                    @Html.ListBoxFor(m => m.LEVELS, new MultiSelectList(Model.LEVELS, "DIFFICULTYLEVELID", "DIFFICULTYLEVELNAME"), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
+                    @Html.ListBoxFor(m => m.SELECTEDLEVELS, new MultiSelectList(Model.LEVELS, "DIFFICULTYLEVELID", "DIFFICULTYLEVELNAME"), new { id = "lstDifficultyLevels", @class = "form-control", Multiple = "multiple", Size = 5, style = "width: 100%;display:none;" })
                     <ul id="ulDifficultyLevels" class="list-inline tag-ul">
                         @{
                             foreach (var difficultyLevel in Model.LEVELS)
@@ -172,13 +179,15 @@
                     </ul>
                     <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add"></span>
                     <br />
-                    @Html.TextBox("txtDifficultyLevel", "",
+                    <div style="height:34px;">
+                        @Html.TextBox("txtDifficultyLevel", "",
                                     new
                                     {
                                         @class = "autocomplete-with-hidden form-control cchidden width-0 margin-top-3",
                                         data_url = Url.Action("GetActiveDifficultyLevels", "Lookup"),
                                         autocomplete = "on"
                                     })
+                    </div>
                 </div>
             </div>
             <div class="form-group" id="removeItems" style="display:none;">
@@ -236,40 +245,45 @@
                     }
                 </div>
             </div>
+            
         </div>
 
-        <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto">
+        <div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:435px; padding-left:9px; padding-top:9px;">
             @{
-                string base64 = string.Empty;
-                string imgSrc = string.Empty;
-                if (Model.GAMEIMAGE != null && Model.GAMEIMAGE.GAMEIMAGEBINARY != null)
-                {
-                    base64 = Convert.ToBase64String(Model.GAMEIMAGE.GAMEIMAGEBINARY);
-                    imgSrc = String.Format("data:image/png;base64,{0}", base64);
-                }
-                else
-                {
-                    imgSrc = "../Content/images/default_image.png";
-                }
-                <div id="divProfilePhoto" style="width:50%">
-                    <img style="width:200px;height:200px" id="profilePhoto" src="@imgSrc" />
-                </div>
+                        string base64 = string.Empty;
+                        string imgSrc = string.Empty;
+                        if (Model.GAMEIMAGE != null && Model.GAMEIMAGE.GAMEIMAGEBINARY != null)
+                        {
+                            base64 = Convert.ToBase64String(Model.GAMEIMAGE.GAMEIMAGEBINARY);
+                            imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                        }
+                        else
+                        {
+                            imgSrc = "../Content/images/default_image.png";
+                        }
+                        <div id="divProfilePhoto" style="width:272px;height:380px; margin-bottom: 8px;" >
+                            <img style="width:272px;height:380px;" id="profilePhoto" src="@imgSrc" />
+                        </div>
                 <div >
                     @Html.TextBoxFor(m => m.GAMEIMAGE.GAMEIMAGE, new { type = "file", id = "pickPhoto", @class = "vgw-width100percent" })
                     @Html.ValidationMessageFor(m => m.GAMEIMAGE.GAMEIMAGE)
                 </div>
                 <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
-            }
+            }            
         </div>
         
         <div class="form-group">
             
-            <div class="col-md-offset-7 col-md-1">
-                <input type="submit" class="btn btn-primary btn-lg" value="Save" />
-            </div>
-            <div class="col-md-4 lookup-list-title">
-                @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
-            </div>
+                <br />
+                <br />
+                <br />
+                <div class="col-md-offset-7 col-md-1">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Save" />
+                </div>
+                <div class="col-md-4 lookup-list-title" style="padding-top:15px;">
+                    @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
+                </div>
+            
         </div>
         }
     </div>
@@ -287,6 +301,18 @@
     
 <script>
     $(function () {
+
+        $(".datepicker").datetimepicker({
+            format: 'DD/MM/YYYY',
+            showClose: true,
+            showClear: true,
+            toolbarPlacement: 'bottom'
+        });
+
+        $("#pickPhoto").on('change', function () {
+            $("#profilePhoto").attr('src', 'url(file://' + $(this).val() + ')');
+        })
+
         if ($('#hdnPageMode').val() == 'Edit')
         {
             if ($('#lstPlatforms').length > 0)
@@ -332,8 +358,8 @@
                 });
 
                 if (!exists) {
-                    $('#lstPlatforms').append('<option value="' + ui.item.value1 + '" selected>' +
-                        ui.item.value1 +
+                    $('#lstPlatforms').append('<option value="' + ui.item.value1 + '" selected="selected">' +
+                        ui.item.label +
                         "</option>"
                         );
                     $('#ulPlatforms').append('<li style="margin:2px;" value=' + ui.item.value1 +
@@ -348,9 +374,9 @@
                                               );
 
                     $(event.target).val('');
-                    $("#lnkAddPlatform").show();
-                    $('#txtPlatform').width('0px');
-                    $('#txtPlatform').hide();
+                    //$("#lnkAddPlatform").show();
+                    //$('#txtPlatform').width('0px');
+                    //$('#txtPlatform').hide();
                     //$('#removeItems').show();
                     //$('#removePlatformsEdit').show();
                     //$('#removePlatformsNew').show();
@@ -428,8 +454,8 @@
                 });
 
                 if (!exists) {
-                    $('#lstDifficultyLevels').append('<option value="' + ui.item.value1 + '" selected>' +
-                        ui.item.value1 +
+                    $('#lstDifficultyLevels').append('<option value="' + ui.item.value1 + '" selected="selected">' +
+                        ui.item.label +
                         "</option>"
                         );
                     $('#ulDifficultyLevels').append('<li style="margin:2px;" value=' + ui.item.value1 +

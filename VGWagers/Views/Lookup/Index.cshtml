@@ -1,41 +1,46 @@
 ﻿@using VGWagers.Models
 @model LookupViewModel
 
+@{
+    Html.EnableUnobtrusiveJavaScript();
+    Html.EnableClientValidation();
+}
+
 <script>
     $(function () {
         
-        $('#liGames').removeClass('active ui-tabs-active ui-state-active');
+        $('#liGames').removeClass('active ui-tabs-active ui-state-active tab-active-text');
         $('#divGames').removeClass('active');
         $('#divGames').hide();
-        $('#liConsoles').removeClass('active ui-tabs-active ui-state-active');
+        $('#liConsoles').removeClass('active ui-tabs-active ui-state-active tab-active-text');
         $('#divConsoles').removeClass('active');
         $('#divConsoles').hide();
-        $('#liDifficultyLevels').removeClass('active ui-tabs-active ui-state-active');
+        $('#liDifficultyLevels').removeClass('active ui-tabs-active ui-state-active tab-active-text');
         $('#divDifficultyLevels').removeClass('active');
         $('#divDifficultyLevels').hide();
-        $('#liGenre').removeClass('active ui-tabs-active ui-state-active');
+        $('#liGenre').removeClass('active ui-tabs-active ui-state-active tab-active-text');
         $('#divGenre').removeClass('active');
         $('#divGenre').hide();
 
         switch ($('#hdnLookupType').val())
         {
             case "Game":
-                $('#liGames').addClass('active ui-tabs-active ui-state-active');
+                $('#liGames').addClass('active ui-tabs-active ui-state-active tab-active-text');
                 $('#divGames').addClass('active');
                 $('#divGames').show();
                 break;
             case "Platform":
-                $('#liConsoles').addClass('active ui-tabs-active ui-state-active');
+                $('#liConsoles').addClass('active ui-tabs-active ui-state-active tab-active-text');
                 $('#divConsoles').addClass('active');
                 $('#divConsoles').show();
                 break;
             case "DifficultyLevel":
-                $('#liDifficultyLevels').addClass('active ui-tabs-active ui-state-active');
+                $('#liDifficultyLevels').addClass('active ui-tabs-active ui-state-active tab-active-text');
                 $('#divDifficultyLevels').addClass('active');
                 $('#divDifficultyLevels').show();
                 break;
             case "Genre":
-                $('#liGenre').addClass('active ui-tabs-active ui-state-active');
+                $('#liGenre').addClass('active ui-tabs-active ui-state-active tab-active-text');
                 $('#divGenre').addClass('active');
                 $('#divGenre').show();
                 break;
@@ -61,10 +66,10 @@
 
     <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="nav nav-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" id="lookupTab">
-            <li id="liGames" class="div-bg ui-state-default ui-corner-top">@Html.ActionLink("Games", "Index", "Lookup", new { @class = "ui-tabs-anchor"})</li>
-            <li id="liConsoles" class="div-bg ui-state-default ui-corner-top">@Html.ActionLink("Consoles / Platforms", "PlatformList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
-            <li id="liDifficultyLevels" class="div-bg ui-state-default ui-corner-top">@Html.ActionLink("Difficulty Levels", "DifficultyLevelList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
-            <li id="liGenre" class="div-bg ui-state-default ui-corner-top">@Html.ActionLink("Genres", "GenreList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
+            <li id="liGames" class="div-bg ui-state-default ui-corner-top tab-text">@Html.ActionLink("Games", "Index", "Lookup", new { @class = "ui-tabs-anchor" })</li>
+            <li id="liConsoles" class="div-bg ui-state-default ui-corner-top tab-text">@Html.ActionLink("Consoles / Platforms", "PlatformList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
+            <li id="liDifficultyLevels" class="div-bg ui-state-default ui-corner-top tab-text">@Html.ActionLink("Difficulty Levels", "DifficultyLevelList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
+            <li id="liGenre" class="div-bg ui-state-default ui-corner-top tab-text">@Html.ActionLink("Genres", "GenreList", "Lookup", new { @class = "ui-tabs-anchor" })</li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane div-bg ui-tabs-panel ui-widget-content ui-corner-bottom" id="divGames">
