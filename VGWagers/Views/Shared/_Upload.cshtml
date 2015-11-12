@@ -1,0 +1,54 @@
+﻿@using VGWagers.Models
+@model GameImageModel
+
+@Scripts.Render("~/bundles/jqueryform")
+@Scripts.Render("~/bundles/jcrop")
+@Styles.Render("~/Content/jquery.Jcrop.min.css")
+@Styles.Render("~/Content/site.avatar.css")
+@Scripts.Render("~/bundles/avatar")
+
+<section id="avatar-crop-box" >
+    <p>
+        @{
+            string base64 = string.Empty;
+            string imgSrc = string.Empty;
+            if (Model != null && Model.GAMEIMAGEBINARY != null)
+            {
+                base64 = Convert.ToBase64String(Model.GAMEIMAGEBINARY);
+                imgSrc = String.Format("data:image/png;base64,{0}", base64);
+            }
+            else
+            {
+                imgSrc = "../Content/images/default_image.png";
+            }
+            <img src="@imgSrc" id="current-Image" alt="Uploaded image" />
+            <img src="" id="crop-avatar-target" alt="Uploaded image" class="hidden" />
+        }    
+        <div id="preview-pane" class="hidden">
+            <div class="preview-container">
+                <img src="" class="jcrop-preview" alt="Preview" />
+            </div>
+        </div>
+    </p>
+    <p id="saveImageButton" class="hidden"><button class="btn btn-primary" onclick=" saveAvatar() ">Upload Image</button></p>
+</section>
+<section id="avatar-upload-box">
+    @using (Ajax.BeginForm("_UploadFile", new { controller = "Avatar" },
+        new AjaxOptions() { HttpMethod = "POST" },
+        new { enctype = "multipart/form-data", id = "avatar-upload-form" }))
+    {
+        <div id="avatar-upload-form">
+            @Html.AntiForgeryToken()
+            <input type="file" name="files" id="flImage" /><br>
+            <div class="upload-file-notice">Maximum Size: <span id="avatar-max-size"></span> MB</div>
+        </div>
+    }
+    <div class="upload-progress col-md-6 hidden">
+        <div class="upload-percent-value pull-left">0%</div>
+        <div class="upload-percent-bar pull-left"></div>
+    </div>
+    <div id="upload-status"></div>
+</section>
+    <div id="avatar-result" class="hidden">
+        <img src="" alt="Final Image" />
+    </div>

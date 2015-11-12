@@ -81,6 +81,11 @@
                 @if (@ViewBag.LookupType == "Game" && (@ViewBag.Mode == "New" || @ViewBag.Mode == "Edit"))
                 {
                     @Html.Partial("~/Views/Shared/Admin/_GameDetailPartialForm.cshtml", Model.Game)
+                    <div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:475px; padding-left:9px; padding-top:9px;">
+                        @{
+                            Html.RenderPartial("~/Views/Shared/_Upload.cshtml", Model.Game.GAMEIMAGE);
+                        }
+                    </div>
                 }
             </div>
             <div class="tab-pane div-bg ui-tabs-panel ui-widget-content ui-corner-bottom" id="divConsoles">

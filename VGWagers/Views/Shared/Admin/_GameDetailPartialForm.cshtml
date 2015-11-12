@@ -77,7 +77,7 @@
     });
 </script>
   
-<div class="col-md-12">
+<div class="col-md-8" id="divGameDetails">
     @{
         Html.EnableUnobtrusiveJavaScript();
         Html.EnableClientValidation();
@@ -98,7 +98,7 @@
         <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.Hidden("hdnPageMode", (Object)ViewBag.Mode)
-        <div class="col-md-8" style=" min-height: 435px;">
+        <div class="col-md-12" style=" min-height: 335px;">
 
             <div class="form-group">
                 @Html.HiddenFor(m => m.GAMEID, new { id = "hdnGameId" })
@@ -248,9 +248,9 @@
             
         </div>
 
-        <div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:435px; padding-left:9px; padding-top:9px;">
+            @*<div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:435px; padding-left:9px; padding-top:9px;">
             @{
-                        string base64 = string.Empty;
+                        @*string base64 = string.Empty;
                         string imgSrc = string.Empty;
                         if (Model.GAMEIMAGE != null && Model.GAMEIMAGE.GAMEIMAGEBINARY != null)
                         {
@@ -267,25 +267,23 @@
                 <div >
                     @Html.TextBoxFor(m => m.GAMEIMAGE.GAMEIMAGE, new { type = "file", id = "pickPhoto", @class = "vgw-width100percent" })
                     @Html.ValidationMessageFor(m => m.GAMEIMAGE.GAMEIMAGE)
-                </div>
-                <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
-            }            
+                </div>*@               
+
+                @*<div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>*@
+            @*}
+        </div>*@
+
+    <div class="form-group col-md-12">
+        <div class="col-md-offset-4 col-md-1">
+            <input type="submit" class="btn btn-primary btn-lg" value="Save" />
         </div>
-        
-        <div class="form-group">
-            
-                <br />
-                <br />
-                <br />
-                <div class="col-md-offset-7 col-md-1">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Save" />
-                </div>
-                <div class="col-md-4 lookup-list-title" style="padding-top:15px;">
-                    @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
-                </div>
-            
+        <div class="col-md-7 lookup-list-title" style="padding-top:15px; float:right; padding-right:0px; text-align:right;">
+            @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
         </div>
-        }
+
+    </div>
+    }
+
     </div>
 
 <nav class="context-menu">
