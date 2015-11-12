@@ -26,25 +26,32 @@ $(function () {
                     if (files[x].size <= maxSizeInBytes) {
                         // Submit the selected file
                         $('#avatar-upload-form .upload-file-notice').removeClass('bg-danger');
+                        $('#preview-pane').removeClass('hidden');
+                        $('#saveImageButton').removeClass('hidden');
+                        $('#crop-avatar-target').removeClass('hidden');
+                        $('#crop-avatar-target').css('visibility', 'visible');
+                        $('#crop-avatar-target').show();
+                        $('#current-Image').addClass('hidden');
+                        $('.jcrop-holder').removeClass('hidden');
+                        $('#avatar-upload-box').addClass('hidden');
+                        $('.upload-progress').removeClass('hidden');
+                        $('#avatar-upload-form').addClass('hidden');
+                        $('#saveGameDetails').addClass('hidden');
+
                         mainDiv = $('#avatar-upload-box').parent();
                         var iMainDivLeft = mainDiv.left;
                         var iMainDivWidth = mainDiv.width();
                         var iMainDivHeight = mainDiv.height();
-                        $('#divGameDetails').animate({
-                            width: $('#divGameDetails').width() - 90
-                        });
+                        var adjacentDivWidth = $('#divGameDetails').width();
+                        $('#divGameDetails').width(adjacentDivWidth - 100);
 
                         mainDiv.animate({
-                            width: iMainDivWidth + 210,
+                            width: iMainDivWidth + 190,
                             //height: iMainDivHeight + 30,
                             left: iMainDivLeft - 30
                         }, 300, function () {                
                             
                         }).addClass('focus');
-                        $('#preview-pane').removeClass('hidden');
-                        $('#saveImageButton').removeClass('hidden');
-                        $('#crop-avatar-target').removeClass('hidden');
-                        $('#current-Image').addClass('hidden');
                         $('#avatar-upload-form').submit();
                     } else {
                         // File too large
@@ -52,6 +59,44 @@ $(function () {
                     }
                 }
             }
+        });
+
+        $('#cancelImageUpload').click(function () {
+            $('#preview-pane').addClass('hidden');
+            $('#saveImageButton').addClass('hidden');
+            $('#crop-avatar-target').addClass('hidden');
+            //$('.jcrop-holder').addClass('hidden');
+            $('#current-Image').removeClass('hidden');
+            $('#avatar-upload-box').removeClass('hidden');
+            $('.upload-progress').addClass('hidden');
+            $('#avatar-upload-form').removeClass('hidden');
+            $('#avatar-upload-form').get(0).reset();
+            $('#crop-avatar-target').attr("src", "");
+            var defaultPreviewPaneHTML = '<div id="preview-pane" class="hidden"> <div class="preview-container"> <img src="" class="jcrop-preview" alt="Preview" /> </div> </div>';
+
+            jcropHolderDiv = $('#preview-pane').parent();
+            jCropHolderParentDiv = $(jcropHolderDiv).parent();
+            $(jcropHolderDiv).remove();
+            $(jCropHolderParentDiv).append(defaultPreviewPaneHTML);
+            //$('#avatar-upload-form').get(0).preventDefault();
+
+            mainDiv = $('#avatar-upload-box').parent();
+            var iMainDivLeft = mainDiv.left;
+            var iMainDivWidth = mainDiv.width();
+            var iMainDivHeight = mainDiv.height();
+            var adjacentDivWidth = $('#divGameDetails').width();
+            $('#divGameDetails').width(adjacentDivWidth + 100);
+
+            mainDiv.animate({
+                width: iMainDivWidth - 130,
+                //height: iMainDivHeight + 30,
+                left: iMainDivLeft + 30
+            }, 300, function () {
+
+            }).addClass('focus');
+            jcrop_api.destroy();
+            initAvatarUpload();
+            $('#saveGameDetails').removeClass('hidden');
         });
     }
 });
@@ -144,6 +189,7 @@ function updatePreviewPane(c) {
 function saveAvatar() {
     var img = $('#preview-pane .preview-container img');
     $('#avatar-crop-box button').addClass('disabled');
+    $('#saveGameDetails').removeClass('hidden');
 
     $.ajax({
         type: "POST",
