@@ -22,25 +22,18 @@ namespace VGWagers.DAL
         {
             return dbCon.vgw_game
                 .Join(dbCon.vgw_genre_enum, g => g.GENREID, r => r.GENREID, (g, r) => new { g, r })
-                //.Join(dbCon.vgw_game_platform_xref, ge => ge.g.GAMEID, gp => gp.GAMEID, (ge, gp) => new { ge, gp})
-                //.Join(dbCon.vgw_platform_enum, gep => gep.gp.PLATFORMID, p => p.PLATFORMID, (grp, p) => new { grp, p})
-                //.Single()
-                //.Join(dbCon.vgw_platform_enum, ge => ge.g.AVAILABLEONPLATFORMS.Select(ap => ap.PLATFORMID), p => p.PLATFORMID, (ge, p) => new { ge, p })
-                //.Where(ge => ge.g.AVAILABLEONPLATFORMS.Any(p => p.PLATFORMID == ))
                 .Where(ge => ge.g.ISACTIVE == true)
                 .Select(gm => new GameViewModel
                 {
                     GAMEID = gm.g.GAMEID,
                     GAMENAME = gm.g.GAMENAME,
                     GENRE = gm.r.GENRE,
-                    //GAMEIMAGE = new GameImageModel { GAMEIMAGEBINARY = gm.g.GAMEIMAGE },
                     ISACTIVE = gm.g.ISACTIVE,
-                    //AVAILABLEONPLATFORMS =  Where(p => p.PLATFORMID  gm.g.AVAILABLEONPLATFORMS.Select(ap => ap.vgw_platform.PLATFORMNAME Single()
+                    RELEASEDATE = gm.g.RELEASEDATE                    
                 }
                        )
                 .ToList();
         }
-
 
         public GameViewModel GetGameDetails(int GameId)
         {
@@ -158,7 +151,7 @@ namespace VGWagers.DAL
             }
 
             int result = dbCon.SaveChanges();
-            if (result == 1)
+            if (result > 0)
             {
                 return true;
             }
@@ -199,36 +192,48 @@ namespace VGWagers.DAL
                 vgwGame.LASTUPDATEDBYUSERID = iUserId;
 
                 int iPlatformId;
-                foreach (string platform in gameViewModel.AVAILABLEONPLATFORMS)
+                if (gameViewModel.SELECTEDPLATFORMS == null)
                 {
-                    iPlatformId = Convert.ToInt32(platform);
-                    if (availableOnPlatforms.Where(p => p.PLATFORMID == iPlatformId).Count() == 0)
+                }
+                else
+                {
+                    foreach (int platformID in gameViewModel.SELECTEDPLATFORMS)
                     {
-                        vgw_game_platform_xref platformGameXref = new vgw_game_platform_xref();
-                        platformGameXref.GAMEID = vgwGame.GAMEID;
-                        platformGameXref.ISACTIVE = true;
-                        platformGameXref.LASTUPDATEDDATE = DateTime.Now;
-                        platformGameXref.LASTUPDATEDUSERID = iUserId;
-                        platformGameXref.PLATFORMID = iPlatformId;
-                        availableOnPlatforms.Add(platformGameXref);
-                    }                    
+                        iPlatformId = platformID;
+                        if (availableOnPlatforms.Where(p => p.PLATFORMID == iPlatformId).Count() == 0)
+                        {
+                            vgw_game_platform_xref platformGameXref = new vgw_game_platform_xref();
+                            platformGameXref.GAMEID = vgwGame.GAMEID;
+                            platformGameXref.ISACTIVE = true;
+                            platformGameXref.LASTUPDATEDDATE = DateTime.Now;
+                            platformGameXref.LASTUPDATEDUSERID = iUserId;
+                            platformGameXref.PLATFORMID = iPlatformId;
+                            availableOnPlatforms.Add(platformGameXref);
+                        }
+                    }
                 }
 
                 int iDifficultyLevelId;
                 int iDifficultyLevelSortOrder = 1;
-                foreach (string difficultyLevel in gameViewModel.DIFFICULTYLEVELS)
+                if (gameViewModel.SELECTEDLEVELS == null)
                 {
-                    iDifficultyLevelId = Convert.ToInt32(difficultyLevel);
-                    if (difficultyLevels.Where(d => d.DIFFICULTYLEVELID == iDifficultyLevelId).Count() == 0)
+                }
+                else
+                {
+                    foreach (int difficultyLevelId in gameViewModel.SELECTEDLEVELS)
                     {
-                        vgw_game_difficulty_level_xref gameDifficultyLevelXref = new vgw_game_difficulty_level_xref();
-                        gameDifficultyLevelXref.DIFFICULTYLEVELID = iDifficultyLevelId;
-                        gameDifficultyLevelXref.GAMEID = vgwGame.GAMEID;
-                        gameDifficultyLevelXref.LASTUPDATEDBYUSERID = iUserId;
-                        gameDifficultyLevelXref.LASTUPDATEDDATE = DateTime.Now;
-                        gameDifficultyLevelXref.SORTORDER = iDifficultyLevelSortOrder;
-                        iDifficultyLevelSortOrder++;
-                        difficultyLevels.Add(gameDifficultyLevelXref);
+                        iDifficultyLevelId = difficultyLevelId;
+                        if (difficultyLevels.Where(d => d.DIFFICULTYLEVELID == iDifficultyLevelId).Count() == 0)
+                        {
+                            vgw_game_difficulty_level_xref gameDifficultyLevelXref = new vgw_game_difficulty_level_xref();
+                            gameDifficultyLevelXref.DIFFICULTYLEVELID = iDifficultyLevelId;
+                            gameDifficultyLevelXref.GAMEID = vgwGame.GAMEID;
+                            gameDifficultyLevelXref.LASTUPDATEDBYUSERID = iUserId;
+                            gameDifficultyLevelXref.LASTUPDATEDDATE = DateTime.Now;
+                            gameDifficultyLevelXref.SORTORDER = iDifficultyLevelSortOrder;
+                            iDifficultyLevelSortOrder++;
+                            difficultyLevels.Add(gameDifficultyLevelXref);
+                        }
                     }
                 }
 
