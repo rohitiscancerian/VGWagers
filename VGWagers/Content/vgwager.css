@@ -701,3 +701,11 @@ a.btn-lg{
 .tab-active-text {
     font-weight: bolder !important;
 }
+
+.width-21 {
+    width: 21px;
+}
+
+.height-21 {
+    height: 21px;
+}

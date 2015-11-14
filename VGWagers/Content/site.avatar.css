@@ -8,12 +8,14 @@
     z-index: 1;
     display: block;
     border: 1px #000 solid;
+    display:none;
 }
 
     #preview-pane .preview-container {
+        display: none;
         overflow: hidden;
-        width: 136px;  /* ToDo - size of the crop window*/
-        height: 190px; /* ToDo - size of the crop window*/
+        width: 272px;  /* ToDo - size of the crop window*/
+        height: 380px; /* ToDo - size of the crop window*/
     }
 
 .upload-progress {

@@ -17,8 +17,12 @@ var keepCropBox = false;    // ToDo - Remove if you want to keep the crop box
 
 $(function () {
     if (typeof $('#avatar-upload-form') !== undefined) {
-        initAvatarUpload();
+        var aspectRatio = $('#avatar-upload-form').attr("aspectRatio");
+        var defaultFullSelection = $('#avatar-upload-form').attr("defaultFullSelection");        
+
+        initAvatarUpload(aspectRatio, defaultFullSelection);
         $('#avatar-max-size').html(maxSizeAllowed);
+
         $('#avatar-upload-form input:file').on("change", function (e) {
             var files = e.currentTarget.files;
             for (var x in files) {
@@ -27,7 +31,6 @@ $(function () {
                         // Submit the selected file
                         $('#avatar-upload-form .upload-file-notice').removeClass('bg-danger');
                         $('#preview-pane').removeClass('hidden');
-                        $('#saveImageButton').removeClass('hidden');
                         $('#crop-avatar-target').removeClass('hidden');
                         $('#crop-avatar-target').css('visibility', 'visible');
                         $('#crop-avatar-target').show();
@@ -36,22 +39,28 @@ $(function () {
                         $('#avatar-upload-box').addClass('hidden');
                         $('.upload-progress').removeClass('hidden');
                         $('#avatar-upload-form').addClass('hidden');
-                        $('#saveGameDetails').addClass('hidden');
+                        $('#saveImageButton').removeClass('hidden');
 
-                        mainDiv = $('#avatar-upload-box').parent();
-                        var iMainDivLeft = mainDiv.left;
-                        var iMainDivWidth = mainDiv.width();
-                        var iMainDivHeight = mainDiv.height();
-                        var adjacentDivWidth = $('#divGameDetails').width();
-                        $('#divGameDetails').width(adjacentDivWidth - 100);
+                        var resizeOnImageSelect = $('#avatar-upload-form').attr("resizeOnImageSelect");
 
-                        mainDiv.animate({
-                            width: iMainDivWidth + 190,
-                            //height: iMainDivHeight + 30,
-                            left: iMainDivLeft - 30
-                        }, 300, function () {                
-                            
-                        }).addClass('focus');
+                        if (resizeOnImageSelect == "1") {
+                            $('#saveGameDetails').addClass('hidden');
+                            mainDiv = $('#avatar-upload-box').parent();
+                            var iMainDivLeft = mainDiv.left;
+                            var iMainDivWidth = mainDiv.width();
+                            var iMainDivHeight = mainDiv.height();
+                            var adjacentDivWidth = $('#divGameDetails').width();
+                            $('#divGameDetails').width(adjacentDivWidth - 100);
+
+                            mainDiv.animate({
+                                width: iMainDivWidth + 190,
+                                //height: iMainDivHeight + 30,
+                                left: iMainDivLeft - 30
+                            }, 1, function () {
+
+                            }).addClass('focus');
+                        }
+
                         $('#avatar-upload-form').submit();
                     } else {
                         // File too large
@@ -62,46 +71,56 @@ $(function () {
         });
 
         $('#cancelImageUpload').click(function () {
-            $('#preview-pane').addClass('hidden');
-            $('#saveImageButton').addClass('hidden');
-            $('#crop-avatar-target').addClass('hidden');
-            //$('.jcrop-holder').addClass('hidden');
-            $('#current-Image').removeClass('hidden');
-            $('#avatar-upload-box').removeClass('hidden');
-            $('.upload-progress').addClass('hidden');
-            $('#avatar-upload-form').removeClass('hidden');
-            $('#avatar-upload-form').get(0).reset();
-            $('#crop-avatar-target').attr("src", "");
-            var defaultPreviewPaneHTML = '<div id="preview-pane" class="hidden"> <div class="preview-container"> <img src="" class="jcrop-preview" alt="Preview" /> </div> </div>';
-
-            jcropHolderDiv = $('#preview-pane').parent();
-            jCropHolderParentDiv = $(jcropHolderDiv).parent();
-            $(jcropHolderDiv).remove();
-            $(jCropHolderParentDiv).append(defaultPreviewPaneHTML);
-            //$('#avatar-upload-form').get(0).preventDefault();
-
-            mainDiv = $('#avatar-upload-box').parent();
-            var iMainDivLeft = mainDiv.left;
-            var iMainDivWidth = mainDiv.width();
-            var iMainDivHeight = mainDiv.height();
-            var adjacentDivWidth = $('#divGameDetails').width();
-            $('#divGameDetails').width(adjacentDivWidth + 100);
-
-            mainDiv.animate({
-                width: iMainDivWidth - 130,
-                //height: iMainDivHeight + 30,
-                left: iMainDivLeft + 30
-            }, 300, function () {
-
-            }).addClass('focus');
-            jcrop_api.destroy();
-            initAvatarUpload();
-            $('#saveGameDetails').removeClass('hidden');
+            cancelCrop();
         });
     }
 });
 
-function initAvatarUpload() {
+function cancelCrop()
+{
+    $('#preview-pane').addClass('hidden');
+    $('#crop-avatar-target').addClass('hidden');
+    $('#current-Image').removeClass('hidden');
+    $('#avatar-upload-box').removeClass('hidden');
+    $('.upload-progress').addClass('hidden');
+    $('#avatar-upload-form').removeClass('hidden');
+    $('#avatar-upload-form').get(0).reset();
+    $('#crop-avatar-target').attr("src", "");
+    $('#saveImageButton').addClass('hidden');
+
+    var defaultPreviewPaneHTML = '<div id="preview-pane" class="hidden"> <div class="preview-container"> <img src="" class="jcrop-preview" alt="Preview" /> </div> </div>';
+
+    jcropHolderDiv = $('#preview-pane').parent();
+    jCropHolderParentDiv = $(jcropHolderDiv).parent();
+    $(jcropHolderDiv).remove();
+    $(jCropHolderParentDiv).append(defaultPreviewPaneHTML);
+
+    var resizeOnImageSelect = $('#avatar-upload-form').attr("resizeOnImageSelect");
+
+    if (resizeOnImageSelect == "1") {
+        $('#saveGameDetails').removeClass('hidden');
+        mainDiv = $('#avatar-upload-box').parent();
+        var iMainDivLeft = mainDiv.left;
+        var iMainDivWidth = mainDiv.width();
+        var iMainDivHeight = mainDiv.height();
+        var adjacentDivWidth = $('#divGameDetails').width();
+        $('#divGameDetails').width(adjacentDivWidth + 100);
+
+        mainDiv.animate({
+            width: iMainDivWidth - 130,
+            //height: iMainDivHeight + 30,
+            left: iMainDivLeft + 30
+        }, 300, function () {
+
+        }).addClass('focus');
+    }
+    jcrop_api.destroy();
+    var aspectRatio = $('#avatar-upload-form').attr("aspectRatio");
+    var defaultFullSelection = $('#avatar-upload-form').attr("defaultFullSelection");
+    initAvatarUpload(aspectRatio, defaultFullSelection);
+}
+
+function initAvatarUpload(aspectRatio, defaultFullSelection) {
     $('#avatar-upload-form').ajaxForm({
         beforeSend: function () {
             updateProgress(0);
@@ -123,7 +142,7 @@ function initAvatarUpload() {
                     $('#avatar-upload-box').addClass('hidden');
                 }
                 $('#avatar-crop-box').removeClass('hidden');
-                initAvatarCrop(img);
+                initAvatarCrop(img, aspectRatio, defaultFullSelection);
             }
         },
         complete: function (xhr) {
@@ -140,7 +159,7 @@ function updateProgress(percentComplete) {
     }
 }
 
-function initAvatarCrop(img) {
+function initAvatarCrop(img, aspectRatio, defaultFullSelection) {
     img.Jcrop({
         onChange: updatePreviewPane,
         onSelect: updatePreviewPane,
@@ -154,14 +173,15 @@ function initAvatarCrop(img) {
         jcrop_api.setOptions({ allowSelect: true });
         jcrop_api.setOptions({ allowMove: true });
         jcrop_api.setOptions({ allowResize: true });
-        jcrop_api.setOptions({ aspectRatio: 0.72 });
+        jcrop_api.setOptions({ aspectRatio: aspectRatio });
 
         // Maximise initial selection around the centre of the image,
         // but leave enough space so that the boundaries are easily identified.
-        var padding = 10;
+        
+        var padding = (defaultFullSelection < 1 ? 10 : 0)
         var shortEdge = (boundx < boundy ? boundx : boundy) - padding;
         var longEdge = boundx < boundy ? boundy : boundx;
-        var xCoord = longEdge / 2 - shortEdge / 2;
+        var xCoord = (defaultFullSelection < 1 ? longEdge / 2 - shortEdge / 2 : 0);
         jcrop_api.animateTo([xCoord, padding, shortEdge, shortEdge]);
 
         var pcnt = $('#preview-pane .preview-container');
@@ -188,33 +208,43 @@ function updatePreviewPane(c) {
 
 function saveAvatar() {
     var img = $('#preview-pane .preview-container img');
+    var uploadedImage = $('.jcrop-tracker');
+    var redirectURL = $('#avatar-upload-form').attr("redirectURL");
+    var parameterValue = $('#avatar-upload-form').attr("parameterValue");
+
     $('#avatar-crop-box button').addClass('disabled');
     $('#saveGameDetails').removeClass('hidden');
 
     $.ajax({
         type: "POST",
-        url: "/Avatar/Save",
+        url: redirectURL,
         traditional: true,
         data: {
-            w: img.css('width'),
-            h: img.css('height'),
+            w: uploadedImage.outerWidth(),
+            h: uploadedImage.outerHeight(),
             l: img.css('marginLeft'),
             t: img.css('marginTop'),
-            fileName: img.attr('src')
+            fileName: img.attr('src'),
+            keyId: parameterValue
         }
     }).done(function (data) {
         if (data.success === true) {
-            $('#avatar-result img').attr('src', data.avatarFileLocation);
+            //$('#avatar-result img').attr('src', data.avatarFileLocation);
+            var imgSrc = "data:image/png;base64," + data.updatedImage;
+            $('#current-Image').removeClass('hidden');
+            $('#current-Image').attr('src', imgSrc);
 
-            $('#avatar-result').removeClass('hidden');
-
-            if (!keepCropBox) {
-                $('#avatar-crop-box').addClass('hidden');
-            }
+            //$('#avatar-result').removeClass('hidden');
+            cancelCrop();
+            $('#avatar-crop-box').removeClass('hidden');
+            $('#avatar-crop-box button').removeClass('disabled');
+            //if (!keepCropBox) {
+            //    $('#avatar-crop-box').addClass('hidden');
+            //}
         } else {
             alert(data.errorMessage)
         }
     }).fail(function (e) {
-        alert('Cannot upload avatar at this time');
+        alert('Cannot upload image at this time');
     });
 }

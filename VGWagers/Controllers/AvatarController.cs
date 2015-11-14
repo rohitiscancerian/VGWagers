@@ -73,6 +73,9 @@ namespace AvatarUploadMvc5.Controllers
                     Directory.CreateDirectory(Path.GetDirectoryName(newFileLocation));
                 }
 
+                //img.GetBytes()
+                //RedirectToAction()
+
                 img.Save(newFileLocation);
                 return Json(new { success = true, avatarFileLocation = newFileName });
             }

@@ -125,12 +125,13 @@ namespace VGWagers.DAL
                        .ToList();
         }
 
-        public bool SaveGame(GameViewModel gameViewModel, int iUserId)
+        public bool SaveGame(GameViewModel gameViewModel, int iUserId, ref int gameId)
         {
+            vgw_game vgwGame;
 
             if (gameViewModel.GAMEID > 0)
             {
-                vgw_game vgwGame = GetByGameId(gameViewModel.GAMEID);
+                vgwGame = GetByGameId(gameViewModel.GAMEID);
                 if (!prepareVGWGameContext(ref vgwGame, gameViewModel, iUserId))
                 {
                     return false;
@@ -138,7 +139,7 @@ namespace VGWagers.DAL
             }
             else
             {
-                vgw_game vgwGame = new vgw_game();
+                vgwGame = new vgw_game();
                 if (prepareVGWGameContext(ref vgwGame, gameViewModel, iUserId))
                 {
                     dbCon.vgw_game.Add(vgwGame);
@@ -153,6 +154,7 @@ namespace VGWagers.DAL
             int result = dbCon.SaveChanges();
             if (result > 0)
             {
+                gameId = vgwGame.GAMEID;
                 return true;
             }
             else
@@ -245,6 +247,31 @@ namespace VGWagers.DAL
                 return false;
             }
             return true;
+        }
+
+        public bool UpdateGameImage(int gameId, byte[] gameImage)
+        {
+            if (gameId > 0)
+            {
+                vgw_game vgwGame = GetByGameId(gameId);
+                vgwGame.GAMEIMAGE = gameImage;
+
+                int result = dbCon.SaveChanges();
+
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+ 
         }
     }
 

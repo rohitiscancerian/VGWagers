@@ -83,7 +83,16 @@
                     @Html.Partial("~/Views/Shared/Admin/_GameDetailPartialForm.cshtml", Model.Game)
                     <div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:475px; padding-left:9px; padding-top:9px;">
                         @{
-                            Html.RenderPartial("~/Views/Shared/_Upload.cshtml", Model.Game.GAMEIMAGE);
+                            Html.RenderPartial("~/Views/Shared/_Upload.cshtml", 
+                                                Model.Game.GAMEIMAGE, 
+                                                new ViewDataDictionary { 
+                                                                        { "aspectRatio", "0.716" }, 
+                                                                        { "defaultFullSelection", "1" },
+                                                                        { "resizeOnImageSelect", "0" },
+                                                                        { "redirectURL", "/Lookup/UploadGameImage" },
+                                                                        { "parameterValue", Model.Game.GAMEID },
+                                                                        { "parameterValueRequired", "1" }  
+                                                                       });
                         }
                     </div>
                 }
