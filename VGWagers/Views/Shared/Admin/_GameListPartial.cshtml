@@ -83,7 +83,7 @@
             <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <div class="col-md-9">
+                <div class="col-md-9" style="min-height:100px;">
                     @if (Model.Count > 0)
                     {
                         using (Html.BeginForm("Index", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamelistform" }))
@@ -129,11 +129,14 @@
                         @Html.Label(".", "No records found", "label")
                     }
                 </div>
-                <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto">
+                <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; padding-left:39px;">
                     @{
-                        <div id="divProfilePhoto" style="width:50%">
+                        <div id="divProfilePhoto" style="width:204px; height:285px; margin-bottom: 8px;">
+                            <img style="width:204px;height:285px;display:none;" id="imgSelectedGame" />
+                        </div>
+                        @*<div id="divProfilePhoto" style="width:50%">
                             <img style="width:200px;height:200px;display:none;" id="imgSelectedGame" />
-                        </div>                        
+                        </div>*@                        
                     }
                 </div>
             </div>
