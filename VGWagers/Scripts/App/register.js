@@ -1,29 +1,4 @@
-﻿$.validator.unobtrusive.adapters.add("agerangevalidation", ["minage", "maxage"], function (options) {
-    options.rules["agerangevalidation"] = options.params;
-    options.messages["agerangevalidation"] = options.message;
-});
-
-$.validator.addMethod("agerangevalidation", function (value, elements, params) {
-    debugger;
-    var dateOfBirth = value;
-    var arr_dateText = dateOfBirth.split("/");
-    day = arr_dateText[0];
-    month = arr_dateText[1];
-    year = arr_dateText[2];
-
-    var mydate = new Date();
-    mydate.setFullYear(year, month - 1, day);
-
-    var maxDate = new Date();
-    maxDate.setYear(maxDate.getYear() - 18);
-
-    if (maxDate < mydate) {
-        $.validator.messages.agerangevalidation = "Sorry, only persons over the age of 16 can be covered";
-        return false;
-    }
-    return true;
-});
-
+﻿
 $.validator.unobtrusive.adapters.addBool("mandatory", "required");
 
 
@@ -43,7 +18,10 @@ $(function () {
 
     $("#registerform").validate({
         rules: {
-            txtDOB: { agerangevalidation: true }
+            txtDOB: {
+                    agerangevalidation: true,
+                    date: true
+                    }
         }
     });
 

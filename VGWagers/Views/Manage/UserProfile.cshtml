@@ -7,34 +7,38 @@
     ViewBag.Title = "UserProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section Scripts {
+    @Scripts.Render("~/bundles/datevalidation")
+    @Scripts.Render("~/bundles/profile")
+}
 @{
     Html.EnableUnobtrusiveJavaScript();
     Html.EnableClientValidation();
 }
 <script type="text/javascript">
     $(function () {
-
+        debugger;
         var index = 'key';
-        //  Define friendly data store name
-        var dataStore = window.sessionStorage;
-        //  Start magic!
+        //  define friendly data store name
+        var datastore = window.sessionStorage;
+        //  start magic!
         try {
-            // getter: Fetch previous value
-            var oldIndex = dataStore.getItem(index);
+            // getter: fetch previous value
+            var oldindex = datastore.getItem(index);
         } catch (e) {
-            // getter: Always default to first tab in error state
-            var oldIndex = 0;
+            // getter: always default to first tab in error state
+            var oldindex = 0;
         }
 
         $("#tabs").tabs({
-            active: oldIndex,
+            active: oldindex,
             activate: function (event, ui) {
-                //  Get future value
-                var newIndex = ui.newTab.parent().children().index(ui.newTab);
-                //  Set future value
+                debugger;
+                //  get future value
+                var newindex = ui.newTab.parent().children().index(ui.newTab);
+                //  set future value
                 try {
-                    dataStore.setItem(index, newIndex);
+                    datastore.setItem(index, newindex);
                 } catch (e) { }
             }
         });
@@ -287,14 +291,7 @@
                    columns.Add(foo => foo.Balance).Titled("Balance");
                 
                }).WithPaging(20)
-
-
             </div>
         </div>
-           
-           
 </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/Scripts/App/profile.js")
-}

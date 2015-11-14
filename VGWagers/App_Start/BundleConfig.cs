@@ -66,6 +66,14 @@ namespace VGWagers
             bundles.Add(new ScriptBundle("~/bundles/externalregister").Include(
                   "~/Scripts/App/externalregister.js"
               ));
+
+            bundles.Add(new ScriptBundle("~/bundles/datevalidation").Include(
+                  "~/Scripts/App/dateValidation.js"
+              ));
+
+            bundles.Add(new ScriptBundle("~/bundles/profile").Include(
+                  "~/Scripts/App/profile.js"
+              ));
         }
     }
 }

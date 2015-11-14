@@ -660,3 +660,7 @@ a.btn-lg{
 .vgw-width100percent{
     width:100%
 }
+
+.datepicker {z-index: 1200000 !important;}
+
+.ui-datepicker{ z-index:1200000 !important; }
