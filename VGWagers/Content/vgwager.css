@@ -663,6 +663,10 @@ a.btn-lg{
     width:100%
 }
 
+.datepicker {z-index: 1200000 !important;}
+
+.ui-datepicker{ z-index:1200000 !important; }
+
 .width-0 {
     width: 0px;    
 }

@@ -115,7 +115,7 @@ namespace VGWagers.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:DD/MM/YYYY}")]
         [AgeRangeValidation(ErrorMessage="Age must be 18 yrs or above.",MinAge = 18 ,MaxAge = 100)]
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }

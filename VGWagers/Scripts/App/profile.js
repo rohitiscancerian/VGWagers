@@ -1,29 +1,5 @@
 ﻿
-$.validator.unobtrusive.adapters.add("agerangevalidation", ["minage", "maxage"], function (options) {
-    options.rules["agerangevalidation"] = options.params;
-    options.messages["agerangevalidation"] = options.message;
-});
 
-$.validator.addMethod("agerangevalidation", function (value, elements, params) {
-    debugger;
-    var dateOfBirth = value;
-    var arr_dateText = dateOfBirth.split("/");
-    day = arr_dateText[0];
-    month = arr_dateText[1];
-    year = arr_dateText[2];
-
-    var mydate = new Date();
-    mydate.setFullYear(year, month - 1, day);
-
-    var maxDate = new Date();
-    maxDate.setYear(maxDate.getYear() - 18);
-
-    if (maxDate < mydate) {
-        $.validator.messages.agerangevalidation = "Sorry, only persons over the age of 16 can be covered";
-        return false;
-    }
-    return true;
-});
 
 $.validator.addMethod("uploadFile", function (val, element) {
     debugger;
@@ -49,17 +25,11 @@ $(function () {
     $("#iconOK").hide();
     $("#iconBusy").hide();
 
-    $("#editProfile").validate({
-        rules: {
-            txtDOB: { agerangevalidation: true }
-        }
-    });
 
-   // $('input[type="date"]').attr('type', 'text').val("");
+    $('input[type="date"]').attr('type', 'text');
 
     $(".datepicker").datetimepicker({
         format: 'DD/MM/YYYY',
-
         showClose: true,
 
         showClear: true,
@@ -67,6 +37,16 @@ $(function () {
         toolbarPlacement: 'bottom'
 
 
+    });
+
+
+    $("#editProfile").validate({
+        rules: {
+            txtDOB: {
+                agerangevalidation: true,
+                date: true
+            }
+        }
     });
 
     $(".tip-right").tooltip({ placement: 'right' });
@@ -77,6 +57,7 @@ $(function () {
     });
 
     $('#txtUsername').blur((function (e) {
+        debugger;
         e.preventDefault();
         var extform = $("form");
 
@@ -89,7 +70,6 @@ $(function () {
             beforeSend: function () {
                 $("#iconBusy").show();
                 $("#divUsername").addClass("inner-addon right-addon");
-                //$("#iconBusy").show();
             }
         }).done(function (returnedJSON) {
             $("#iconBusy").hide();

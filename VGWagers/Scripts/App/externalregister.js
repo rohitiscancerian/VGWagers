@@ -19,6 +19,15 @@
    
     });
 
+    $("#ExternalLoginConfirmation").validate({
+        rules: {
+            txtDOB: {
+                agerangevalidation: true,
+                date: true
+            }
+        }
+    });
+
     $(".tip-right").tooltip({ placement: 'right' });
 
     $('#txtUsername').focus(function (e) {
