@@ -1,6 +1,8 @@
 ﻿@using VGWagers.Resource
 @using VGWagers.Models
 @model GameViewModel
+
+
 @{
     Html.EnableUnobtrusiveJavaScript();
     Html.EnableClientValidation();
@@ -123,7 +125,7 @@
 
                 @Html.LabelFor(m => m.RELEASEDATE, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
-                    @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date" })
+                    @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date", id = "txtReleaseDate" })
                     @Html.ValidationMessageFor(m => m.RELEASEDATE, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -299,6 +301,14 @@
     
 <script>
     $(function () {
+
+        $("#gamedetailform").validate({
+            rules: {
+                txtReleaseDate: {
+                    date: true
+                }
+            }
+        });
 
         $('input[type="date"]').attr('type', 'text');
 

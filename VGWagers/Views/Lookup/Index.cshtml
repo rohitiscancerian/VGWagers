@@ -1,6 +1,10 @@
 ﻿@using VGWagers.Models
 @model LookupViewModel
 
+@section Scripts {
+    @Scripts.Render("~/bundles/datevalidation")
+}
+
 @{
     Html.EnableUnobtrusiveJavaScript();
     Html.EnableClientValidation();
