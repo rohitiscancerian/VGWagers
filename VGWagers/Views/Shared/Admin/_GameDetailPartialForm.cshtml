@@ -300,6 +300,8 @@
 <script>
     $(function () {
 
+        $('input[type="date"]').attr('type', 'text');
+
         $(".datepicker").datetimepicker({
             format: 'DD/MM/YYYY',
             showClose: true,
@@ -368,7 +370,7 @@
                             ui.item.value1 +
                             '] > span').append("<a style='' > | <span  onclick='removeItem(\"ulPlatforms\", \"lstPlatforms\", " +
                                                 ui.item.value1 +
-                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-remove"></span></a>'
+                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-trash"></span></a>'
                                               );
 
                     $(event.target).val('');
@@ -407,14 +409,24 @@
             return false;
         });
 
+        $('#txtPlatform').keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                hideNewPlatformField();
+            }
+        });
+
         $('#txtPlatform').focusout(function () {
+            hideNewPlatformField();
+        });
+
+        function hideNewPlatformField() {
             $('#txtPlatform').animate({
-                width: '0px'              
+                width: '0px'
             }, 300, function () {
                 $('#txtPlatform').hide();
                 $("#lnkAddPlatform").show();
             }).addClass('focus');
-        });
+        }
 
         $('#txtPlatform').click(
             function () {
@@ -464,7 +476,7 @@
                             ui.item.value1 +
                             '] > span').append("<a style='' > | <span  onclick='removeItem(\"ulDifficultyLevels\", \"lstDifficultyLevels\", " +
                                                 ui.item.value1 +
-                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-remove"></span></a>'
+                                               ");'" + ' style="vertical-align:baseline;font-size:small;cursor:pointer;" class="remove glyphicon glyphicon-trash"></span></a>'
                                               );
                     $(event.target).val('');
                     //$('#removeItems').show();
@@ -499,14 +511,24 @@
             return false;
         });
 
+        $('#txtDifficultyLevel').keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                hideNewDifficultyLevelField();
+            }
+        });
+
         $('#txtDifficultyLevel').focusout(function () {
+            hideNewDifficultyLevelField();
+        });
+
+        function hideNewDifficultyLevelField() {
             $('#txtDifficultyLevel').animate({
                 width: '0px'
             }, 300, function () {
                 $('#txtDifficultyLevel').hide();
                 $("#lnkAddDifficultyLevel").show();
             }).addClass('focus');
-        });
+        }
 
         $('#txtDifficultyLevel').click(
             function () {

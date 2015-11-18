@@ -145,6 +145,9 @@ function initAvatarUpload(aspectRatio, defaultFullSelection) {
                 initAvatarCrop(img, aspectRatio, defaultFullSelection);
             }
         },
+        fail: function (e) {
+            alert('Cannot upload image at this time');
+        },
         complete: function (xhr) {
         }
     });
