@@ -139,7 +139,7 @@
                             foreach (var platform in Model.PLATFORMS)
                             {
                                     <li style="margin:2px;" value=@platform.PLATFORMID>
-                                        <span style="" class="badge platform-badge">
+                                        <span style="" class="badge platform-badge box-shadow-6dp">
                                             @platform.PLATFORMNAME
                                         </span>
                                     </li>
@@ -172,14 +172,14 @@
                             foreach (var difficultyLevel in Model.LEVELS)
                             {
                                     <li style="margin:2px;" value=@difficultyLevel.DIFFICULTYLEVELID>
-                                        <span style="" class="badge platform-badge">
+                                        <span style="" class="badge platform-badge box-shadow-6dp">
                                             @difficultyLevel.DIFFICULTYLEVELNAME
                                         </span>
                                     </li>
                             }
                         }
                     </ul>
-                    <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add"></span>
+                    <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add "></span>
                     <br />
                     <div style="height:34px;">
                         @Html.TextBox("txtDifficultyLevel", "",
@@ -276,11 +276,11 @@
         </div>*@
 
     <div class="form-group col-md-12">
-        <div class="col-md-offset-4 col-md-1">
+        <div class="col-md-offset-7 col-md-1">
             <input type="submit" class="btn btn-primary btn-lg" id="saveGameDetails" value="Save" />
         </div>
-        <div class="col-md-7 lookup-list-title" style="padding-top:15px; float:right; padding-right:0px; text-align:right;">
-            @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
+        <div class="col-md-4 lookup-list-title" style="padding-top:15px; float:right; padding-right:0px; text-align:right;">
+            @Html.ActionLink(" Back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
         </div>
 
     </div>
@@ -373,7 +373,7 @@
                         "</option>"
                         );
                     $('#ulPlatforms').append('<li style="margin:2px;" value=' + ui.item.value1 +
-                                             '><span style="" class="badge platform-badge">' +
+                                             '><span style="" class="badge platform-badge box-shadow-6dp">' +
                                              ui.item.label + '</span></li>');
 
                     $('#ulPlatforms > li[value=' +
@@ -479,7 +479,7 @@
                         "</option>"
                         );
                     $('#ulDifficultyLevels').append('<li style="margin:2px;" value=' + ui.item.value1 +
-                                             '><span style="" class="badge platform-badge">' +
+                                             '><span style="" class="badge platform-badge box-shadow-6dp">' +
                                              ui.item.label + '</span></li>');
 
                     $('#ulDifficultyLevels > li[value=' +
