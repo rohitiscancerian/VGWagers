@@ -144,6 +144,8 @@ using System.Collections;
         public int GENREID { get; set; }
         public bool ISACTIVE { get; set; }
         public System.DateTime RELEASEDATE { get; set; }
+        public bool CANBEPLAYEDBYTEAM { get; set; }
+        public int SORTORDER { get; set; }        
         public int LASTUPDATEDBYUSERID { get; set; }
         public System.DateTime LASTUPDATEDDATE { get; set; }
         public ICollection<vgw_game_platform_xref> AVAILABLEONPLATFORMS { get; set; }

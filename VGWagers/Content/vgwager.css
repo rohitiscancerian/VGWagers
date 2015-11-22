@@ -726,3 +726,13 @@ a.btn-lg{
     color: #357ebd;
     
 }
+
+.labelLike {
+    width:35px;
+    border:none;
+    background-color: inherit;
+}
+
+.labelLike:focus {
+    background-color: white;
+}

@@ -27,8 +27,16 @@ namespace VGWagers.Models
         [DisplayName("Genre")] 
         public string GENRE { get; set; }
 
-        [DisplayName("Active")]
+        [DisplayName("Active?")]
         public bool ISACTIVE { get; set; }
+    
+        [DisplayName("Can be played by teams?")]
+        public bool CANBEPLAYEDBYTEAM { get; set; }
+
+        [DisplayName("Position on Home Page caraousel")]
+        [Range(0, 15)]
+        [DefaultValue(0)]
+        public int SORTORDER { get; set; }
 
         [DisplayName("Release Date")]
         [DataType(DataType.Date)]

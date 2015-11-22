@@ -54,6 +54,7 @@ namespace VGWagers.Controllers
 
             ViewBag.LookupType = "Game";
             ViewBag.Mode = "List";
+            ViewBag.MaxCarouselPosition = lookupViewModel.GamesList.Max(g => g.SORTORDER);
             return View(lookupViewModel);   
         }    
         
@@ -146,6 +147,8 @@ namespace VGWagers.Controllers
             try
             {
                 // Calculate dimensions
+                ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
                 var top = Convert.ToInt32(t.Replace("-", "").Replace("px", ""));
                 var left = Convert.ToInt32(l.Replace("-", "").Replace("px", ""));
                 var height = Convert.ToInt32(h.Replace("-", "").Replace("px", ""));
@@ -181,7 +184,7 @@ namespace VGWagers.Controllers
                 if (keyId > 0)
                 {
                     GameDAL gameDAL = new GameDAL();
-                    bool result = gameDAL.UpdateGameImage(keyId, img.GetBytes());
+                    bool result = gameDAL.UpdateGameImage(keyId, img.GetBytes(), objCurrentUser.Id);
                     if (result)
                     {
                         String base64 = Convert.ToBase64String(img.GetBytes());
@@ -196,14 +199,32 @@ namespace VGWagers.Controllers
                 {
                     return Json(new { success = false, errorMessage = "Invalid GameId" });
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, errorMessage = "Unable to upload file.\nERRORINFO: " + ex.Message });
             }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateGameSortOrder(int gameId, int newSortOrder)
+        {
+            GameDAL gameDAL = new GameDAL();
+            ApplicationUser objCurrentUser = (ApplicationUser)Session[SessionVariables.sesApplicationUser];
+
+            bool result = gameDAL.UpdateGameSortOrder(gameId, newSortOrder, objCurrentUser.Id);
+            if (result) 
+            {
+                LookupViewModel lookupViewModel = new LookupViewModel();
+                lookupViewModel.GamesList = gameDAL.GetAllGames();
+                
+                ViewBag.LookupType = "Game";
+                ViewBag.Mode = "List";
+                ViewBag.MaxCarouselPosition = lookupViewModel.GamesList.Max(g => g.SORTORDER);
+                return PartialView("~/Views/Shared/Admin/_GameListPartial.cshtml", lookupViewModel.GamesList); 
+                
+            }
+            return View("Index");
         }
 
         public ActionResult PlatformList()
