@@ -34,6 +34,100 @@
             return false;
         });
 
+        $('input.sortOrder').click(function (e) {
+            $(this).select();
+        });
+
+        $('input.sortOrder').keypress(function (e) {
+            if (e.keyCode == 13) { 
+                            
+                var gameId = parseInt($(this).attr('id'));
+                var currentSortOrder = parseInt($(this).attr('data-SortOrder'));
+                var newSortOrder = parseInt($(this).val());
+                var maxSortOrder = parseInt($('#hdnMaxCarouselPosition').val());
+
+                if (newSortOrder > maxSortOrder && currentSortOrder == 0) {
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+                else if (newSortOrder == 0 && currentSortOrder == maxSortOrder) {
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+                else if (newSortOrder == 0 && currentSortOrder > 0) {
+                    for (i = currentSortOrder + 1; i <= maxSortOrder; i++) {
+                        var sortTextBox = $('input[data-SortOrder="' + i.toString() + '"]')
+                        var impactedGameId = $(sortTextBox).attr('id');
+                        e.preventDefault();
+                        updateSortOrder(impactedGameId, i - 1, true);
+                    }
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+                else if (currentSortOrder == 0 && newSortOrder > currentSortOrder) {
+                    for (i = maxSortOrder; i >= newSortOrder; i--) {
+                        var sortTextBox = $('input[data-SortOrder="' + i.toString() + '"]')
+                        var impactedGameId = $(sortTextBox).attr('id');
+                        e.preventDefault();
+                        updateSortOrder(impactedGameId, i + 1, true);
+                    }
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+                else if (currentSortOrder > 0 && newSortOrder > currentSortOrder) {                    
+                    for (i = currentSortOrder + 1; i <= newSortOrder; i++) {
+                        var sortTextBox = $('input[data-SortOrder="' + i.toString() + '"]')
+                        var impactedGameId = $(sortTextBox).attr('id');
+                        e.preventDefault();
+                        updateSortOrder(impactedGameId, i - 1, true);
+                    }
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+                else if (currentSortOrder > 0 && newSortOrder < currentSortOrder) {
+                    for (i = currentSortOrder - 1; i >= newSortOrder; i--) {
+                        var sortTextBox = $('input[data-SortOrder="' + i.toString() + '"]')
+                        var impactedGameId = $(sortTextBox).attr('id');
+                        e.preventDefault();
+                        updateSortOrder(impactedGameId, i + 1, true);
+                    }
+                    e.preventDefault();
+                    updateSortOrder(gameId, newSortOrder, true);
+                }
+
+            }
+        });
+
+        function updateSortOrder(gameId, newSortOrder, refreshGameList) {
+
+            $.ajax({
+                url: "/Lookup/UpdateGameSortOrder",
+                type: "POST",
+                traditional: true,
+                data: { gameId: gameId, newSortOrder: newSortOrder },
+                success: function (data) {
+                    //code after success
+                    //alert('success');
+                    $('#divGameList').html(data);
+                    $('#ResponseContainer').addClass('show').removeClass('hide');
+                },
+                error: function (er) {
+                    alert(er);
+                }
+            }).done(function (returnedJSON) {
+                if (returnedJSON.success) {
+
+                }
+                else {
+                    //var alertBox = $("#alertBox");
+                    //alertBox.html(returnedJSON.msg);
+                    //alertBox.css("display", "block");
+
+                    //return false;
+                }
+            });
+        }
+
         $('a.gamePlatform').hover(function () {
             var gameId = $(this).attr('id');
             var url = "/Lookup/GetGamePlatforms";
@@ -70,45 +164,52 @@
 </script>
 
     @*<div class="row">*@
- <div class="col-md-12">
+ <div class="col-md-12" id="divGameList">
     @*<section id="gameGrid">*@
     @{
         Html.EnableUnobtrusiveJavaScript();
         Html.EnableClientValidation();
     }
 
-            @Html.AntiForgeryToken()
-            <h4 class="lookup-list-title">List of Games</h4>
-            <hr />
-            <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                <div class="col-md-9" style="min-height:100px;">
-                    @if (Model.Count > 0)
-                    {
-                        using (Html.BeginForm("Index", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamelistform" }))
-                        {
-                            <div id="gamePlatformTooltip" data-toggle="tooltip" class="div-tooltip-bg tooltip" style="display:none;position:absolute;opacity:0.8;">
-                                <ul id="ulPlatforms" class="list-inline"></ul>
-                            </div>
-                            @Html.Hidden("hdnCancelRowSelect", "0")
-                            @Html.Grid(Model).Named("grdGames").Columns(columns =>
+    @Html.AntiForgeryToken()
+    <h4 class="lookup-list-title">List of Games</h4>
+    <hr />
+    <div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-9" style="min-height:100px;">
+            @if (Model.Count > 0)
+            {
+                using (Html.BeginForm("Index", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "gamelistform" }))
+                {
+                    <div id="gamePlatformTooltip" data-toggle="tooltip" class="div-tooltip-bg tooltip" style="display:none;position:absolute;opacity:0.8;">
+                        <ul id="ulPlatforms" class="list-inline"></ul>
+                    </div>
+                    @Html.Hidden("hdnCancelRowSelect", "0")
+                    @Html.Hidden("hdnMaxCarouselPosition", (object)ViewBag.MaxCarouselPosition)
+
+                    @Html.Grid(Model).Named("grdGames").Columns(columns =>
                                {
                                    columns.Add(foo => foo.GAMEID).Titled("").Css("cchidden");
+                                   columns.Add(foo => foo.SORTORDER).Titled("Caraousel #").Encoded(false)
+                                                                    .Sanitized(false).Sortable(true)
+                                                                    .RenderValueAs(foo => Html.TextBox("txtSortOrder",
+                                                                                                       foo.SORTORDER, new { @type = "number", @class = "labelLike sortOrder", id = foo.GAMEID, data_SortOrder = (foo.SORTORDER) }));
                                    columns.Add(foo => foo.GAMENAME).Titled("Game").Sortable(true);
-                                   //columns.Add(foo => foo.GAMEIMAGE).Titled("");
-                                   columns.Add(foo => foo.GENRE).Titled("Genre");
+                                   //columns.Add(foo => foo.GAMEIMAGE).Titled("")
+                                   columns.Add(foo => foo.GENRE).Titled("Genre").Sortable(true);
                                    columns.Add(foo => foo.RELEASEDATE).Titled("Release Date").Format("{0:dd/MM/yyyy}").Sortable(true);
                                    columns.Add(foo => foo.ISACTIVE).Titled("Active?");
+                                   columns.Add(foo => foo.CANBEPLAYEDBYTEAM).Titled("Teams?");
                                    columns.Add(foo => foo.AVAILABLEONPLATFORMS)
                                             .Titled("Available on")
                                             .Encoded(false)
                                             .Sanitized(false)
                                             .SetWidth(30)
                                             .RenderValueAs(foo =>
-                                              @<b>
-                                                  @Html.ActionLink(" ", "", "", new { gameId = foo.GAMEID }, new { @class = "glyphicon glyphicon-info-sign gamePlatform", id = foo.GAMEID })                                                    
-                                               </b>  
+                                                @<b>
+                                                    @Html.ActionLink(" ", "", "", new { gameId = foo.GAMEID }, new { @class = "glyphicon glyphicon-info-sign gamePlatform", id = foo.GAMEID })
+                                                </b>
                                             );
                                    columns.Add()
                                             .Titled("Edit")
@@ -117,43 +218,45 @@
                                             .SetWidth(30)
                                             .RenderValueAs(foo =>
                                                 @<b>
-                                                    @Html.ActionLink(" ", "EditGame", "Lookup", new { GameId = foo.GAMEID }, new { @class = "glyphicon glyphicon-edit edit" })
+                                                    @Html.ActionLink(" ", "EditGame", "Lookup", new { GameId = foo.GAMEID }, new { @class = "glyphicon glyphicon-edit edit link-cursor" })
                                                 </b>
                                             );
 
                                }).SetRowCssClasses(foo => foo.ISACTIVE ? string.Empty : "warning").WithPaging(20)
-                        }
-                    }
-                    else
-                    {
-                        @Html.Label(".", "No records found", "label")
-                    }
+                }
+            }
+            else
+            {
+                @Html.Label(".", "No records found", "label")
+            }
+        </div>
+        <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; padding-left:39px;">
+            @{
+                <div id="divProfilePhoto" style="width:204px; height:285px; margin-bottom: 8px;">
+                    <img style="width:204px;height:285px;display:none;" id="imgSelectedGame" />
                 </div>
-                <div class="col-md-3 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; padding-left:39px;">
-                    @{
-                        <div id="divProfilePhoto" style="width:204px; height:285px; margin-bottom: 8px;">
-                            <img style="width:204px;height:285px;display:none;" id="imgSelectedGame" />
-                        </div>
-                        @*<div id="divProfilePhoto" style="width:50%">
-                            <img style="width:200px;height:200px;display:none;" id="imgSelectedGame" />
-                        </div>*@                        
-                    }
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-9 col-md-3 div-for-button-below-grid">
-                    @using (Html.BeginForm("NewGame", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "newgameform" }))
-                    {
-                        <input type="submit" class="btn btn-primary btn-lg" value="Add new Game" />
-                        <br />
-                        <br />
-                    }
-                </div>
-            </div>
+                @*<div id="divProfilePhoto" style="width:50%">
+                        <img style="width:200px;height:200px;display:none;" id="imgSelectedGame" />
+                    </div>*@
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-9 col-md-3 div-for-button-below-grid">
+            @using (Html.BeginForm("NewGame", "Lookup", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "newgameform" }))
+            {
+                <input type="submit" class="btn btn-primary btn-lg" value="Add new Game" />
+                <br />
+                <br />
+            }
+        </div>
+    </div>
 
     @*</section>*@
 
 </div>
+
+
 
     @*</div>*@
 

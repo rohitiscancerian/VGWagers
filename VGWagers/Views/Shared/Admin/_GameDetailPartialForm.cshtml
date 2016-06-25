@@ -1,6 +1,8 @@
 ﻿@using VGWagers.Resource
 @using VGWagers.Models
 @model GameViewModel
+
+
 @{
     Html.EnableUnobtrusiveJavaScript();
     Html.EnableClientValidation();
@@ -123,8 +125,20 @@
 
                 @Html.LabelFor(m => m.RELEASEDATE, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4 form-control-static">
-                    @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date" })
+                    @Html.TextBoxFor(m => m.RELEASEDATE, new { @class = "form-control datepicker", type = "date", id = "txtReleaseDate" })
                     @Html.ValidationMessageFor(m => m.RELEASEDATE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CANBEPLAYEDBYTEAM, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4 form-control-static">
+                    @Html.CheckBoxFor(m => m.CANBEPLAYEDBYTEAM, new { @class = "form-control checkbox width-21 height-21" })
+                </div>
+
+                @Html.LabelFor(m => m.SORTORDER, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4 form-control-static">
+                    @Html.TextBoxFor(m => m.SORTORDER, new { @class = "form-control", type = "number", id = "txtSortOrder" })
+                    @Html.ValidationMessageFor(m => m.SORTORDER, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group margin-bottom-5">
@@ -137,7 +151,7 @@
                             foreach (var platform in Model.PLATFORMS)
                             {
                                     <li style="margin:2px;" value=@platform.PLATFORMID>
-                                        <span style="" class="badge platform-badge">
+                                        <span style="" class="badge platform-badge box-shadow-6dp">
                                             @platform.PLATFORMNAME
                                         </span>
                                     </li>
@@ -170,14 +184,14 @@
                             foreach (var difficultyLevel in Model.LEVELS)
                             {
                                     <li style="margin:2px;" value=@difficultyLevel.DIFFICULTYLEVELID>
-                                        <span style="" class="badge platform-badge">
+                                        <span style="" class="badge platform-badge box-shadow-6dp">
                                             @difficultyLevel.DIFFICULTYLEVELNAME
                                         </span>
                                     </li>
                             }
                         }
                     </ul>
-                    <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add"></span>
+                    <span id="lnkAddDifficultyLevel" class="glyphicon glyphicon-plus link-cursor link-add "></span>
                     <br />
                     <div style="height:34px;">
                         @Html.TextBox("txtDifficultyLevel", "",
@@ -192,93 +206,22 @@
             </div>
             <div class="form-group" id="removeItems" style="display:none;">
                 <div class="col-md-4 col-md-offset-2 form-control-static no-top-padding">
-                    @{
-                        if (@ViewBag.Mode == "Edit")
-                        {
-                            @*<div id="removePlatformsEdit" style="display:none;">
-                                @Ajax.ActionLink(" Remove selected Platforms(s)", "RemoveGamePlatform", new { GameId = Model.GAMEID },
-                                                                        new AjaxOptions()
-                                                                        {
-                                                                            HttpMethod = "Delete",
-                                                                            UpdateTargetId = "divMainContent",
-                                                                            Confirm = "Are you sure you want to remove the selected console(s) / platform(s) for this game?",
-                                                                            OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
-                                                                        },
-                                                                        new { @class = "remove glyphicon glyphicon-remove link-cursor" }
-                                                        )
-                            </div>*@
-                        }
-                        else if (@ViewBag.Mode == "New")
-                        {
-                            @*<div id="removePlatformsNew" style="display:none;">
-                                <a class="remove glyphicon glyphicon-remove link-cursor" onclick="removeSelectedItems('lstPlatforms');"> </a>
-                                <a class="remove link-cursor" onclick="removeSelectedItems('lstPlatforms');"> Click here to remove selected Platforms(s)</a>
-                            </div>*@
-                        }
-                    }
+                    
                 </div>
 
                 <div class="col-md-4 col-md-offset-2 form-control-static no-top-padding">
-                    @{
-                        if (@ViewBag.Mode == "Edit")
-                        {
-                            @*<div id="removeDifficultyLevelsEdit" style="display:none;">
-                                @Ajax.ActionLink(" Remove selected Difficulty Level(s)", "RemoveGameDifficultyLevel", new { GameId = Model.GAMEID },
-                                                                        new AjaxOptions()
-                                                                        {
-                                                                            HttpMethod = "Delete",
-                                                                            UpdateTargetId = "divMainContent",
-                                                                            Confirm = "Are you sure you want to remove the selected Difficulty Level(s) for this game?",
-                                                                            OnComplete = "function() { window.location.href = window.location.href; $('#main-loading-div-background').hide();}"
-                                                                        },
-                                                                  new { @class = "glyphicon glyphicon-remove link-cursor" }
-                                                                )
-                            </div>*@
-                        }
-                        else if (ViewBag.mode == "New")
-                        {
-                            @*<div id="removeDifficultyLevelsNew" style="display:none;">
-                                <a class="glyphicon glyphicon-remove link-cursor" onclick="removeSelectedItems('lstDifficultyLevels');"> </a>
-                                <a class="link-cursor" onclick="removeSelectedItems('lstDifficultyLevels');"> Click here to remove selected Difficulty Level(s)</a>
-                            </div>*@
-                        }
-                    }
+                    
                 </div>
             </div>
             
         </div>
 
-            @*<div class="col-md-4 vgw-form-float-right vgw-align-div-content-center" style="overflow:auto; border-style:ridge; width:295px; height:435px; padding-left:9px; padding-top:9px;">
-            @{
-                        @*string base64 = string.Empty;
-                        string imgSrc = string.Empty;
-                        if (Model.GAMEIMAGE != null && Model.GAMEIMAGE.GAMEIMAGEBINARY != null)
-                        {
-                            base64 = Convert.ToBase64String(Model.GAMEIMAGE.GAMEIMAGEBINARY);
-                            imgSrc = String.Format("data:image/png;base64,{0}", base64);
-                        }
-                        else
-                        {
-                            imgSrc = "../Content/images/default_image.png";
-                        }
-                        <div id="divProfilePhoto" style="width:272px;height:380px; margin-bottom: 8px;" >
-                            <img style="width:272px;height:380px;" id="profilePhoto" src="@imgSrc" />
-                        </div>
-                <div >
-                    @Html.TextBoxFor(m => m.GAMEIMAGE.GAMEIMAGE, new { type = "file", id = "pickPhoto", @class = "vgw-width100percent" })
-                    @Html.ValidationMessageFor(m => m.GAMEIMAGE.GAMEIMAGE)
-                </div>*@               
-
-                @*<div class="alert alert-danger" role="alert" style="display: none" id="alertBox"></div>*@
-            @*}
-        </div>*@
-
     <div class="form-group col-md-12">
-        <div class="col-md-offset-4 col-md-1">
+        <div class="col-md-offset-7 col-md-1">
             <input type="submit" class="btn btn-primary btn-lg" id="saveGameDetails" value="Save" />
         </div>
-        <div class="col-md-7 lookup-list-title" style="padding-top:15px; float:right; padding-right:0px; text-align:right;">
-            @Html.ActionLink(" Cancel and go back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
+        <div class="col-md-4 lookup-list-title" style="padding-top:15px; float:right; padding-right:0px; text-align:right;">
+            @Html.ActionLink(" Back to Games List", "Index", "Lookup", routeValues: null, htmlAttributes: new { id = "cancelGameLink", @class = "modal-link cancel-link" })
         </div>
 
     </div>
@@ -299,6 +242,14 @@
     
 <script>
     $(function () {
+
+        $("#gamedetailform").validate({
+            rules: {
+                txtReleaseDate: {
+                    date: true
+                }
+            }
+        });
 
         $('input[type="date"]').attr('type', 'text');
 
@@ -363,7 +314,7 @@
                         "</option>"
                         );
                     $('#ulPlatforms').append('<li style="margin:2px;" value=' + ui.item.value1 +
-                                             '><span style="" class="badge platform-badge">' +
+                                             '><span style="" class="badge platform-badge box-shadow-6dp">' +
                                              ui.item.label + '</span></li>');
 
                     $('#ulPlatforms > li[value=' +
@@ -469,7 +420,7 @@
                         "</option>"
                         );
                     $('#ulDifficultyLevels').append('<li style="margin:2px;" value=' + ui.item.value1 +
-                                             '><span style="" class="badge platform-badge">' +
+                                             '><span style="" class="badge platform-badge box-shadow-6dp">' +
                                              ui.item.label + '</span></li>');
 
                     $('#ulDifficultyLevels > li[value=' +

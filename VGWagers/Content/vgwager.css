@@ -436,7 +436,7 @@ and (max-width : 359px){
 }
 
 .remove {
-    color:red !important;
+    color:white;
 }
 
 .edit {
@@ -712,4 +712,27 @@ a.btn-lg{
 
 .height-21 {
     height: 21px;
+}
+
+.remove:hover {
+    color:red !important;
+}
+
+.box-shadow-6dp {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2)
+}
+
+.link-add:hover {
+    color: #357ebd;
+    
+}
+
+.labelLike {
+    width:35px;
+    border:none;
+    background-color: inherit;
+}
+
+.labelLike:focus {
+    background-color: white;
 }
