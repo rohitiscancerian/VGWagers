@@ -26,12 +26,15 @@ namespace VGWagers.DAL
                 .Select(gm => new GameViewModel
                 {
                     GAMEID = gm.g.GAMEID,
+                    SORTORDER = gm.g.SORTORDER,
                     GAMENAME = gm.g.GAMENAME,
                     GENRE = gm.r.GENRE,
                     ISACTIVE = gm.g.ISACTIVE,
+                    CANBEPLAYEDBYTEAM = gm.g.CANBEPLAYEDBYTEAM,
                     RELEASEDATE = gm.g.RELEASEDATE                    
                 }
                        )
+                .OrderBy(gm => gm.SORTORDER)
                 .ToList();
         }
 
@@ -49,6 +52,8 @@ namespace VGWagers.DAL
                                                                                                     GAMEIMAGEBINARY = gv.g.GAMEIMAGE
                                                                                                 },
                                                                                 ISACTIVE = gv.g.ISACTIVE,
+                                                                                CANBEPLAYEDBYTEAM = gv.g.CANBEPLAYEDBYTEAM,
+                                                                                SORTORDER = gv.g.SORTORDER,
                                                                                 RELEASEDATE = gv.g.RELEASEDATE,
                                                                                 GENREID = gv.g.GENREID,
                                                                                 GENRE = gv.r.GENRE,
@@ -184,15 +189,19 @@ namespace VGWagers.DAL
                 
                 vgwGame.GAMENAME = gameViewModel.GAMENAME;
                 vgwGame.GENREID = gameViewModel.GENREID;
-                if (gameViewModel.GAMEIMAGE != null && gameViewModel.GAMEIMAGE.GAMEIMAGEBINARY != null)
-                {
-                    vgwGame.GAMEIMAGE = gameViewModel.GAMEIMAGE.GAMEIMAGEBINARY;
-                }
+                vgwGame.SORTORDER = gameViewModel.SORTORDER;
+                vgwGame.CANBEPLAYEDBYTEAM = gameViewModel.CANBEPLAYEDBYTEAM;
                 vgwGame.ISACTIVE = gameViewModel.ISACTIVE;
                 vgwGame.RELEASEDATE = gameViewModel.RELEASEDATE;
                 vgwGame.LASTUPDATEDDATE = DateTime.Now;
                 vgwGame.LASTUPDATEDBYUSERID = iUserId;
 
+
+                if (gameViewModel.GAMEIMAGE != null && gameViewModel.GAMEIMAGE.GAMEIMAGEBINARY != null)
+                {
+                    vgwGame.GAMEIMAGE = gameViewModel.GAMEIMAGE.GAMEIMAGEBINARY;
+                }
+                
                 int iPlatformId;
                 if (gameViewModel.SELECTEDPLATFORMS == null)
                 {
@@ -249,12 +258,14 @@ namespace VGWagers.DAL
             return true;
         }
 
-        public bool UpdateGameImage(int gameId, byte[] gameImage)
+        public bool UpdateGameImage(int gameId, byte[] gameImage, int iUserId)
         {
             if (gameId > 0)
             {
                 vgw_game vgwGame = GetByGameId(gameId);
                 vgwGame.GAMEIMAGE = gameImage;
+                vgwGame.LASTUPDATEDBYUSERID = iUserId;
+                vgwGame.LASTUPDATEDDATE = DateTime.Now;
 
                 int result = dbCon.SaveChanges();
 
@@ -272,6 +283,32 @@ namespace VGWagers.DAL
                 return false;
             }
  
+        }
+
+        public bool UpdateGameSortOrder(int gameId, int newSortOrder, int iUserId)
+        {
+            if (gameId > 0)
+            {
+                vgw_game vgwGame = GetByGameId(gameId);
+                vgwGame.SORTORDER = newSortOrder;
+                vgwGame.LASTUPDATEDBYUSERID = iUserId;
+                vgwGame.LASTUPDATEDDATE = DateTime.Now;
+
+                int result = dbCon.SaveChanges();
+
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

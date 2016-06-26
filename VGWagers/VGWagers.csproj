@@ -281,6 +281,10 @@
     <Compile Include="Migrations\201510301526417_gameReleaseDate.Designer.cs">
       <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511201130002_gameEntityChanges.cs" />
+    <Compile Include="Migrations\201511201130002_gameEntityChanges.Designer.cs">
+      <DependentUpon>201511201130002_gameEntityChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountActivityModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -645,6 +649,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510301526417_gameReleaseDate.resx">
       <DependentUpon>201510301526417_gameReleaseDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511201130002_gameEntityChanges.resx">
+      <DependentUpon>201511201130002_gameEntityChanges.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource\SessionVariables.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
