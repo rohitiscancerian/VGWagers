@@ -473,7 +473,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\App\carousel.js" />
     <Content Include="Scripts\App\ChangePassword.js" />
     <Content Include="Scripts\App\dateValidation.js" />
